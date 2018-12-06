@@ -1,0 +1,6 @@
+# Emacs
+*~
+
+# do not treat VF and TFM in this repository
+*.vf
+*.tfm
