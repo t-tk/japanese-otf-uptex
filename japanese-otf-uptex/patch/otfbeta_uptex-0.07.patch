@@ -1,6 +1,6 @@
-diff -uNr otfstable.orig/fontmap/hiragino.map(for udvips) otfstable/fontmap/hiragino.map(for udvips)
---- otfstable.orig/fontmap/hiragino.map(for udvips)	2004-02-18 00:01:34 +0900
-+++ otfstable/fontmap/hiragino.map(for udvips)	2008-10-29 21:01:26 +0900
+diff -urN otfbeta.orig/fontmap/hiragino.map(for udvips) otfbeta/fontmap/hiragino.map(for udvips)
+--- otfbeta.orig/fontmap/hiragino.map(for udvips)	2010-03-27 09:38:48 +0900
++++ otfbeta/fontmap/hiragino.map(for udvips)	2012-01-01 16:47:01 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v 	HiraMinPro-W3-Identity-V
  hminr-h HiraMinPro-W3-H
@@ -60,9 +60,9 @@ diff -uNr otfstable.orig/fontmap/hiragino.map(for udvips) otfstable/fontmap/hira
  
  hiramin-w3-h HiraMinPro-W3-Identity-H
  hiramin-w6-h HiraMinPro-W6-Identity-H
-diff -uNr otfstable.orig/fontmap/hiraginox.map(for dvipdfmx) otfstable/fontmap/hiraginox.map(for dvipdfmx)
---- otfstable.orig/fontmap/hiraginox.map(for dvipdfmx)	2004-02-18 00:00:44 +0900
-+++ otfstable/fontmap/hiraginox.map(for dvipdfmx)	2008-10-29 21:04:33 +0900
+diff -urN otfbeta.orig/fontmap/hiraginox.map(for dvipdfmx) otfbeta/fontmap/hiraginox.map(for dvipdfmx)
+--- otfbeta.orig/fontmap/hiraginox.map(for dvipdfmx)	2010-03-27 09:39:08 +0900
++++ otfbeta/fontmap/hiraginox.map(for dvipdfmx)	2012-01-01 16:47:01 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v       Identity-V  HiraMinPro-W3
  hminr-h   H HiraMinPro-W3
@@ -122,9 +122,9 @@ diff -uNr otfstable.orig/fontmap/hiraginox.map(for dvipdfmx) otfstable/fontmap/h
  
  hiramin-w3-h Identity-H HiraMinPro-W3
  hiramin-w6-h Identity-H HiraMinPro-W6
-diff -uNr otfstable.orig/fontmap/kozuka.map otfstable/fontmap/kozuka.map
---- otfstable.orig/fontmap/kozuka.map	2003-12-21 16:39:34 +0900
-+++ otfstable/fontmap/kozuka.map	2008-10-29 20:56:09 +0900
+diff -urN otfbeta.orig/fontmap/kozuka.map otfbeta/fontmap/kozuka.map
+--- otfbeta.orig/fontmap/kozuka.map	2004-12-23 23:56:18 +0900
++++ otfbeta/fontmap/kozuka.map	2012-01-01 16:52:24 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v      KozMinPro-Regular-Acro-Identity-V
  hminr-h         KozMinPro-Regular-Acro-H
@@ -161,15 +161,18 @@ diff -uNr otfstable.orig/fontmap/kozuka.map otfstable/fontmap/kozuka.map
  
  otf-ujmgr-h     KozGoStd-Heavy-UniJIS-UTF16-H
  otf-ujmgr-v     KozGoStd-Heavy-UniJIS-UTF16-V
-@@ -32,3 +40,5 @@
+@@ -32,6 +40,8 @@
  otf-cjmgr-v     KozGoStd-Heavy-Identity-V
  hmgothr-h       KozGoStd-Heavy-H
  hmgothr-v       KozGoStd-Heavy-V
 +uphmgothr-h     KozGoStd-Heavy-UniJIS-UTF16-H
 +uphmgothr-v     KozGoStd-Heavy-UniJIS-UTF16-V
-diff -uNr otfstable.orig/fontmap/kozukax.map otfstable/fontmap/kozukax.map
---- otfstable.orig/fontmap/kozukax.map	2003-12-19 07:14:46 +0900
-+++ otfstable/fontmap/kozukax.map	2008-10-29 20:58:29 +0900
+ 
+ %
+ %for Adobe Reader 7
+diff -urN otfbeta.orig/fontmap/kozukax.map otfbeta/fontmap/kozukax.map
+--- otfbeta.orig/fontmap/kozukax.map	2004-12-23 23:54:40 +0900
++++ otfbeta/fontmap/kozukax.map	2012-01-01 16:52:55 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v    Identity-V KozMinPro-Regular-Acro.otf
  hminr-h       H KozMinPro-Regular-Acro.otf
@@ -206,15 +209,18 @@ diff -uNr otfstable.orig/fontmap/kozukax.map otfstable/fontmap/kozukax.map
  
  otf-ujmgr-h   UniJIS-UTF16-H KozGoStd-Heavy.otf
  otf-ujmgr-v   UniJIS-UTF16-V KozGoStd-Heavy.otf
-@@ -32,3 +40,5 @@
+@@ -32,6 +40,8 @@
  otf-cjmgr-v   Identity-V KozGoStd-Heavy.otf
  hmgothr-h     H KozGoStd-Heavy.otf
  hmgothr-v     V KozGoStd-Heavy.otf
 +uphmgothr-h   UniJIS-UTF16-H KozGoStd-Heavy.otf
 +uphmgothr-v   UniJIS-UTF16-V KozGoStd-Heavy.otf
-diff -uNr otfstable.orig/fontmap/morisawa.map(for udvips) otfstable/fontmap/morisawa.map(for udvips)
---- otfstable.orig/fontmap/morisawa.map(for udvips)	2003-12-16 23:43:02 +0900
-+++ otfstable/fontmap/morisawa.map(for udvips)	2008-10-29 21:06:09 +0900
+ 
+ 
+ %
+diff -urN otfbeta.orig/fontmap/morisawa.map(for udvips) otfbeta/fontmap/morisawa.map(for udvips)
+--- otfbeta.orig/fontmap/morisawa.map(for udvips)	2003-12-16 23:43:02 +0900
++++ otfbeta/fontmap/morisawa.map(for udvips)	2012-01-01 16:47:01 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v 	RyuminPro-Light-Identity-V
  hminr-h RyuminPro-Light-H
@@ -257,9 +263,9 @@ diff -uNr otfstable.orig/fontmap/morisawa.map(for udvips) otfstable/fontmap/mori
  hmgothr-v Jun101Pro-Light-V
 +uphmgothr-h	Jun101Pro-Light-UniJIS-UTF16-H
 +uphmgothr-v	Jun101Pro-Light-UniJIS-UTF16-V
-diff -uNr otfstable.orig/fontmap/morisawax.map(for dvipdfmx) otfstable/fontmap/morisawax.map(for dvipdfmx)
---- otfstable.orig/fontmap/morisawax.map(for dvipdfmx)	2004-08-17 21:36:06 +0900
-+++ otfstable/fontmap/morisawax.map(for dvipdfmx)	2008-10-29 21:15:16 +0900
+diff -urN otfbeta.orig/fontmap/morisawax.map(for dvipdfmx) otfbeta/fontmap/morisawax.map(for dvipdfmx)
+--- otfbeta.orig/fontmap/morisawax.map(for dvipdfmx)	2004-08-17 21:35:30 +0900
++++ otfbeta/fontmap/morisawax.map(for dvipdfmx)	2012-01-01 16:47:01 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v    Identity-V    A-OTF-RyuminPro-Light.otf
  hminr-h    H    A-OTF-RyuminPro-Light.otf
@@ -302,9 +308,9 @@ diff -uNr otfstable.orig/fontmap/morisawax.map(for dvipdfmx) otfstable/fontmap/m
  hmgothr-v    V    A-OTF-Jun101Pro-Light.otf
 +uphmgothr-h    UniJIS-UTF16-H    A-OTF-Jun101Pro-Light.otf
 +uphmgothr-v    UniJIS-UTF16-V    A-OTF-Jun101Pro-Light.otf
-diff -uNr otfstable.orig/fontmap/vfontmap.txt otfstable/fontmap/vfontmap.txt
---- otfstable.orig/fontmap/vfontmap.txt	2003-11-10 19:23:12 +0900
-+++ otfstable/fontmap/vfontmap.txt	2008-11-02 18:07:00 +0900
+diff -urN otfbeta.orig/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
+--- otfbeta.orig/fontmap/vfontmap.txt	2003-11-10 19:23:12 +0900
++++ otfbeta/fontmap/vfontmap.txt	2012-01-01 16:47:01 +0900
 @@ -20,6 +20,8 @@
  otf-cjmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf adobejapan
  hminr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf

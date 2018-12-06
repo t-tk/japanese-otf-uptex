@@ -1,4 +1,7 @@
 #!/bin/sh
+if test ! -d tfm; then
+mkdir tfm
+fi
 echo "making tfm ..."
 #perl script/mktfm.pl
 uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminr-h.tfm
@@ -83,9 +86,6 @@ echo "making alt. kana ..."
 echo "finishing ..."
 if test ! -d vf; then
 mkdir vf
-fi
-if test ! -d tfm; then
-mkdir tfm
 fi
 mv *.vf vf/
 mv *.tfm tfm/

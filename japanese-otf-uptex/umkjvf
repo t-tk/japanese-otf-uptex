@@ -18,6 +18,8 @@
 ##########################
 sub initialize_constant{
 	$unknown=0;
+	$burasage=0;
+	$jis2004=0;
 	$minute_option=0;
 	$alt_kana_true=0;
 	$ruby_hira_code=0x356F;
@@ -40,6 +42,7 @@ sub initialize_constant{
 	@exp_odori_h=(0x313a, 0x313b, 0x6f61, 0x6f62, 0x313c); # CID: 12362, 12363, 12273, 12274, 12364
 	@exp_odori_v=(0x3431, 0x3432, 0x3258, 0x3259, 0x3433); # CID: 12545, 12456, 12457, 12274, 12547
 	@cid_hkana_code=(0x3537 .. 0x356F, 0x3630 .. 0x3635); # CID: 327 .. 389
+	%kaisei_jikei = (0x3029 => 8266, 0x3032 => 7961, 0x303B => 7634, 0x306E => 7635, 0x3071 => 7962, 0x3073 => 7636, 0x307C => 7637, 0x312A => 7638, 0x3139 => 20271, 0x313D => 7642, 0x3142 => 13650, 0x3228 => 7645, 0x3260 => 7647, 0x3267 => 7965, 0x3276 => 13673, 0x327A => 20269, 0x3322 => 7650, 0x336B => 7652, 0x3373 => 7653, 0x3378 => 20290, 0x344D => 7656, 0x3465 => 7657, 0x352B => 7658, 0x3540 => 7659, 0x3562 => 7966, 0x3564 => 20270, 0x3568 => 20263, 0x362A => 7661, 0x3642 => 7968, 0x364F => 7662, 0x3674 => 7664, 0x367B => 7665, 0x367D => 7666, 0x3729 => 20272, 0x3737 => 7668, 0x3764 => 20273, 0x3771 => 7674, 0x377E => 7676, 0x3830 => 20276, 0x3841 => 7678, 0x392B => 7679, 0x393C => 20279, 0x3974 => 7683, 0x3979 => 20284, 0x3A35 => 20281, 0x3A67 => 7686, 0x3B27 => 7688, 0x3B2A => 7689, 0x3B2C => 7690, 0x3B2D => 20280, 0x3B41 => 7970, 0x3C5D => 7695, 0x3C5E => 7696, 0x3D36 => 7698, 0x3D5D => 13460, 0x3D72 => 7701, 0x3D73 => 7702, 0x3E25 => 7703, 0x3E64 => 7708, 0x3E73 => 20282, 0x3F2A => 7709, 0x3F56 => 13860, 0x3F60 => 7711, 0x4022 => 7713, 0x4071 => 7716, 0x4079 => 7718, 0x407A => 7972, 0x407C => 7973, 0x407D => 7974, 0x4127 => 7720, 0x4139 => 7721, 0x414C => 7722, 0x4237 => 7975, 0x423D => 7726, 0x425C => 7728, 0x427D => 7733, 0x4329 => 7735, 0x432E => 7738, 0x4337 => 13915, 0x4370 => 7740, 0x4375 => 7741, 0x443D => 7743, 0x4448 => 7744, 0x444A => 7745, 0x4454 => 8267, 0x4472 => 20286, 0x4522 => 7748, 0x4527 => 7749, 0x452E => 7750, 0x4546 => 13949, 0x4548 => 7753, 0x454B => 7754, 0x4552 => 7756, 0x4654 => 7761, 0x465B => 20287, 0x4666 => 7766, 0x4667 => 7767, 0x466A => 7768, 0x4729 => 7769, 0x4757 => 7771, 0x4767 => 7772, 0x4769 => 7773, 0x477D => 20288, 0x4824 => 7775, 0x4840 => 7978, 0x4854 => 7778, 0x4870 => 13495, 0x4875 => 7780, 0x4923 => 7782, 0x492F => 7783, 0x4935 => 7785, 0x493F => 20222, 0x4940 => 7786, 0x494E => 7787, 0x4960 => 20289, 0x4A43 => 7789, 0x4A4D => 7790, 0x4A4E => 14013, 0x4A53 => 7979, 0x4A5A => 7791, 0x4A5C => 20291, 0x4A79 => 7792, 0x4B29 => 7794, 0x4B70 => 7796, 0x4B78 => 7980, 0x4C59 => 7798, 0x4C5F => 7799, 0x4C62 => 20293, 0x4C6C => 20294, 0x4C7A => 7801, 0x4C7C => 7802, 0x4D32 => 14074, 0x4E7A => 7809, 0x4E7B => 7810, 0x4E7C => 20265, 0x4F31 => 7812, 0x514D => 7817, 0x5257 => 14111, 0x527B => 20277, 0x535E => 7821, 0x5373 => 14116, 0x5751 => 13538, 0x5928 => 7991, 0x6044 => 20278, 0x6131 => 20267, 0x6134 => 20283, 0x6156 => 20175, 0x635E => 20285, 0x6427 => 20266, 0x6440 => 7997, 0x6727 => 20275, 0x675B => 14196, 0x676A => 20292, 0x694A => 20274, 0x6967 => 20296, 0x6A24 => 20295, 0x6B43 => 20268, 0x7057 => 13624, 0x7159 => 8003, 0x726D => 14272);
 }
 sub reorder_odoriji {
 =comment
@@ -58,7 +61,7 @@ JIS     UCS
 }
 sub proc_arg {
 	if ($#ARGV == -1) {&print_help;}
-	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-h(e|el|elp)?', \$help, 0], ['^-(.+)', \$unknown, 0]);
+	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-h(e|el|elp)?', \$help, 0], ['^-(.+)', \$unknown, 0]);
 	if ($unknown == 1){
 		print "mkjvf: Unknown options!\n";
 		&print_help;
@@ -74,6 +77,15 @@ sub proc_arg {
 			&print_help;
 	} elsif (($scale != 0) && ($ruby != 0)){
 			print "mkjvf: You can't use \"-ruby\" and \"-scale\" at same time.\n";
+			&print_help;
+	} elsif (($jis2004 != 0) && ($ruby != 0)){
+			print "mkjvf: You can't use \"-ruby\" and \"-jp04\" at same time.\n";
+			&print_help;
+	} elsif (($jis2004 != 0) && ($sjis != 0)){
+			print "mkjvf: You can't use \"-sjis\" and \"-jp04\" at same time.\n";
+			&print_help;
+	} elsif (($jis2004 != 0) && ($ucs != 0)){
+			print "mkjvf: You can't use \"-ucs\" and \"-jp04\" at same time.\n";
 			&print_help;
 	} else {
 		if ($#ARGV <= 1) {
@@ -107,6 +119,7 @@ sub proc_arg {
 }
 sub font_header {
 	print  OVP "(VTITLE )\n";
+	print  OVP "(OFMLEVEL D 0)";
 	print  OVP "(DESIGNSIZE R 10.000000)\n";
 	print  OVP "(CHECKSUM O 0)\n";
 	print  OVP "(MAPFONT D 1\n";
@@ -121,8 +134,8 @@ sub font_header {
 			print  OVP "(MAPFONT D 2\n";
 			print  OVP "   (FONTNAME $face"."3-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			print  OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    if ($ucs) {
 			print  OVP "(MAPFONT D 3\n";
@@ -136,8 +149,8 @@ sub font_header {
 			print  OVP "(MAPFONT D 2\n";
 			print  OVP "   (FONTNAME $face"."3-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    if ($ucs) {
 			print  OVP "(MAPFONT D 3\n";
@@ -155,20 +168,20 @@ sub font_header {
 			print  OVP "   (FONTNAME $face"."2-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
 			printf OVP "   (FONTAT R %f)\n",$scale;
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 			print  OVP "(MAPFONT D 3\n";
 			print  OVP "   (FONTNAME $face"."3-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
 			printf OVP "   (FONTAT R %f)\n",$scale;
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		}elsif ($direction eq "t"){
 			print  OVP "(MAPFONT D 2\n";
 			print  OVP "   (FONTNAME $face"."3-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
 			printf OVP "   (FONTAT R %f)\n",$scale;
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    if ($ucs) {
 			print  OVP "(MAPFONT D 3\n";
@@ -195,14 +208,14 @@ sub font_header {
 			print  OVP "(MAPFONT D 4\n";
 			print  OVP "   (FONTNAME $face"."1-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 			print  OVP "(MAPFONT D 5\n";
 			print  OVP "   (FONTNAME $face"."2-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		}
 	}
@@ -224,6 +237,40 @@ sub font_header {
 			printf OVP "   (FONTDSIZE R 10)\n";
 			print  OVP "   )\n";
 		}
+	}
+	if ($jis2004 == 1){
+		if($direction eq "y"){$temp_dir = "h"}elsif($direction eq "t"){$temp_dir = "v"}
+		&get_face;
+		print  OVP "(MAPFONT D 4\n";
+		print  OVP "   (FONTNAME $face"."1-$temp_dir)\n";
+		print  OVP "   (FONTCHECKSUM O 0)\n";
+		print  OVP "   (FONTAT R 1.0)\n";
+		print  OVP "   (FONTDSIZE R 10.0)\n";
+		print  OVP "   )\n";
+		print  OVP "(MAPFONT D 5\n";
+		print  OVP "   (FONTNAME $face"."2-$temp_dir)\n";
+		print  OVP "   (FONTCHECKSUM O 0)\n";
+		print  OVP "   (FONTAT R 1.0)\n";
+		print  OVP "   (FONTDSIZE R 10.0)\n";
+		print  OVP "   )\n";
+		print  OVP "(MAPFONT D 6\n";
+		print  OVP "   (FONTNAME $face"."3-$temp_dir)\n";
+		print  OVP "   (FONTCHECKSUM O 0)\n";
+		print  OVP "   (FONTAT R 1.0)\n";
+		print  OVP "   (FONTDSIZE R 10.0)\n";
+		print  OVP "   )\n";
+		print  OVP "(MAPFONT D 7\n";
+		print  OVP "   (FONTNAME $face"."4-$temp_dir)\n";
+		print  OVP "   (FONTCHECKSUM O 0)\n";
+		print  OVP "   (FONTAT R 1.0)\n";
+		print  OVP "   (FONTDSIZE R 10.0)\n";
+		print  OVP "   )\n";
+		print  OVP "(MAPFONT D 8\n";
+		print  OVP "   (FONTNAME $face"."5-$temp_dir)\n";
+		print  OVP "   (FONTCHECKSUM O 0)\n";
+		print  OVP "   (FONTAT R 1.0)\n";
+		print  OVP "   (FONTDSIZE R 10.0)\n";
+		print  OVP "   )\n";
 	}
 	if ($cid_hankana == 1){
 		&get_face;
@@ -306,7 +353,8 @@ sub make_vf {
 	my ($ovp2ovf);
 
 	close(OVP);
-	$ovp2ovf = ($ucs && $sip) ? 'upovp2ovf' : 'ovp2ovf';
+#	$ovp2ovf = ($ucs && $sip) ? 'upovp2ovf' : 'ovp2ovf'; # obsolete
+	$ovp2ovf = 'ovp2ovf'; # use ovp2ovf in TeXLive svn r24922 or later for SIP
 	system("$ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
 	unlink "$tfm_name.ovp";
 	unlink "$tfm_name.ofm";
@@ -347,20 +395,22 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is umkjvf version 0.04 by ttk\n";
-	print "Based on mkjvf version 1.0b19 (2004/2/25) by psitau\n";
+	print "This is umkjvf version 0.07 (2012/1/2) by ttk\n";
+	print "Based on mkjvf version 1.0b21 (2010/3/25) by psitau\n";
 	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
 	print "   -m              translate quotation mark to minute\n";
 	print "   -cm             translate quotation mark to CID minute\n";
-	print "   -cq             translate quotation mark to CID quotation (experimental)\n";
+	print "   -cq             translate quotation mark to CID quotation (umkjvf extention)\n";
 	print "   -cp             translate comma & period to KuTohTen\n";
-	print "   -chk            translate hankaku kana to CID hankaku kana (experimental)\n";
+	print "   -chk            translate hankaku kana to CID hankaku kana (umkjvf extention)\n";
 	print "   -notfm (h|v)    don't read tfm\n";
 	print "   -ruby           use ruby glyph for kana (for utf package)\n";
 	print "   -expert         use alt. kana glyph for kana (for utf package)\n";
-	print "   -ucs            make ucs mapped vf (experimental)\n";
-	print "   -sip            include supplemental ideographic plane (experimental)\n";
+	print "   -burasage       make the width of kutoh-ten zero for burasage\n";
+	print "   -jp04           make a font mapped JIS X 0213:2004 glyphs\n";
+	print "   -ucs            make ucs mapped vf (umkjvf extention)\n";
+	print "   -sip            include supplemental ideographic plane (umkjvf extention)\n";
 	print "   -SJIS           make shift jis mapped vf (experimental)\n";
 	print "   -scale <0--1>   make kokana vf\n";
 	print "   -help           print this message\n";
@@ -488,11 +538,15 @@ sub print_kigo_char{
 	if (&is_dvicode('quote') || &is_dvicode('kakko')){#Kakko
 		$width=$half_width;
 	} elsif (&is_dvicode('kutouten')){#Kutouten
-		$width=$half_width;
+		if (($burasage eq 1) && &is_dvicode('burasage')){#burasage
+			$width=0;
+		}else{
+			$width=$half_width;
+		}
 	} else{
 		$width=$font_at;
 	}
-	print  OVP "   (CHARWD R $width)\n";
+	printf OVP "   (CHARWD R %f)\n", $width;
 	print  OVP "   (MAP\n";
 	if (&is_dvicode('odoriji')){#odoriji
 		if ($ruby==1){
@@ -603,8 +657,19 @@ sub print_kigo_char{
 }
 sub print_char{
 	printf OVP "(CHARACTER H %X\n", $dvicode;
-	print  OVP "   (CHARWD R $font_at)\n";
+	printf OVP "   (CHARWD R %f)\n", $font_at;
 	print  OVP "   (MAP\n";
+	if (($jis2004 == 1) && (0x3029 <= $jiscode && $jiscode <= 0x726D)){
+		if (exists $kaisei_jikei{$jiscode}){
+			$cid = $kaisei_jikei{$jiscode};
+			$fontmap = int($cid/4096)+3;
+			printf OVP "      (SELECTFONT D %d)\n", $fontmap;
+			$upper = int(($cid%4096)/64)+16;
+			$lower = (($cid%4096)%64)+16;
+#			printf STDOUT "%d, %d\n",$upper,$lower;
+			$char_code = $upper*256+$lower+0x2020;
+		}
+	}
 	&baseline_shift;
 	printf OVP "      (SETCHAR H %X)\n",$char_code;
 	print  OVP "      )\n";
@@ -612,7 +677,7 @@ sub print_char{
 }
 sub print_kana_char{
 	printf OVP "(CHARACTER H %X\n", $dvicode;
-	print  OVP "   (CHARWD R $font_at)\n";
+	printf OVP "   (CHARWD R %f)\n", $font_at;
 	print  OVP "   (MAP\n";
 	if ($kana_font ne ""){
 		print  OVP "      (SELECTFONT D 2)\n";
@@ -835,6 +900,9 @@ sub is_dvicode{
 	if ($key eq 'hira-yu')  { return ($code == 0x2465);}
 	if ($key eq 'hira-yo')  { return ($code == 0x2467);}
 	if ($key eq 'hira-wa')  { return ($code == 0x246E);}
+	if ($key eq 'hira-Vu')  { return 0;                } # large  JIS X 0213
+	if ($key eq 'hira-ka')  { return 0;                } # small  JIS X 0213
+	if ($key eq 'hira-ke')  { return 0;                } # small  JIS X 0213
 	if ($key eq 'kata-a')   { return ($code == 0x2521);}
 	if ($key eq 'kata-i')   { return ($code == 0x2523);}
 	if ($key eq 'kata-u')   { return ($code == 0x2525);}
@@ -847,6 +915,13 @@ sub is_dvicode{
 	if ($key eq 'kata-wa')  { return ($code == 0x256E);}
 	if ($key eq 'kata-ka')  { return ($code == 0x2575);}
 	if ($key eq 'kata-ke')  { return ($code == 0x2576);}
+	if ($key eq 'kata-Va')  { return 0;                } # large  JIS X 0213
+	if ($key eq 'kata-Vi')  { return 0;                } # :      JIS X 0213
+	if ($key eq 'kata-Ve')  { return 0;                } # :      JIS X 0213
+	if ($key eq 'kata-Vo')  { return 0;                } # large  JIS X 0213
+	if ($key eq 'kata-ku')  { return 0;                } # small  JIS X 0213
+	if ($key eq 'kata-mu')  { return 0;                } # small  JIS X 0213
+	if ($key eq 'kata-ku..ro')  { return 0;            } # small  JIS X 0213
 	if ($key eq 'comma')  { return ($code == 0x2124);}
 	if ($key eq 'period') { return ($code == 0x2125);}
 	if ($key eq 'odoriji') { return 
@@ -855,6 +930,8 @@ sub is_dvicode{
 		($code == 0x2135 || $code == 0x2136);}
 	if ($key eq 'kutouten') { return 
 		($code>=0x2122 && $code<=0x2128);}
+	if ($key eq 'burasage') { return 
+		($code>=0x2122 && $code<=0x2125);}
 	if ($key eq 'nakaten'  ) { return ($code == 0x2126);}
 	if ($key eq 'colon'    ) { return ($code == 0x2127);}
 	if ($key eq 'semicolon') { return ($code == 0x2128);}
@@ -917,6 +994,9 @@ sub is_dvicode{
 		 $code == 0xFF0C || $code == 0xFF0E ||
 		 $code == 0x30FB ||
 		 $code == 0xFF1A || $code == 0xFF1B);}
+	if ($key eq 'burasage') { return 
+		($code == 0x3001 || $code == 0x3002 ||
+		 $code == 0xFF0C || $code == 0xFF0E);}
 	if ($key eq 'nakaten'  ) { return ($code == 0x30FB);}
 	if ($key eq 'colon'    ) { return ($code == 0xFF1A);}
 	if ($key eq 'semicolon') { return ($code == 0xFF1B);}

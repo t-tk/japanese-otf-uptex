@@ -1,7 +1,8 @@
 [ abstract ]
 
-This is a test package for upLaTeX support of
-"otfstable (v1.2.9.2 2010/3/26)"
+This is a package for upLaTeX support of
+japanese-otf package "otfbeta (v1.7b3 2011/10/28)" by psitau-san
+( http://psitau.kitunebi.com/otf.html )
 It requires upTeX-0.20 or later.
 
 
@@ -14,15 +15,21 @@ umkjvf : mkjvf with unicode support
 basepl/ubase-h.pl : unicode version of base-h.pl
 basepl/ubase-v.pl : unicode version of base-v.pl
 
-sty/*.sty : style files to overwirte original ones.
+test/uplatex : test samples.
 
-test/uplatex : test sample.
+patch/*.patch : patch for original style files sty/*.sty in otfbeta.zip
 
-patch/*.patch : patch for original style files sty/*.sty in otfstable.zip
+COPYRIGHT : copyright notice of this package.
+
+### class files and style files in otfbeta.zip are avairable without patch.
+
 
 [ status ]
-beta version.
-proportional kana is not supported yet.
+Beta version.
+Proportional kana is not supported yet.
+Combination of jis2004 and ucs option is not supported yet
+  because Adobe standard CMap "UniJIS2004-UTF16-H", etc. will be effective.
+Combination of burasage and ucs option is not tested yet, and vf is not generated.
 
 
 [ history ]
@@ -69,3 +76,19 @@ proportional kana is not supported yet.
     Revised.
   sty/*::
     Removed.
+2010.05.xx Ver0.06
+  Test only. Not released.
+2012.01.02 Ver0.07
+  Revised: for "otfbeta (v1.7b3 2011/10/28)", upTeX in TeXLive svn r24922
+  umkjvf::
+    Revised: Based on "mkjvf version 1.0b21 (2010/3/25)"
+    Revised: use ovp2ovf (WEB version) in TeXLive svn r24922 for SIP
+    Bug fix: pTeX mode was not compatible with mkjvf for ruby.
+  umakeotf
+    Revised: Minor update about "mkdir tfm"
+  fontmap/*::
+    Revised.
+  patch/*.patch::
+    Revised.
+  COPYRIGHT::
+    Added.
