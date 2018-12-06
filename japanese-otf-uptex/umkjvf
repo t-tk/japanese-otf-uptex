@@ -37,9 +37,24 @@ sub initialize_constant{
 	@cid_vquote_code=(0x314A, 0x3143, 0x3148, 0x3145); # CID: 8282, 8275, 8280, 8277
 	@ruby_odori_h=(0x3559, 0x355a, 0x355b, 0x355c, 0x3933);
 	@ruby_odori_v=(0x3559, 0x355a, 0x355b, 0x355c, 0x3934);
-	@exp_odori_h=(0x313a, 0x313b, 0x6f61, 0x6f62, 0x313c);
-	@exp_odori_v=(0x3431, 0x3432, 0x3258, 0x3259, 0x3433);
+	@exp_odori_h=(0x313a, 0x313b, 0x6f61, 0x6f62, 0x313c); # CID: 12362, 12363, 12273, 12274, 12364
+	@exp_odori_v=(0x3431, 0x3432, 0x3258, 0x3259, 0x3433); # CID: 12545, 12456, 12457, 12274, 12547
 	@cid_hkana_code=(0x3537 .. 0x356F, 0x3630 .. 0x3635); # CID: 327 .. 389
+}
+sub reorder_odoriji {
+=comment
+The order of odorijis in UCS is different from that in JIS
+JIS     UCS
+0x2133	U+30FD	# KATAKANA ITERATION MARK
+0x2134	U+30FE	# KATAKANA VOICED ITERATION MARK
+0x2135	U+309D	# HIRAGANA ITERATION MARK
+0x2136	U+309E	# HIRAGANA VOICED ITERATION MARK
+0x213C	U+30FC	# KATAKANA-HIRAGANA PROLONGED SOUND MARK
+=cut
+	my $ref;
+	foreach $ref (\@ruby_odori_h, \@ruby_odori_v, \@exp_odori_h, \@exp_odori_v) {
+		@$ref = @$ref[2..4, 0, 1];
+	}
 }
 sub proc_arg {
 	if ($#ARGV == -1) {&print_help;}
@@ -74,6 +89,7 @@ sub proc_arg {
 	if ($scale == 0){$scale = 1;}
 	if ($sjis != 0){$max_ku=120;}else{$max_ku=94;}
 	if ($cid_minute != 0){$minute_option = 1;}
+	if ($ucs){&reorder_odoriji;}
 	$tfm_name = shift(@ARGV);
 	$tfm_name =~ s/\.tfm//;
 	$kanji_font = shift(@ARGV);
@@ -263,8 +279,11 @@ sub write_char {
     }
 }
 sub make_vf {
+	my ($ovp2ovf);
+
 	close(OVP);
-	system("ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
+	$ovp2ovf = $ucs ? 'ovp2ovf' : 'upovp2ovf';
+	system("$ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
 	unlink "$tfm_name.ovp";
 	unlink "$tfm_name.ofm";
 }
@@ -861,14 +880,14 @@ sub is_dvicode{
 		 $code == 0x3016 || $code == 0x3017 || # X0213 1-02-58,59
 		 $code == 0x301D || $code == 0x301F    # X0213 1-13-64,65
 		);}
-	if ($key eq 'open')  { return &is_uni_open($code); }
-	if ($key eq 'close') { return (!&is_uni_open($code)); }
+	if ($key eq 'open')  { return &is_ucs_open($code); }
+	if ($key eq 'close') { return (!&is_ucs_open($code)); }
 
 	die "illegal keyname ($key)\n";
     }
 }
 
-sub is_uni_open {
+sub is_ucs_open {
 	if ($code == 0x301D) { return 1;}
 	if ($code <= 0xFF09) { return ($code%2==0);}
 	if ($code == 0xFF3B || $code == 0xFF5B) { return 1;}
@@ -888,12 +907,12 @@ sub is_ucs_kigo{
 }
 
 sub is_ucs_hira{
-	return 1 if ($ucscode>=0x3040 && $ucscode<=0x308F);
+	return 1 if ($ucscode>=0x3041 && $ucscode<=0x308F);
 	return 0;
 }
 
 sub is_ucs_kata{
-	return 1 if ($ucscode>=0x30A0 && $ucscode<=0x30F6);
+	return 1 if ($ucscode>=0x30A1 && $ucscode<=0x30F6);
 	return 0;
 }
 

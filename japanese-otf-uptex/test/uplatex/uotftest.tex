@@ -25,15 +25,20 @@
 
 \usepackage[\@opt@]{otf}
 
+%
+% furikana.sty があれば読み込む
+\newread\@istheresuchafile
+\openin\@istheresuchafile furikana.sty
+\ifeof\@istheresuchafile\relax
+\else\closein\@istheresuchafile\relax
+\usepackage{furikana}% found
+\fi
+
 \makeatother
 
-%\usepackage[deluxe, multi]{otf}
-%\usepackage[expert, multi]{otf}
-%\usepackage[multi]{otf}
-%\usepackage[bold, multi]{otf}
-%\usepackage[noreplace, multi]{otf}
 \usepackage{redeffont}
-%\usepackage{furikana}
+
+
 \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}
 \ajCIDVarDef{り}{12746}
 \ajCIDVarDef{高}{8705}

@@ -6,6 +6,8 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx
 PDVITYPE = pdvitype
 
+all: uplatex platex
+
 uplatex:
 	for opt in default deluxe expert bold noreplace; do \
 		$(UPLATEX) "\def\option{$$opt}\def\class{ujarticle}\input" uotftest.tex ; \
@@ -19,3 +21,6 @@ platex:
 		mv uotftest.dvi uotftest-$$opt-platex.dvi ; \
 		$(DVIPDFMX) uotftest-$$opt-platex.dvi ; \
 	done
+
+clean:
+	rm *.aux *.log *.dvi *.pdf
