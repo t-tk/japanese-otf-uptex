@@ -1,0 +1,964 @@
+#!/usr/bin/perl
+###################
+###  main part  ###
+###################
+#initialize
+&initialize_constant;
+#processing arguments
+&proc_arg;
+#make ovp
+&font_header;
+&write_char;
+#make vf & tfm
+&make_vf;
+&make_tfm;
+
+##########################
+####  dfn of sub rtns  ###
+##########################
+sub initialize_constant{
+	$unknown=0;
+	$minute_option=0;
+	$alt_kana_true=0;
+	$ruby_hira_code=0x356F;
+	$ruby_kata_code=0x3751;
+	$exp_hira_code_h=0x6F63;
+	$exp_kata_code_h=0x313D;
+	$exp_hira_code_v=0x325a;
+	$exp_kata_code_v=0x3434;
+	$ruby_font_map=2;
+	$exp_font_map=2;
+	@yoko_tfm_binary=(0x00, 0x0B, 0x00, 0x01, 0x00, 0x1B, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x14, 0x7B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xEB, 0x85, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+	@tate_tfm_binary=(0x00, 0x09, 0x00, 0x01, 0x00, 0x1B, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+	@minute_code=(0x216C, 0x216C, 0x216D, 0x216D);
+	@shift_minute_code=(0x818C, 0x818C, 0x818D, 0x818D);
+	@cid_minute_code=(0x6E3D, 0x6E3E, 0x6C44, 0x6C45);
+	@cid_hquote_code=(0x3A4E, 0x3A4F, 0x3A50, 0x3A51); # CID: 670 .. 673 
+	@cid_vquote_code=(0x314A, 0x3143, 0x3148, 0x3145); # CID: 8282, 8275, 8280, 8277
+	@ruby_odori_h=(0x3559, 0x355a, 0x355b, 0x355c, 0x3933);
+	@ruby_odori_v=(0x3559, 0x355a, 0x355b, 0x355c, 0x3934);
+	@exp_odori_h=(0x313a, 0x313b, 0x6f61, 0x6f62, 0x313c);
+	@exp_odori_v=(0x3431, 0x3432, 0x3258, 0x3259, 0x3433);
+	@cid_hkana_code=(0x3537 .. 0x356F, 0x3630 .. 0x3635); # CID: 327 .. 389
+}
+sub proc_arg {
+	if ($#ARGV == -1) {&print_help;}
+	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-h(e|el|elp)?', \$help, 0], ['^-(.+)', \$unknown, 0]);
+	if ($unknown == 1){
+		print "mkjvf: Unknown options!\n";
+		&print_help;
+	}
+	if ($help == 1){&print_help;}
+	if (($expert == 0) && ($ruby == 0)){
+		if ($#ARGV <= 0) {
+			print "mkjvf: Need two to three file arguments.\n";
+			&print_help;
+		}
+	} elsif (($expert != 0) && ($ruby != 0)){
+			print "mkjvf: You can't use \"-ruby\" and \"-expert\" at same time.\n";
+			&print_help;
+	} elsif (($scale != 0) && ($ruby != 0)){
+			print "mkjvf: You can't use \"-ruby\" and \"-scale\" at same time.\n";
+			&print_help;
+	} else {
+		if ($#ARGV <= 1) {
+			print "mkjvf: Need three file arguments for this option.\n";
+			&print_help;
+		}
+		$alt_kana_true=1;
+	}
+	if ($scale < 0 || $scale >= 1){
+		print "mkjvf: Invalid Scale!!\n";
+		&print_help;
+	}
+	if ($scale == 0){$scale = 1;}
+	if ($sjis != 0){$max_ku=120;}else{$max_ku=94;}
+	if ($cid_minute != 0){$minute_option = 1;}
+	$tfm_name = shift(@ARGV);
+	$tfm_name =~ s/\.tfm//;
+	$kanji_font = shift(@ARGV);
+	$kanji_font =~ s/\.tfm//;
+	$kana_font = shift(@ARGV);
+	$kana_font =~ s/\.tfm//;
+	&get_metric;
+	$half_width= ($font_at / 2);
+	$quater_width= ($font_at / 4);
+	@minute_right=($font_at*0.1, $font_at*0.4, $font_at*0.1, $font_at*0.4);
+	@minute_down=(-$font_at*0.65, $font_at*0.65, -$font_at*0.6, $font_at*0.6);
+	#open output file
+	open(OVP,">$tfm_name.ovp") || die "Can't make \'$tfm_name.ovp\'!\n";
+	binmode(OVP);
+}
+sub font_header {
+	print  OVP "(VTITLE )\n";
+	print  OVP "(DESIGNSIZE R 10.000000)\n";
+	print  OVP "(CHECKSUM O 0)\n";
+	print  OVP "(MAPFONT D 1\n";
+	print  OVP "   (FONTNAME $kanji_font)\n";
+	print  OVP "   (FONTCHECKSUM O 0)\n";
+	printf OVP "   (FONTAT R %f)\n",$font_at;
+	printf OVP "   (FONTDSIZE R %f)\n",$design_size;
+	print  OVP "   )\n";
+	if ($ruby == 1){
+		&get_face;
+		if ($direction eq "y"){
+			print  OVP "(MAPFONT D 2\n";
+			print  OVP "   (FONTNAME $face"."3-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			print  OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}elsif ($direction eq "t"){
+			print  OVP "(MAPFONT D 2\n";
+			print  OVP "   (FONTNAME $face"."3-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+	} elsif ($expert == 1) {
+		&get_face;
+		if ($direction eq "y"){
+			print  OVP "(MAPFONT D 2\n";
+			print  OVP "   (FONTNAME $face"."2-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R %f)\n",$scale;
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+			print  OVP "(MAPFONT D 3\n";
+			print  OVP "   (FONTNAME $face"."3-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R %f)\n",$scale;
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}elsif ($direction eq "t"){
+			print  OVP "(MAPFONT D 2\n";
+			print  OVP "   (FONTNAME $face"."3-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R %f)\n",$scale;
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+	} else {
+		if ($kana_font ne ""){
+			print  OVP "(MAPFONT D 2\n";
+			print  OVP "   (FONTNAME $kana_font)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R %f)\n",$scale*$font_at;
+			printf OVP "   (FONTDSIZE R %f)\n",$design_size;
+			print  OVP "   )\n";
+		}
+	}
+	if ($cid_minute == 1){
+		&get_face;
+		if ($direction eq "t"){
+			print  OVP "(MAPFONT D 4\n";
+			print  OVP "   (FONTNAME $face"."1-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+			print  OVP "(MAPFONT D 5\n";
+			print  OVP "   (FONTNAME $face"."2-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+	}
+	elsif ($cid_quote == 1){
+		&get_face;
+		if ($direction eq "y"){
+			print  OVP "(MAPFONT D 4\n";
+			print  OVP "   (FONTNAME $face"."0-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+		elsif ($direction eq "t"){
+			print  OVP "(MAPFONT D 4\n";
+			print  OVP "   (FONTNAME $face"."2-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+	}
+	if ($cid_hankana == 1){
+		&get_face;
+		if ($direction eq "y"){
+			print  OVP "(MAPFONT D 6\n";
+			print  OVP "   (FONTNAME $face"."0-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		}
+	}
+}
+sub write_char {
+    if (!$ucs) {
+	for ($ku=1; $ku<=$max_ku; $ku++){
+		for ($ten=1; $ten<=94; $ten++){
+			$jiscode=($ku+32)*256+($ten+32);
+			$dvicode=$jiscode;
+			if($sjis == 1){
+				&get_shift_jiscode;
+				$char_code=$shift_jiscode;
+			}else{
+				$char_code=$jiscode;
+			}
+			if ($ruby==1){
+				if ($ku==1){&print_kigo_char;}elsif($ku==4){&print_ruby_hira_char;}
+				elsif($ku==5){&print_ruby_kata_char;}else{&print_char;}
+			}elsif ($expert==1){
+				if ($direction eq "y"){
+					if ($ku==1){&print_kigo_char;}elsif($ku==4){&exp_hira_h_char;}
+					elsif($ku==5){&exp_kata_h_char;}else{&print_char;}
+				}elsif ($direction eq "t"){
+					if ($ku==1){&print_kigo_char;}elsif($ku==4){&exp_hira_v_char;}
+					elsif($ku==5){&exp_kata_v_char;}else{&print_char;}
+				}
+			}else{
+				if ($ku==1){&print_kigo_char;}elsif($ku==4){&print_kana_char;}
+				elsif($ku==5){&print_kana_char;}else{&print_char;}
+			}
+		}
+	}
+    } else { # ucs
+	$max_ucs= ($sip) ? 0x2FA1F : 0xFFFF;
+	for ($ucscode=0; $ucscode<=$max_ucs; $ucscode++){
+		next unless (&is_ucs_jpn_range);
+		$dvicode=$ucscode;
+		$char_code=$ucscode;
+			if(&is_ucs_hankana && $direction eq "y"){
+				&print_hankana_char;
+				next;
+			}
+			if ($ruby==1){
+				if   (&is_ucs_kigo){&print_kigo_char;}
+				elsif(&is_ucs_hira){&print_ruby_hira_char;}
+				elsif(&is_ucs_kata){&print_ruby_kata_char;}
+				else{&print_char;}
+			}elsif ($expert==1){
+				if ($direction eq "y"){
+					if   (&is_ucs_kigo){&print_kigo_char;}
+					elsif(&is_ucs_hira){&exp_hira_h_char;}
+					elsif(&is_ucs_kata){&exp_kata_h_char;}
+					else{&print_char;}
+				}elsif ($direction eq "t"){
+					if   (&is_ucs_kigo){&print_kigo_char;}
+					elsif(&is_ucs_hira){&exp_hira_v_char;}
+					elsif(&is_ucs_kata){&exp_kata_v_char;}
+					else{&print_char;}
+				}
+			}else{
+				if   (&is_ucs_kigo){&print_kigo_char;}
+				elsif(&is_ucs_hira){&print_kana_char;}
+				elsif(&is_ucs_kata){&print_kana_char;}
+				else{&print_char;}
+			}
+	}
+    }
+}
+sub make_vf {
+	close(OVP);
+	system("ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
+	unlink "$tfm_name.ovp";
+	unlink "$tfm_name.ofm";
+}
+sub make_tfm {
+	open(KANJITFM,">$kanji_font.tfm") || die "Can't make \'$kanji_font.tfm\'!\n";
+	binmode(KANJITFM);
+	if ($direction eq "y") {
+		foreach $binary(@yoko_tfm_binary) {
+			$_ = pack("C", $binary);
+			print KANJITFM "$_";
+		}
+	} elsif ($direction eq "t") {
+		foreach $binary(@tate_tfm_binary) {
+			$_ = pack("C", $binary);
+			print KANJITFM "$_";
+		}
+	} else {die "Unknown Direction!!\n";}
+	if ($ruby==0 && $expert==0){
+		if ($kana_font ne ""){
+			open(KANATFM,">$kana_font.tfm") || die "Can't make \'$kana_font.tfm\'!\n";
+			binmode(KANATFM);
+			if ($direction eq "y") {
+				foreach $binary(@yoko_tfm_binary) {
+					$_ = pack("C", $binary);
+					print KANATFM "$_";
+				}
+			} else {
+				foreach $binary(@tate_tfm_binary) {
+					$_ = pack("C", $binary);
+					print KANATFM "$_";
+				}
+			}
+		}
+	}
+}
+##############################
+####  dfn of sub sub rtns  ###
+##############################
+sub print_help {
+	print "This is mkjvf version 1.0b19 (2004/2/25) by psitau\n";
+	print "Usage: mkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
+	print "   -b <number>     baseline shift\n";
+	print "   -m              translate quotation mark to minute\n";
+	print "   -cm             translate quotation mark to CID minute\n";
+	print "   -cq             translate quotation mark to CID quotation (experimental)\n";
+	print "   -cp             translate comma & period to KuTohTen\n";
+	print "   -chk            translate hankaku kana to CID hankaku kana (experimental)\n";
+	print "   -notfm (h|v)    don't read tfm\n";
+	print "   -ruby           use ruby glyph for kana (for utf package)\n";
+	print "   -expert         use alt. kana glyph for kana (for utf package)\n";
+	print "   -ucs            make ucs mapped vf (experimental)\n";
+	print "   -sip            include supplemental ideographic plane (experimental)\n";
+	print "   -SJIS           make shift jis mapped vf (experimental)\n";
+	print "   -scale <0--1>   make kokana vf\n";
+	print "   -help           print this message\n";
+	exit;
+}
+sub GetOptions {
+	my ($argv,@options)=@_;
+	foreach (@options) {
+		my ($regex,$ref,$takesarg)=@{$_};
+		my @args=@{$argv};
+		@{$argv}=();
+		my $arg;
+		argloop:
+		while (($arg=shift @args) ne "") {
+			if ($arg=~/$regex/) {
+				my $val=1;
+				if ($takesarg) { $val=shift @args; }
+				if (ref($ref) eq 'CODE') { &$ref($val); } 
+				else {  ${$ref}=$val; last argloop;}
+				}
+			else { 
+				push @{$argv},$arg;
+				if ($arg eq '--') { last argloop; }
+			}
+		}
+		push @{$argv},@args; 
+	}
+}
+sub get_metric{
+	if ($without_tfm eq ""){
+		&read_tfm;
+	} elsif ($without_tfm eq "h") {
+		$direction="y";
+		$design_size=10;
+		$font_at = 0.962216;
+		if ($minute_option == 1){$minute_option = 0;}
+		if ($comma_period == 1){$comma_period = 0;}
+	} elsif ($without_tfm eq "v") {
+		$direction="t";
+		$design_size=10;
+		$font_at = 0.962216;
+	} else{
+		die "Unknown Direction!!\n";
+	}
+#	print STDOUT "$design_size, $font_at\n";#debug
+}
+sub read_tfm{
+	$alt_tfm_name=`kpsewhich $tfm_name.tfm`;
+	chomp($alt_tfm_name);
+	open (TFM, "<$tfm_name.tfm") || open (TFM, "<tfm/$tfm_name.tfm") || open (TFM, "<$alt_tfm_name") || die "Can't read tfm file!!\n";
+	binmode(TFM);
+	my($jfm_id, $nt, $lf, $lh, $bc, $ec, $nw, $nh, $nd, $ni, $nl, $nk, $ng, $np);
+	my($data,$d_size,$data_length, @param);
+	#first 7 word
+	read(TFM, $_, 2);
+	$jfm_id = unpack('n', $_);
+#	printf STDOUT "JFM ID= %d\n",$jfm_id;#debug
+	if ($jfm_id==0x0B) {
+		$direction="y";
+		if ($minute_option == 1){$minute_option = 0;}
+#		print STDOUT "Direction is YOKO!!\n";#debug
+	}elsif ($jfm_id==0x09){
+		$direction="t";
+#		print STDOUT "Direction is TATE!!\n";#debug
+	}else{
+		die "Unknown Direction!!\n";
+	}
+	read(TFM, $_, 26);
+	($nt, $lf, $lh, $bc, $ec, $nw, $nh, $nd, $ni, $nl, $nk, $ng, $np)= unpack('nnnnnnnnnnnnn', $_);
+	#header
+	read(TFM, $_, (4*$lh));
+	($data,$d_size)= unpack('NN',$_);
+	$d_size=$d_size/(1<<20);;
+	$data_length = ($nt+$ec-$bc+1+$nw+$nh+$nd+$ni+$nl+$nk+$ng)*4;
+	read(TFM, $_, $data_length);
+	read(TFM, $_, (4*$np));
+	@param=unpack('NNNNNNNNN',$_);
+	$zh = $param[4]/(1<<20);
+	$zw = $param[5]/(1<<20);
+	$design_size=$d_size;
+	$font_at=$zw;
+#	printf STDOUT "Design Size: %f, zw: %f, zh: %f\n",$d_size, $zw, $zh;#debug
+}
+sub get_face{
+	if($kana_font eq "cidjminr"){
+		$face="cidjmr";
+	}elsif($kana_font eq "cidjgothr"){
+		$face="cidjgr";
+	}elsif($kana_font eq "cidjminb"){
+		$face="cidjmb";
+	}elsif($kana_font eq "cidjgothb"){
+		$face="cidjgb";
+	}elsif($kana_font eq "cidjmgothr"){
+		$face="cidjmgr";
+	}elsif($kana_font eq "cidjminl"){
+		$face="cidjml";
+	}elsif($kana_font eq "cidmin"){
+		$face="cidm";
+	}elsif($kana_font eq "cidgoth"){
+		$face="cidg";
+	}elsif($kana_font eq ""){
+		if($kanji_font =~ /hminr/){
+			$face="cidjmr";
+		}elsif($kanji_font =~ /hgothr/){
+			$face="cidjgr";
+		}elsif($kanji_font =~ /hminb/){
+			$face="cidjmb";
+		}elsif($kanji_font =~ /hgothb/){
+			$face="cidjgb";
+		}elsif($kanji_font =~ /hmgothr/){
+			$face="cidjmgr";
+		}elsif($kanji_font =~ /hminl/){
+			$face="cidjml";
+		}
+	}
+}
+sub baseline_shift{
+	if ($baseline_shift != 0){
+		$baseline_shift_amount=-($baseline_shift/1000)*$zh;
+		printf OVP "      (MOVEUP R %f)\n",$baseline_shift_amount;
+	}
+}
+sub print_kigo_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	if (&is_dvicode('quote') || &is_dvicode('kakko')){#Kakko
+		$width=$half_width;
+	} elsif (&is_dvicode('kutouten')){#Kutouten
+		$width=$half_width;
+	} else{
+		$width=$font_at;
+	}
+	print  OVP "   (CHARWD R $width)\n";
+	print  OVP "   (MAP\n";
+	if (&is_dvicode('odoriji')){#odoriji
+		if ($ruby==1){
+			print  OVP "      (SELECTFONT D 2)\n";
+		}elsif($expert==1){
+			if ($direction eq "y"){
+				if (&is_dvicode('hira-odoriji')){
+					print  OVP "      (SELECTFONT D 2)\n";
+				}else{
+					print  OVP "      (SELECTFONT D 3)\n";
+				}
+			}else{
+				print  OVP "      (SELECTFONT D 2)\n";
+			}
+		}elsif($kana_font ne ""){
+			print  OVP "      (SELECTFONT D 2)\n";
+		}
+	}
+	if ($cid_minute == 1){#cid_minute
+		if (&is_dvicode('d-quote')){#double quatation->double minute
+			print  OVP "      (SELECTFONT D 4)\n";
+		}elsif (&is_dvicode('s-quote')){#single quatation->single minute
+			print  OVP "      (SELECTFONT D 5)\n";
+		}
+	}
+	elsif ($cid_quote == 1){#cid_quote
+		if (&is_dvicode('quote')){
+			print  OVP "      (SELECTFONT D 4)\n";
+		}
+	}
+	&baseline_shift;
+	if (&is_dvicode('odoriji')){#odoriji
+		&scaled_shift;
+	}
+	if (&is_dvicode('colon') || &is_dvicode('semicolon') || &is_dvicode('nakaten')){#colon, semicolon, nakaten
+		printf OVP "      (MOVERIGHT R -%f)\n",$quater_width;}
+	if (&is_dvicode('kakko') && &is_dvicode('open')){#Kakko
+		printf OVP "      (MOVERIGHT R -%f)\n",$half_width;
+	}
+	if (&is_dvicode('quote')){#quatation
+		if ($minute_option == 1){#quatation -> minute
+			if ($cid_minute == 1){
+				if (&is_dvicode('open')){
+					printf OVP "      (MOVERIGHT R -%f)\n",$half_width;
+				}
+				$minute_char_code= shift(@cid_minute_code);
+				printf OVP "      (SETCHAR H %X)\n", $minute_char_code;
+			}else{
+				$minute_right_shift= shift(@minute_right);
+				$minute_down_shift= shift(@minute_down);
+				printf OVP "      (MOVERIGHT R %f)\n", $minute_right_shift;
+				printf OVP "      (MOVEDOWN R %f)\n", $minute_down_shift;
+				if (&is_dvicode('close')){
+					print OVP "      (SPECIAL ps: gsave currentpoint currentpoint translate 180 neg rotate neg exch neg exch translate)\n";
+				}
+				if ($sjis == 1){
+					$minute_char_code= shift(@shift_minute_code);
+				}else{
+					$minute_char_code= shift(@minute_code);
+				}
+				printf OVP "      (SETCHAR H %X)\n", $minute_char_code;
+				if (&is_dvicode('close')){
+					print OVP "      (SPECIAL ps: currentpoint grestore moveto)\n";
+				}
+			}
+		} elsif ($cid_quote == 1){
+			if (&is_dvicode('open')){
+				printf OVP "      (MOVERIGHT R -%f)\n",$half_width;
+			}
+			if ($direction eq "y"){
+				$quote_char_code= shift(@cid_hquote_code);
+			}else{
+				$quote_char_code= shift(@cid_vquote_code);
+			}
+			printf OVP "      (SETCHAR H %X)\n", $quote_char_code;
+		} else {
+			if (&is_dvicode('open')){
+				printf OVP "      (MOVERIGHT R -%f)\n",$half_width;
+			}
+			printf OVP "      (SETCHAR H %X)\n", $char_code;
+		}
+	} elsif (&is_dvicode('odoriji')){#odoriji
+		if ($ruby==1){
+			if ($direction eq "y"){
+				$odorijicode= shift(@ruby_odori_h);
+			}else{
+				$odorijicode= shift(@ruby_odori_v);
+			}
+		}elsif($expert==1){
+			if ($direction eq "y"){
+				$odorijicode= shift(@exp_odori_h);
+			}else{
+				$odorijicode= shift(@exp_odori_v);
+			}
+		}elsif ($sjis==1){
+			$odorijicode= $shift_jiscode;
+		}else{
+			$odorijicode= $dvicode;
+		}
+		printf OVP "      (SETCHAR H %X)\n",$odorijicode;
+	} elsif ((&is_dvicode('comma') || &is_dvicode('period')) && $comma_period == 1){
+		printf OVP "      (SETCHAR H %X)\n",$char_code-2;
+	}else {
+		printf OVP "      (SETCHAR H %X)\n",$char_code;
+	}
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+}
+sub print_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	print  OVP "   (CHARWD R $font_at)\n";
+	print  OVP "   (MAP\n";
+	&baseline_shift;
+	printf OVP "      (SETCHAR H %X)\n",$char_code;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+}
+sub print_kana_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	print  OVP "   (CHARWD R $font_at)\n";
+	print  OVP "   (MAP\n";
+	if ($kana_font ne ""){
+		print  OVP "      (SELECTFONT D 2)\n";
+	}
+	&baseline_shift;
+	&scaled_shift;
+	printf OVP "      (SETCHAR H %X)\n",$char_code;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+}
+sub print_hankana_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	print  OVP "   (CHARWD R $font_at)\n";
+	print  OVP "   (MAP\n";
+	if ($cid_hankana == 1){
+		print  OVP "      (SELECTFONT D 6)\n";
+	}
+	&baseline_shift;
+	&scaled_shift;
+	if ($cid_hankana == 1){
+		$hkana_char_code= shift(@cid_hkana_code);
+		printf OVP "      (SETCHAR H %X)\n",$hkana_char_code;
+	} else {
+		printf OVP "      (SETCHAR H %X)\n",$char_code;
+	}
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+}
+sub print_ruby_hira_char{
+	$ruby_hira_code_orig=$ruby_hira_code;
+	if ($direction eq "t"){&fix_ruby_hira_code;}
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	printf OVP "      (SELECTFONT D %d)\n",$ruby_font_map;
+	&baseline_shift;
+	printf OVP "      (SETCHAR H %X)\n", $ruby_hira_code;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$ruby_hira_code=$ruby_hira_code_orig;
+	$ruby_hira_code++;
+	if ($ruby_hira_code == 0x3570){$ruby_hira_code=0x3630;}
+	if ($ruby_hira_code == 0x3670){$ruby_hira_code=0x3730;}
+	if ($ruby_hira_code == 0x363A){$ruby_hira_code=0x363B;}
+	if ($ruby_hira_code == 0x3641){$ruby_hira_code=0x3642;}
+}
+sub print_ruby_kata_char{
+	$ruby_kata_code_orig=$ruby_kata_code;
+	if (&is_dvicode('kata-ka')){$ruby_kata_code=0x375C;}
+	if (&is_dvicode('kata-ke')){$ruby_kata_code=0x3763;}
+	if ($direction eq "t"){&fix_ruby_kata_code;}
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	print  OVP "      (SELECTFONT D 2)\n";
+	&baseline_shift;
+	printf OVP "      (SETCHAR H %X)\n", $ruby_kata_code;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$ruby_kata_code=$ruby_kata_code_orig;
+	$ruby_kata_code++;
+	if ($ruby_kata_code == 0x3770){$ruby_kata_code=0x3830;}
+	if ($ruby_kata_code == 0x375C){$ruby_kata_code=0x375D;}
+	if ($ruby_kata_code == 0x3763){$ruby_kata_code=0x3764;}
+}
+sub exp_hira_h_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	printf OVP "      (SELECTFONT D %d)\n", $exp_font_map;
+	&baseline_shift;
+	&scaled_shift;
+	printf OVP "      (SETCHAR H %X)\n", $exp_hira_code_h;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$exp_hira_code_h++;
+	if ($exp_hira_code_h == 0x6F70){$exp_hira_code_h=0x3030;$exp_font_map=3;}
+	if ($exp_hira_code_h == 0x3070){$exp_hira_code_h=0x3130;}
+	if ($exp_hira_code_h == 0x6f6d){$exp_hira_code_h++;}
+	if ($exp_hira_code_h == 0x3034){$exp_hira_code_h++;}
+	if ($exp_hira_code_h == 0x3037){$exp_hira_code_h++;}
+}
+sub exp_kata_h_char{
+	if (&is_dvicode('kata-ka')){$exp_kata_code_h=0x3147;}
+	if (&is_dvicode('kata-ke')){$exp_kata_code_h=0x314e;}
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	print  OVP "      (SELECTFONT D 3)\n";
+	&baseline_shift;
+	&scaled_shift;
+	printf OVP "      (SETCHAR H %X)\n", $exp_kata_code_h;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$exp_kata_code_h++;
+	if ($exp_kata_code_h == 0x3170){$exp_kata_code_h=0x3230;}
+	if ($exp_kata_code_h == 0x3147){$exp_kata_code_h++;}
+	if ($exp_kata_code_h == 0x314e){$exp_kata_code_h++;}
+	if ($exp_kata_code_h == 0x3151){$exp_kata_code_h++;}
+}
+sub exp_hira_v_char{
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	printf OVP "      (SELECTFONT D 2)\n";
+	&baseline_shift;
+	&scaled_shift;
+	printf OVP "      (SETCHAR H %X)\n", $exp_hira_code_v;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$exp_hira_code_v++;
+	if ($exp_hira_code_v == 0x3270){$exp_hira_code_v=0x3330;}
+	if ($exp_hira_code_v == 0x3264){$exp_hira_code_v++;}
+	if ($exp_hira_code_v == 0x326b){$exp_hira_code_v++;}
+	if ($exp_hira_code_v == 0x326e){$exp_hira_code_v++;}
+}
+sub exp_kata_v_char{
+	if (&is_dvicode('kata-ka')){$exp_kata_code_v=0x343e;}
+	if (&is_dvicode('kata-ke')){$exp_kata_code_v=0x3445;}
+	printf OVP "(CHARACTER H %X\n", $dvicode;
+	printf OVP "   (CHARWD R %f)\n",$font_at;
+	print  OVP "   (MAP\n";
+	print  OVP "      (SELECTFONT D 2)\n";
+	&baseline_shift;
+	&scaled_shift;
+	printf OVP "      (SETCHAR H %X)\n", $exp_kata_code_v;
+	print  OVP "      )\n";
+	print  OVP "   )\n";
+	$exp_kata_code_v++;
+	if ($exp_kata_code_v == 0x3470){$exp_kata_code_v=0x3530;}
+	if ($exp_kata_code_v == 0x343e){$exp_kata_code_v++;}
+	if ($exp_kata_code_v == 0x3445){$exp_kata_code_v++;}
+	if ($exp_kata_code_v == 0x3448){$exp_kata_code_v++;}
+}
+sub fix_ruby_hira_code{
+	if (&is_dvicode('hira-a'  )){$ruby_hira_code=0x3745;}#a
+	if (&is_dvicode('hira-i'  )){$ruby_hira_code=0x3746;}#i
+	if (&is_dvicode('hira-u'  )){$ruby_hira_code=0x3747;}#u
+	if (&is_dvicode('hira-e'  )){$ruby_hira_code=0x3748;}#e
+	if (&is_dvicode('hira-o'  )){$ruby_hira_code=0x3749;}#o
+	if (&is_dvicode('hira-tsu')){$ruby_hira_code=0x374c;}#tsu
+	if (&is_dvicode('hira-ya' )){$ruby_hira_code=0x374d;}#ya
+	if (&is_dvicode('hira-yu' )){$ruby_hira_code=0x374e;}#yu
+	if (&is_dvicode('hira-yo' )){$ruby_hira_code=0x374f;}#yo
+	if (&is_dvicode('hira-wa' )){$ruby_hira_code=0x3750;}#wa
+}
+sub fix_ruby_kata_code{
+	if (&is_dvicode('kata-a'  )){$ruby_kata_code=0x3867;}#a
+	if (&is_dvicode('kata-i'  )){$ruby_kata_code=0x3868;}#i
+	if (&is_dvicode('kata-u'  )){$ruby_kata_code=0x3869;}#u
+	if (&is_dvicode('kata-e'  )){$ruby_kata_code=0x386a;}#e
+	if (&is_dvicode('kata-o'  )){$ruby_kata_code=0x386b;}#o
+	if (&is_dvicode('kata-tsu')){$ruby_kata_code=0x386e;}#tsu
+	if (&is_dvicode('kata-ya' )){$ruby_kata_code=0x386f;}#ya
+	if (&is_dvicode('kata-yu' )){$ruby_kata_code=0x3930;}#yu
+	if (&is_dvicode('kata-yo' )){$ruby_kata_code=0x3931;}#yo
+	if (&is_dvicode('kata-wa' )){$ruby_kata_code=0x3932;}#wa
+	if (&is_dvicode('kata-ka' )){$ruby_kata_code=0x386c;}#ka
+	if (&is_dvicode('kata-ke' )){$ruby_kata_code=0x386d;}#ke 
+}
+sub get_shift_jiscode{
+	$c1=$ku+32;
+	$c2=$ten+32;
+	if ($c1 % 2) {
+		$c1 = (($c1 + 1) / 2) + 0x70;
+		$c2 = $c2 + 0x1f;
+	} else {
+		$c1 = ($c1 / 2) + 0x70;
+		$c2 = $c2 + 0x7d;
+	}
+	if ($c1 >= 0xa0) {$c1 = $c1 + 0x40;}
+	if ($c2 >= 0x7f) {$c2 = $c2 + 1;}
+	$shift_jiscode=$c1*256+$c2;
+}
+sub scaled_shift{
+	if ($scale != 1){
+		$scaled_shift_amount=(1-$scale)*$font_at/2;
+		printf OVP "      (MOVERIGHT R %f)\n",$scaled_shift_amount;
+		if ($direction eq "y"){
+			$scaled_v_shift_amount=(1-$scale)*$font_at*0.38;
+			printf OVP "      (MOVEUP R %f)\n",$scaled_v_shift_amount;
+		}
+	}
+}
+
+sub is_dvicode{
+	local ($key)=@_;
+	local ($code)=($dvicode);
+
+    if (!$ucs) {
+	if ($key eq 'hira-a')   { return ($code == 0x2421);}
+	if ($key eq 'hira-i')   { return ($code == 0x2423);}
+	if ($key eq 'hira-u')   { return ($code == 0x2425);}
+	if ($key eq 'hira-e')   { return ($code == 0x2427);}
+	if ($key eq 'hira-o')   { return ($code == 0x2429);}
+	if ($key eq 'hira-tsu') { return ($code == 0x2443);}
+	if ($key eq 'hira-ya')  { return ($code == 0x2463);}
+	if ($key eq 'hira-yu')  { return ($code == 0x2465);}
+	if ($key eq 'hira-yo')  { return ($code == 0x2467);}
+	if ($key eq 'hira-wa')  { return ($code == 0x246E);}
+	if ($key eq 'kata-a')   { return ($code == 0x2521);}
+	if ($key eq 'kata-i')   { return ($code == 0x2523);}
+	if ($key eq 'kata-u')   { return ($code == 0x2525);}
+	if ($key eq 'kata-e')   { return ($code == 0x2527);}
+	if ($key eq 'kata-o')   { return ($code == 0x2529);}
+	if ($key eq 'kata-tsu') { return ($code == 0x2543);}
+	if ($key eq 'kata-ya')  { return ($code == 0x2563);}
+	if ($key eq 'kata-yu')  { return ($code == 0x2565);}
+	if ($key eq 'kata-yo')  { return ($code == 0x2567);}
+	if ($key eq 'kata-wa')  { return ($code == 0x256E);}
+	if ($key eq 'kata-ka')  { return ($code == 0x2575);}
+	if ($key eq 'kata-ke')  { return ($code == 0x2576);}
+	if ($key eq 'comma')  { return ($code == 0x2124);}
+	if ($key eq 'period') { return ($code == 0x2125);}
+	if ($key eq 'odoriji') { return 
+		((0x2133 <= $code && $code <= 0x2136) || $code == 0x213C);}
+	if ($key eq 'hira-odoriji') { return 
+		($code == 0x2135 || $code == 0x2136);}
+	if ($key eq 'kutouten') { return 
+		($code>=0x2122 && $code<=0x2128);}
+	if ($key eq 'nakaten'  ) { return ($code == 0x2126);}
+	if ($key eq 'colon'    ) { return ($code == 0x2127);}
+	if ($key eq 'semicolon') { return ($code == 0x2128);}
+	if ($key eq 'quote') { return 
+		($code >= 0x2146 && $code <= 0x2149);}
+	if ($key eq 's-quote') { return 
+		($code == 0x2146 || $code == 0x2147);}
+	if ($key eq 'd-quote') { return 
+		($code == 0x2148 || $code == 0x2149);}
+	if ($key eq 'kakko') { return 
+		(0x214A <= $code && $code <= 0x215B);}
+	if ($key eq 'open')  { return ($code%2==0);}
+	if ($key eq 'close') { return ($code%2==1);}
+
+	die "illegal keyname ($key)\n";
+    } else { # ucs
+	if ($key eq 'hira-a')   { return ($code == 0x3041);}
+	if ($key eq 'hira-i')   { return ($code == 0x3043);}
+	if ($key eq 'hira-u')   { return ($code == 0x3045);}
+	if ($key eq 'hira-e')   { return ($code == 0x3047);}
+	if ($key eq 'hira-o')   { return ($code == 0x3049);}
+	if ($key eq 'hira-tsu') { return ($code == 0x3063);}
+	if ($key eq 'hira-ya')  { return ($code == 0x3083);}
+	if ($key eq 'hira-yu')  { return ($code == 0x3085);}
+	if ($key eq 'hira-yo')  { return ($code == 0x3087);}
+	if ($key eq 'hira-wa')  { return ($code == 0x308E);}
+	if ($key eq 'kata-a')   { return ($code == 0x30A1);}
+	if ($key eq 'kata-i')   { return ($code == 0x30A3);}
+	if ($key eq 'kata-u')   { return ($code == 0x30A5);}
+	if ($key eq 'kata-e')   { return ($code == 0x30A7);}
+	if ($key eq 'kata-o')   { return ($code == 0x30A9);}
+	if ($key eq 'kata-tsu') { return ($code == 0x30C3);}
+	if ($key eq 'kata-ya')  { return ($code == 0x30E3);}
+	if ($key eq 'kata-yu')  { return ($code == 0x30E5);}
+	if ($key eq 'kata-yo')  { return ($code == 0x30E7);}
+	if ($key eq 'kata-wa')  { return ($code == 0x30EE);}
+	if ($key eq 'kata-ka')  { return ($code == 0x30F5);}
+	if ($key eq 'kata-ke')  { return ($code == 0x30F6);}
+	if ($key eq 'comma')  { return ($code == 0xFF0C);}
+	if ($key eq 'period') { return ($code == 0xFF0E);}
+	if ($key eq 'odoriji') { return 
+		($code == 0x30FD || $code == 0x30FE ||
+		 $code == 0x309D || $code == 0x309E ||
+		 $code == 0x30FC);}
+	if ($key eq 'hira-odoriji') { return 
+		($code == 0x309D || $code == 0x309E);}
+	if ($key eq 'kutouten') { return 
+		($code == 0x3001 || $code == 0x3002 ||
+		 $code == 0xFF0C || $code == 0xFF0E ||
+		 $code == 0x30FB ||
+		 $code == 0xFF1A || $code == 0xFF1B);}
+	if ($key eq 'nakaten'  ) { return ($code == 0x30FB);}
+	if ($key eq 'colon'    ) { return ($code == 0xFF1A);}
+	if ($key eq 'semicolon') { return ($code == 0xFF1B);}
+	if ($key eq 'quote') { return 
+		($code == 0x2018 || $code == 0x2019 ||
+		 $code == 0x201C || $code == 0x201D);}
+	if ($key eq 's-quote') { return 
+		($code == 0x2018 || $code == 0x2019);}
+	if ($key eq 'd-quote') { return 
+		($code == 0x201C || $code == 0x201D);}
+	if ($key eq 'kakko') { return 
+		((0x3008 <= $code && $code <= 0x3011) ||
+		 $code == 0x3014 || $code == 0x3015 ||
+		 $code == 0xFF08 || $code == 0xFF09 ||
+		 $code == 0xFF3B || $code == 0xFF3D ||
+		 $code == 0xFF5B || $code == 0xFF5D ||
+		 $code == 0xFF5F || $code == 0xFF60 || # X0213 1-02-54,55
+		 $code == 0x3018 || $code == 0x3019 || # X0213 1-02-56,57
+		 $code == 0x3016 || $code == 0x3017 || # X0213 1-02-58,59
+		 $code == 0x301D || $code == 0x301F    # X0213 1-13-64,65
+		);}
+	if ($key eq 'open')  { return &is_uni_open($code); }
+	if ($key eq 'close') { return (!&is_uni_open($code)); }
+
+	die "illegal keyname ($key)\n";
+    }
+}
+
+sub is_uni_open {
+	if ($code == 0x301D) { return 1;}
+	if ($code <= 0xFF09) { return ($code%2==0);}
+	if ($code == 0xFF3B || $code == 0xFF5B) { return 1;}
+	if ($code == 0xFF5F) { return 1;}
+	return 0;
+}
+
+sub is_ucs_kigo{
+	return 1 if ($ucscode>=0x2018 && $ucscode<=0x2019);
+	return 1 if ($ucscode>=0x201C && $ucscode<=0x201D);
+	return 1 if ($ucscode>=0x3001 && $ucscode<=0x301F);
+	return 1 if ($ucscode>=0x3090 && $ucscode<=0x309F);
+	return 1 if ($ucscode>=0x30FB && $ucscode<=0x30FE);
+	return 1 if ($ucscode>=0xFF08 && $ucscode<=0xFF60);
+
+	return 0;
+}
+
+sub is_ucs_hira{
+	return 1 if ($ucscode>=0x3040 && $ucscode<=0x308F);
+	return 0;
+}
+
+sub is_ucs_kata{
+	return 1 if ($ucscode>=0x30A0 && $ucscode<=0x30F6);
+	return 0;
+}
+
+sub is_ucs_hankana{
+	return 1 if ($ucscode>=0xFF61 && $ucscode<=0xFF9F);
+	return 0;
+}
+
+sub is_ucs_jpn_range{
+	return 1 if ($ucscode<=0x04FF);
+
+	return 0 if ($ucscode< 0x1E00);
+	return 1 if ($ucscode<=0x243F);
+
+	return 0 if ($ucscode< 0x2460);
+	return 1 if ($ucscode<=0x27BF);
+
+	return 0 if ($ucscode< 0x2900);
+	return 1 if ($ucscode<=0x29FF);
+
+	return 0 if ($ucscode< 0x2B00);
+	return 1 if ($ucscode<=0x2BFF);
+
+	return 0 if ($ucscode< 0x2E80);
+	return 1 if ($ucscode<=0x2FDF);
+
+	return 0 if ($ucscode< 0x3000);
+	return 1 if ($ucscode<=0x30FF);
+
+	return 0 if ($ucscode< 0x3190);
+	return 1 if ($ucscode<=0x319F);
+
+	return 0 if ($ucscode< 0x31F0);
+	return 1 if ($ucscode<=0x4DBF);
+
+	return 0 if ($ucscode< 0x4E00);
+	return 1 if ($ucscode<=0x9FFF);
+
+	return 0 if ($ucscode< 0xE000);
+	return 1 if ($ucscode<=0xFB4F);
+
+	return 0 if ($ucscode< 0xFE10);
+	return 1 if ($ucscode<=0xFE1F);
+
+	return 0 if ($ucscode< 0xFE30);
+	return 1 if ($ucscode<=0xFE4F);
+
+	return 0 if ($ucscode< 0xFF00);
+	return 1 if ($ucscode<=0xFFEF);
+
+	return 0 if ($ucscode< 0x20000);
+	return 1 if ($ucscode<=0x2A6DF);
+
+	return 0 if ($ucscode< 0x2F800);
+	return 1 if ($ucscode<=0x2FA1F);
+
+	return 0;
+}
+
+__END__
+0xFF5F: JIS X 0213  1-02-54 始め二重バーレーン
+0x3018: JIS X 0213  1-02-56 始め二重亀甲括弧
+0x3016: JIS X 0213  1-02-58 始めすみ付き括弧(白)
+0x301D: JIS X 0213  1-13-64 始めダブルミニュート
+0xFF60: JIS X 0213  1-02-55 終わり二重バーレーン
+0x3019: JIS X 0213  1-02-57 終わり二重亀甲括弧
+0x3017: JIS X 0213  1-02-59 終わりすみ付き括弧(白)
+0x301F: JIS X 0213  1-13-65 終わりダブルミニュート

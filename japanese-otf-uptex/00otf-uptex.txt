@@ -1,0 +1,31 @@
+[ abstract ]
+
+This is a test package for upLaTeX support of
+"otfstable (v1.2.9 2007/3/19)"
+It requires uptex-0.16 or later.
+
+
+[ contents ]
+
+00otf-uptex.txt : this file
+umakeotf : script to make vf, tfm
+umkjvf : mkjvf with unicode support
+
+basepl/ubase-h.pl : unicode version of base-h.pl
+basepl/ubase-v.pl : unicode version of base-v.pl
+
+tfm/*.tfm : tfm files
+vf/*.vf  : vf files
+sty/*.sty : style files to overwirte original ones.
+
+test/uplatex : test sample.
+
+
+[ status ]
+alpha version.
+proportional kana is not supported yet.
+
+
+[ history ]
+2007.12.09 Ver0.00
+    Initial version.

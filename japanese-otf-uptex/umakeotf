@@ -1,0 +1,85 @@
+#!/bin/sh
+echo "making tfm ..."
+#perl script/mktfm.pl
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgothr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgothb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgothb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlmgothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlmgothr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpgothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpgothr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpgothb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpgothb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpmgothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpmgothr-v.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminr-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminr-h.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubygothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubygothr-v.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminb-h.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubygothb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubygothb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubymgothr-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubymgothr-v.tfm
+#for extra fonts
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgotheb-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgotheb-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminl-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminl-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminl-h.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminl-v.tfm
+pltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminl-v.tfm
+pltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminl-h.tfm
+./umkjvf -ucs -cq -chk upnmlminr-h uphminr-h
+./umkjvf -ucs -cm -cp upnmlminr-v uphminr-v
+./umkjvf -ucs -cq -chk upnmlgothr-h uphgothr-h
+./umkjvf -ucs -cm -cp upnmlgothr-v uphgothr-v
+./umkjvf -ucs -cq -chk upnmlminb-h uphminb-h
+./umkjvf -ucs -cm -cp upnmlminb-v uphminb-v
+./umkjvf -ucs -cq -chk upnmlgothb-h uphgothb-h
+./umkjvf -ucs -cm -cp upnmlgothb-v uphgothb-v
+./umkjvf -ucs -cq -chk upnmlmgothr-h uphmgothr-h
+./umkjvf -ucs -cm -cp upnmlmgothr-v uphmgothr-v
+#extra fonts
+./umkjvf -ucs -cq -chk upnmlgotheb-h uphgotheb-h
+./umkjvf -ucs -cp upnmlgotheb-v uphgotheb-v
+./umkjvf -ucs -cq -chk upnmlminl-h uphminl-h
+./umkjvf -ucs -cm -cp upnmlminl-v uphminl-v
+echo "making alt. kana ..."
+./umkjvf -ucs -cq -chk -expert upexpminr-h uphminr-h cidjminr
+./umkjvf -ucs -cm -cp -expert upexpminr-v uphminr-v cidjminr
+./umkjvf -ucs -cq -chk -expert upexpgothr-h uphgothr-h cidjgothr
+./umkjvf -ucs -cm -cp -expert upexpgothr-v uphgothr-v cidjgothr
+./umkjvf -ucs -cq -chk -expert upexpminb-h uphminb-h cidjminb
+./umkjvf -ucs -cm -cp -expert upexpminb-v uphminb-v cidjminb
+./umkjvf -ucs -cq -chk -expert upexpgothb-h uphgothb-h cidjgothb
+./umkjvf -ucs -cm -cp -expert upexpgothb-v uphgothb-v cidjgothb
+./umkjvf -ucs -cq -chk -expert upexpmgothr-h hmgothr-h cidjmgothr
+./umkjvf -ucs -cm -cp -expert upexpmgothr-v hmgothr-v cidjmgothr
+./umkjvf -ucs -cq -chk -ruby uprubyminr-h uphminr-h cidjminr
+./umkjvf -ucs -cm -cp -ruby uprubyminr-v uphminr-v cidjminr
+./umkjvf -ucs -cq -chk -ruby uprubygothr-h uphgothr-h cidjgothr
+./umkjvf -ucs -cm -cp -ruby uprubygothr-v uphgothr-v cidjgothr
+./umkjvf -ucs -cq -chk -ruby uprubyminb-h uphminb-h cidjminb
+./umkjvf -ucs -cm -cp -ruby uprubyminb-v uphminb-v cidjminb
+./umkjvf -ucs -cq -chk -ruby uprubygothb-h uphgothb-h cidjgothb
+./umkjvf -ucs -cm -cp -ruby uprubygothb-v uphgothb-v cidjgothb
+./umkjvf -ucs -cq -chk -ruby uprubymgothr-h hmgothr-h cidjmgothr
+./umkjvf -ucs -cm -cp -ruby uprubymgothr-v hmgothr-v cidjmgothr
+./umkjvf -ucs -cq -chk -expert upexpminl-h uphminl-h cidjminl
+./umkjvf -ucs -cm -cp -expert upexpminl-v uphminl-v cidjminl
+./umkjvf -ucs -cq -chk -ruby uprubyminl-h uphminl-h cidjminl
+./umkjvf -ucs -cm -cp -ruby uprubyminl-v uphminl-v cidjminl
+echo "finishing ..."
+mv *.vf vf/
+mv *.tfm tfm/
