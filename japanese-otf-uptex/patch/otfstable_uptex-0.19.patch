@@ -1,0 +1,373 @@
+diff -uNr otfstable.orig/sty/mlcid.sty otfstable/sty/mlcid.sty
+--- otfstable.orig/sty/mlcid.sty	2004-04-17 00:19:56 +0900
++++ otfstable/sty/mlcid.sty	2007-12-21 19:56:41 +0900
+@@ -20,16 +20,16 @@
+ }
+ \catcode`\"=\count@
+ %end of changing catcode of \"
+-\DeclareKanjiFamily{JY1}{cidk}{}
+-\DeclareKanjiFamily{JT1}{cidk}{}
++\DeclareKanjiFamily{\otf@JYn}{cidk}{}
++\DeclareKanjiFamily{\otf@JTn}{cidk}{}
+ \Declare@FontShape{cidk}{m}{01234}{cidkmr}
+ \Declare@FontShape{cidk}{bx}{01234}{cidkgr}
+-\DeclareKanjiFamily{JY1}{cidc}{}
+-\DeclareKanjiFamily{JT1}{cidc}{}
++\DeclareKanjiFamily{\otf@JYn}{cidc}{}
++\DeclareKanjiFamily{\otf@JTn}{cidc}{}
+ \Declare@FontShape{cidc}{m}{01234567}{cidcmr}
+ \Declare@FontShape{cidc}{bx}{01234567}{cidcgr}
+-\DeclareKanjiFamily{JY1}{cidt}{}
+-\DeclareKanjiFamily{JT1}{cidt}{}
++\DeclareKanjiFamily{\otf@JYn}{cidt}{}
++\DeclareKanjiFamily{\otf@JTn}{cidt}{}
+ \Declare@FontShape{cidt}{m}{01234}{cidtmr}
+ \Declare@FontShape{cidt}{bx}{01234}{cidtgr}
+ \endinput
+diff -uNr otfstable.orig/sty/mlutf.sty otfstable/sty/mlutf.sty
+--- otfstable.orig/sty/mlutf.sty	2004-04-17 00:19:12 +0900
++++ otfstable/sty/mlutf.sty	2007-12-21 19:56:41 +0900
+@@ -39,20 +39,20 @@
+ }
+ \AtBeginDocument{\Redefine@MLUTF}
+ 
+-\DeclareKanjiFamily{JY1}{utfk}{}
+-\DeclareKanjiFamily{JT1}{utfk}{}
++\DeclareKanjiFamily{\otf@JYn}{utfk}{}
++\DeclareKanjiFamily{\otf@JTn}{utfk}{}
+ \Declare@FontShape{utfk}{m}{0123456789abcdef}{utfkmr}
+ \Declare@FontShape{utfk}{bx}{0123456789abcdef}{utfkgr}
+-\DeclareKanjiFamily{JY1}{utfc}{}
+-\DeclareKanjiFamily{JT1}{utfc}{}
++\DeclareKanjiFamily{\otf@JYn}{utfc}{}
++\DeclareKanjiFamily{\otf@JTn}{utfc}{}
+ \Declare@FontShape{utfc}{m}{0123456789abcdef}{utfcmr}
+ \Declare@FontShape{utfc}{bx}{0123456789abcdef}{utfcgr}
+-\DeclareKanjiFamily{JY1}{utft}{}
+-\DeclareKanjiFamily{JT1}{utft}{}
++\DeclareKanjiFamily{\otf@JYn}{utft}{}
++\DeclareKanjiFamily{\otf@JTn}{utft}{}
+ \Declare@FontShape{utft}{m}{0123456789abcdef}{utftmr}
+ \Declare@FontShape{utft}{bx}{0123456789abcdef}{utftgr}
+-\DeclareKanjiFamily{JY1}{utf}{}
+-\DeclareKanjiFamily{JT1}{utf}{}
++\DeclareKanjiFamily{\otf@JYn}{utf}{}
++\DeclareKanjiFamily{\otf@JTn}{utf}{}
+ \Declare@FontShape{utf}{m}{0123456789abcdef}{utfmr}
+ \Declare@FontShape{utf}{bx}{0123456789abcdef}{utfgr}
+ \endinput
+diff -uNr otfstable.orig/sty/otf.sty otfstable/sty/otf.sty
+--- otfstable.orig/sty/otf.sty	2007-03-19 10:53:22 +0900
++++ otfstable/sty/otf.sty	2007-12-21 20:06:31 +0900
+@@ -6,6 +6,7 @@
+ \newif\if@deluxe \@deluxefalse
+ \newif\if@replace \@replacetrue
+ \newif\if@bold \@boldfalse
++\newif\if@otf@uplatex \@otf@uplatexfalse
+ \DeclareOption{nomacro}{\@macrofalse}
+ \DeclareOption{nomacros}{\@macrofalse}
+ \DeclareOption{noreplace}{\@replacefalse}
+@@ -13,6 +14,10 @@
+ \DeclareOption{expert}{\@replacetrue\@kanatrue}
+ \DeclareOption{deluxe}{\@boldfalse\@replacetrue\@deluxetrue}
+ \DeclareOption{multi}{\AtEndOfPackage{\RequirePackage{mlutf}\RequirePackage{mlcid}}}
++\DeclareOption{uplatex}{\@otf@uplatextrue}
++\def\otf@JYn{\if@otf@uplatex JY2\else JY1\fi}
++\def\otf@JTn{\if@otf@uplatex JT2\else JT1\fi}
++\def\otf@pfx@{\if@otf@uplatex up\else \fi}
+ \ProcessOptions\relax
+ %user interface
+ %force catcode of \" be 12
+@@ -64,8 +69,13 @@
+ 	\divide\@tempcntb by "40
+ 	\multiply\@tempcntb by "C0
+ 	\advance\@tempcnta by \@tempcntb
+-	\advance\@tempcnta by "3030
+-	\char\jis\@tempcnta%
++	\if@otf@uplatex
++	  \advance\@tempcnta by "113030
++	  \char\@tempcnta%
++	\else
++	  \advance\@tempcnta by "3030
++	  \char\jis\@tempcnta%
++	\fi
+ }
+ \catcode`\"=\count@
+ %end of changing catcode of \"
+@@ -76,8 +86,8 @@
+ 	\expandafter\let\csname\reserved@a/#1\endcsname\@undefined
+ 	\expandafter\@undeclare@fontshape\fi}
+ \def\Declare@FontShape#1#2#3#4{%
+-	\Declare@FontShapeEnc{JY1}{#1}{#2}{#4}{h}#3\@nil
+-	\Declare@FontShapeEnc{JT1}{#1}{#2}{#4}{v}#3\@nil}
++	\Declare@FontShapeEnc{\otf@JYn}{#1}{#2}{#4}{h}#3\@nil
++	\Declare@FontShapeEnc{\otf@JTn}{#1}{#2}{#4}{v}#3\@nil}
+ \def\Declare@FontShapeEnc#1#2#3#4#5#6{\ifx\@nil#6\else
+ 	\DeclareFontShape{#1}{#2}{#3}{#6}{<->s*[\utf@sc@le]#4#6-#5}{}%
+ 	\Declare@FontShape@Enc{#1}{#2}{#3}{#4}{#5}\fi}
+@@ -88,61 +98,61 @@
+ \@ifclassloaded{jsbook}{\@jsclassestrue}{}
+ \if@jsclasses\def\utf@sc@le{0.92469}\else\def\utf@sc@le{0.962216}\fi
+ %definitions of font
+-\DeclareKanjiFamily{JY1}{utfj}{}
+-\DeclareKanjiFamily{JT1}{utfj}{}
+-\DeclareKanjiFamily{JY1}{cidj}{}
+-\DeclareKanjiFamily{JT1}{cidj}{}
++\DeclareKanjiFamily{\otf@JYn}{utfj}{}
++\DeclareKanjiFamily{\otf@JTn}{utfj}{}
++\DeclareKanjiFamily{\otf@JYn}{cidj}{}
++\DeclareKanjiFamily{\otf@JTn}{cidj}{}
+ \Declare@FontShape{utfj}{m}{0123456789abcdef}{utfjmr}
+ \Declare@FontShape{cidj}{m}{01234}{cidjmr}
+ %definition of maru gothic
+ \if@deluxe
+ 	\def\mgdefault{mg}
+-	\DeclareKanjiFamily{JY1}{mg}{}
+-	\DeclareKanjiFamily{JT1}{mg}{}
+-	\DeclareRelationFont{JY1}{mg}{m}{}{OT1}{cmss}{m}{}
+-	\DeclareRelationFont{JT1}{mg}{m}{}{OT1}{cmss}{m}{}
+-	\DeclareMathAlphabet{\mathmg}{JY1}{mg}{m}{n}
++	\DeclareKanjiFamily{\otf@JYn}{mg}{}
++	\DeclareKanjiFamily{\otf@JTn}{mg}{}
++	\DeclareRelationFont{\otf@JYn}{mg}{m}{}{OT1}{cmss}{m}{}
++	\DeclareRelationFont{\otf@JTn}{mg}{m}{}{OT1}{cmss}{m}{}
++	\DeclareMathAlphabet{\mathmg}{\otf@JYn}{mg}{m}{n}
+ 	\DeclareRobustCommand\mgfamily{\not@math@alphabet\mgfamily\mathmg%
+ 		\kanjifamily\mgdefault\selectfont}
+ 	\DeclareTextFontCommand{\textmg}{\mgfamily}
+-	\DeclareKanjiFamily{JY1}{rubymg}{}
+-	\DeclareKanjiFamily{JT1}{rubymg}{}
+-	\DeclareRelationFont{JY1}{rubymg}{m}{}{OT1}{cmss}{m}{}
+-	\DeclareRelationFont{JT1}{rubymg}{m}{}{OT1}{cmss}{m}{}
++	\DeclareKanjiFamily{\otf@JYn}{rubymg}{}
++	\DeclareKanjiFamily{\otf@JTn}{rubymg}{}
++	\DeclareRelationFont{\otf@JYn}{rubymg}{m}{}{OT1}{cmss}{m}{}
++	\DeclareRelationFont{\otf@JTn}{rubymg}{m}{}{OT1}{cmss}{m}{}
+ 	\if@kana
+-		\DeclareFontShape{JY1}{mg}{m}{n}{<-> s * [\utf@sc@le] expmgothr-h}{}
+-		\DeclareFontShape{JT1}{mg}{m}{n}{<-> s * [\utf@sc@le] expmgothr-v}{}
+-		\DeclareFontShape{JY1}{rubymg}{m}{n}{<-> s * [\utf@sc@le] rubymgothr-h}{}
+-		\DeclareFontShape{JT1}{rubymg}{m}{n}{<-> s * [\utf@sc@le] rubymgothr-v}{}
++		\DeclareFontShape{\otf@JYn}{mg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expmgothr-h}{}
++		\DeclareFontShape{\otf@JTn}{mg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expmgothr-v}{}
++		\DeclareFontShape{\otf@JYn}{rubymg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubymgothr-h}{}
++		\DeclareFontShape{\otf@JTn}{rubymg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubymgothr-v}{}
+ 	\else
+-		\DeclareFontShape{JY1}{mg}{m}{n}{<-> s * [\utf@sc@le] nmlmgothr-h}{}
+-		\DeclareFontShape{JT1}{mg}{m}{n}{<-> s * [\utf@sc@le] nmlmgothr-v}{}
++		\DeclareFontShape{\otf@JYn}{mg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlmgothr-h}{}
++		\DeclareFontShape{\otf@JTn}{mg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlmgothr-v}{}
+ 	\fi
+ \fi
+ %definition of normal fonts
+ \if@kana
+-	\DeclareKanjiFamily{JY1}{ruby}{}
+-	\DeclareKanjiFamily{JT1}{ruby}{}
++	\DeclareKanjiFamily{\otf@JYn}{ruby}{}
++	\DeclareKanjiFamily{\otf@JTn}{ruby}{}
+ 	\newcommand{\rubydefault}{ruby}
+-	\DeclareFontShape{JY1}{ruby}{m}{n}{<-> s * [\utf@sc@le] rubyminr-h}{}
+-	\DeclareFontShape{JT1}{ruby}{m}{n}{<-> s * [\utf@sc@le] rubyminr-v}{}
+-	\@UnDeclareFontShape{JY1}{mc}{m}{n}
+-	\@UnDeclareFontShape{JT1}{mc}{m}{n}
+-	\@UnDeclareFontShape{JY1}{gt}{m}{n}
+-	\@UnDeclareFontShape{JT1}{gt}{m}{n}
+-	\DeclareFontShape{JY1}{mc}{m}{n}{<-> s * [\utf@sc@le] expminr-h}{}
+-	\DeclareFontShape{JT1}{mc}{m}{n}{<-> s * [\utf@sc@le] expminr-v}{}
+-	\DeclareRelationFont{JY1}{gt}{m}{}{OT1}{cmss}{m}{}
+-	\DeclareRelationFont{JT1}{gt}{m}{}{OT1}{cmss}{m}{}
++	\DeclareFontShape{\otf@JYn}{ruby}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminr-h}{}
++	\DeclareFontShape{\otf@JTn}{ruby}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminr-v}{}
++	\@UnDeclareFontShape{\otf@JYn}{mc}{m}{n}
++	\@UnDeclareFontShape{\otf@JTn}{mc}{m}{n}
++	\@UnDeclareFontShape{\otf@JYn}{gt}{m}{n}
++	\@UnDeclareFontShape{\otf@JTn}{gt}{m}{n}
++	\DeclareFontShape{\otf@JYn}{mc}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminr-h}{}
++	\DeclareFontShape{\otf@JTn}{mc}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminr-v}{}
++	\DeclareRelationFont{\otf@JYn}{gt}{m}{}{OT1}{cmss}{m}{}
++	\DeclareRelationFont{\otf@JTn}{gt}{m}{}{OT1}{cmss}{m}{}
+ 	\if@deluxe
+-		\DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothr-h}{}
+-		\DeclareFontShape{JT1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothr-v}{}
+-		\DeclareKanjiFamily{JY1}{rubyg}{}
+-		\DeclareKanjiFamily{JT1}{rubyg}{}
+-		\DeclareRelationFont{JY1}{rubyg}{m}{}{OT1}{cmss}{m}{}
+-		\DeclareRelationFont{JT1}{rubyg}{m}{}{OT1}{cmss}{m}{}
+-		\DeclareFontShape{JY1}{rubyg}{m}{n}{<-> s * [\utf@sc@le] rubygothr-h}{}
+-		\DeclareFontShape{JT1}{rubyg}{m}{n}{<-> s * [\utf@sc@le] rubygothr-v}{}
++		\DeclareFontShape{\otf@JYn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothr-h}{}
++		\DeclareFontShape{\otf@JTn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothr-v}{}
++		\DeclareKanjiFamily{\otf@JYn}{rubyg}{}
++		\DeclareKanjiFamily{\otf@JTn}{rubyg}{}
++		\DeclareRelationFont{\otf@JYn}{rubyg}{m}{}{OT1}{cmss}{m}{}
++		\DeclareRelationFont{\otf@JTn}{rubyg}{m}{}{OT1}{cmss}{m}{}
++		\DeclareFontShape{\otf@JYn}{rubyg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr-h}{}
++		\DeclareFontShape{\otf@JTn}{rubyg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr-v}{}
+ 		\DeclareRobustCommand\rubyfamily{\edef\reserved@a{\gtdefault}%
+ 			\edef\reserved@b{\mgdefault}%
+ 			\ifx\k@family\reserved@a \kanjifamily{rubyg}\else\ifx\k@family\reserved@b
+@@ -150,11 +160,11 @@
+ 			\selectfont}
+ 	\else
+ 		\if@bold
+-			\DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothb-h}{}
+-			\DeclareFontShape{JT1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothb-v}{}
++			\DeclareFontShape{\otf@JYn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothb-h}{}
++			\DeclareFontShape{\otf@JTn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothb-v}{}
+ 		\else
+-			\DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothr-h}{}
+-			\DeclareFontShape{JT1}{gt}{m}{n}{<-> s * [\utf@sc@le] expgothr-v}{}
++			\DeclareFontShape{\otf@JYn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothr-h}{}
++			\DeclareFontShape{\otf@JTn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothr-v}{}
+ 		\fi
+ 		\DeclareRobustCommand\rubyfamily{\edef\reserved@a{\gtdefault}%
+ 			\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
+@@ -163,62 +173,62 @@
+ 	\AtBeginDocument{\ifx\rubykatuji\@undefined\else\def\rubykatuji{\rubyfamily\tiny}\fi}
+ \else
+ 	\if@replace
+-		\@UnDeclareFontShape{JY1}{mc}{m}{n}
+-		\@UnDeclareFontShape{JT1}{mc}{m}{n}
+-		\@UnDeclareFontShape{JY1}{gt}{m}{n}
+-		\@UnDeclareFontShape{JT1}{gt}{m}{n}
+-		\DeclareFontShape{JY1}{mc}{m}{n}{<-> s * [\utf@sc@le] nmlminr-h}{}
+-		\DeclareFontShape{JT1}{mc}{m}{n}{<-> s * [\utf@sc@le] nmlminr-v}{}
++		\@UnDeclareFontShape{\otf@JYn}{mc}{m}{n}
++		\@UnDeclareFontShape{\otf@JTn}{mc}{m}{n}
++		\@UnDeclareFontShape{\otf@JYn}{gt}{m}{n}
++		\@UnDeclareFontShape{\otf@JTn}{gt}{m}{n}
++		\DeclareFontShape{\otf@JYn}{mc}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminr-h}{}
++		\DeclareFontShape{\otf@JTn}{mc}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminr-v}{}
+ 		\if@bold
+-			\DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [\utf@sc@le] nmlgothb-h}{}
+-			\DeclareFontShape{JT1}{gt}{m}{n}{<-> s * [\utf@sc@le] nmlgothb-v}{}
++			\DeclareFontShape{\otf@JYn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothb-h}{}
++			\DeclareFontShape{\otf@JTn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothb-v}{}
+ 		\else
+-			\DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [\utf@sc@le] nmlgothr-h}{}
+-			\DeclareFontShape{JT1}{gt}{m}{n}{<-> s * [\utf@sc@le] nmlgothr-v}{}
++			\DeclareFontShape{\otf@JYn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothr-h}{}
++			\DeclareFontShape{\otf@JTn}{gt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothr-v}{}
+ 		\fi
+ 	\fi
+ \fi
+ %definition of bold fonts
+ \if@deluxe
+-	\@UnDeclareFontShape{JY1}{mc}{bx}{n}
+-	\@UnDeclareFontShape{JT1}{mc}{bx}{n}
+-	\@UnDeclareFontShape{JY1}{gt}{bx}{n}
+-	\@UnDeclareFontShape{JT1}{gt}{bx}{n}
++	\@UnDeclareFontShape{\otf@JYn}{mc}{bx}{n}
++	\@UnDeclareFontShape{\otf@JTn}{mc}{bx}{n}
++	\@UnDeclareFontShape{\otf@JYn}{gt}{bx}{n}
++	\@UnDeclareFontShape{\otf@JTn}{gt}{bx}{n}
+ 	\if@kana
+-		\DeclareFontShape{JY1}{mc}{bx}{n}{<-> s * [\utf@sc@le] expminb-h}{}
+-		\DeclareFontShape{JT1}{mc}{bx}{n}{<-> s * [\utf@sc@le] expminb-v}{}
+-		\DeclareFontShape{JY1}{gt}{bx}{n}{<-> s * [\utf@sc@le] expgothb-h}{}
+-		\DeclareFontShape{JT1}{gt}{bx}{n}{<-> s * [\utf@sc@le] expgothb-v}{}
+-		\DeclareFontShape{JY1}{ruby}{bx}{n}{<-> s * [\utf@sc@le] rubyminb-h}{}
+-		\DeclareFontShape{JT1}{ruby}{bx}{n}{<-> s * [\utf@sc@le] rubyminb-v}{}
+-		\DeclareFontShape{JY1}{rubyg}{bx}{n}{<-> s * [\utf@sc@le] rubygothb-h}{}
+-		\DeclareFontShape{JT1}{rubyg}{bx}{n}{<-> s * [\utf@sc@le] rubygothb-v}{}
++		\DeclareFontShape{\otf@JYn}{mc}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminb-h}{}
++		\DeclareFontShape{\otf@JTn}{mc}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminb-v}{}
++		\DeclareFontShape{\otf@JYn}{gt}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothb-h}{}
++		\DeclareFontShape{\otf@JTn}{gt}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expgothb-v}{}
++		\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminb-h}{}
++		\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminb-v}{}
++		\DeclareFontShape{\otf@JYn}{rubyg}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-h}{}
++		\DeclareFontShape{\otf@JTn}{rubyg}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-v}{}
+ 	\else
+-		\DeclareFontShape{JY1}{mc}{bx}{n}{<-> s * [\utf@sc@le] nmlminb-h}{}
+-		\DeclareFontShape{JT1}{mc}{bx}{n}{<-> s * [\utf@sc@le] nmlminb-v}{}
+-		\DeclareFontShape{JY1}{gt}{bx}{n}{<-> s * [\utf@sc@le] nmlgothb-h}{}
+-		\DeclareFontShape{JT1}{gt}{bx}{n}{<-> s * [\utf@sc@le] nmlgothb-v}{}
++		\DeclareFontShape{\otf@JYn}{mc}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminb-h}{}
++		\DeclareFontShape{\otf@JTn}{mc}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminb-v}{}
++		\DeclareFontShape{\otf@JYn}{gt}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothb-h}{}
++		\DeclareFontShape{\otf@JTn}{gt}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgothb-v}{}
+ 	\fi
+-	\DeclareKanjiFamily{JY1}{utfjg}{}
+-	\DeclareKanjiFamily{JT1}{utfjg}{}
+-	\DeclareKanjiFamily{JY1}{cidjg}{}
+-	\DeclareKanjiFamily{JT1}{cidjg}{}
++	\DeclareKanjiFamily{\otf@JYn}{utfjg}{}
++	\DeclareKanjiFamily{\otf@JTn}{utfjg}{}
++	\DeclareKanjiFamily{\otf@JYn}{cidjg}{}
++	\DeclareKanjiFamily{\otf@JTn}{cidjg}{}
+ 	\Declare@FontShape{utfj}{bx}{0123456789abcdef}{utfjmb}
+ 	\Declare@FontShape{cidj}{bx}{01234}{cidjmb}
+ 	\Declare@FontShape{utfjg}{m}{0123456789abcdef}{utfjgr}
+ 	\Declare@FontShape{cidjg}{m}{01234}{cidjgr}
+ 	\Declare@FontShape{utfjg}{bx}{0123456789abcdef}{utfjgb}
+ 	\Declare@FontShape{cidjg}{bx}{01234}{cidjgb}
+-	\DeclareKanjiFamily{JY1}{utfjmg}{}
+-	\DeclareKanjiFamily{JT1}{utfjmg}{}
+-	\DeclareKanjiFamily{JY1}{cidjmg}{}
+-	\DeclareKanjiFamily{JT1}{cidjmg}{}
++	\DeclareKanjiFamily{\otf@JYn}{utfjmg}{}
++	\DeclareKanjiFamily{\otf@JTn}{utfjmg}{}
++	\DeclareKanjiFamily{\otf@JYn}{cidjmg}{}
++	\DeclareKanjiFamily{\otf@JTn}{cidjmg}{}
+ 	\Declare@FontShape{utfjmg}{m}{0123456789abcdef}{utfjmgr}
+ 	\Declare@FontShape{cidjmg}{m}{01234}{cidjmgr}
+ \else
+ 	\if@kana
+-		\DeclareFontShape{JY1}{ruby}{bx}{n}{<-> s * [\utf@sc@le] rubygothb-h}{}
+-		\DeclareFontShape{JT1}{ruby}{bx}{n}{<-> s * [\utf@sc@le] rubygothb-v}{}
++		\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-h}{}
++		\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-v}{}
+ 	\fi
+ 	\if@bold
+ 		\Declare@FontShape{utfj}{bx}{0123456789abcdef}{utfjgb}
+@@ -235,31 +245,31 @@
+ \def\ltdefault{l}
+ \if@deluxe
+ 	\if@kana
+-		\DeclareFontShape{JY1}{mc}{l}{n}{<-> s * [\utf@sc@le] expminl-h}{}
+-		\DeclareFontShape{JT1}{mc}{l}{n}{<-> s * [\utf@sc@le] expminl-v}{}
+-		\DeclareFontShape{JY1}{ruby}{l}{n}{<-> s * [\utf@sc@le] rubyminl-h}{}
+-		\DeclareFontShape{JT1}{ruby}{l}{n}{<-> s * [\utf@sc@le] rubyminl-v}{}
++		\DeclareFontShape{\otf@JYn}{mc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminl-h}{}
++		\DeclareFontShape{\otf@JTn}{mc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ expminl-v}{}
++		\DeclareFontShape{\otf@JYn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-h}{}
++		\DeclareFontShape{\otf@JTn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-v}{}
+ 	\else
+-		\DeclareFontShape{JY1}{mc}{l}{n}{<-> s * [\utf@sc@le] nmlminl-h}{}
+-		\DeclareFontShape{JT1}{mc}{l}{n}{<-> s * [\utf@sc@le] nmlminl-v}{}
++		\DeclareFontShape{\otf@JYn}{mc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl-h}{}
++		\DeclareFontShape{\otf@JTn}{mc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl-v}{}
+ 	\fi
+ 	\Declare@FontShape{utfj}{l}{0123456789abcdef}{utfjml}
+ 	\Declare@FontShape{cidj}{l}{01234}{cidjml}
+ \fi
+ %extra fonts
+ \if@deluxe
+-	\DeclareFontShape{JY1}{gt}{eb}{n}{<-> s * [\utf@sc@le] nmlgotheb-h}{}
+-	\DeclareFontShape{JT1}{gt}{eb}{n}{<-> s * [\utf@sc@le] nmlgotheb-v}{}
+-	\DeclareFontShape{JY1}{mc}{m}{prp}{<-> s * [\utf@sc@le] phiraminw3-h}{}
+-	\DeclareFontShape{JY1}{mc}{bx}{prp}{<-> s * [\utf@sc@le] phiraminw6-h}{}
+-	\DeclareFontShape{JY1}{gt}{m}{prp}{<-> s * [\utf@sc@le] phirakakuw3-h}{}
+-	\DeclareFontShape{JY1}{gt}{bx}{prp}{<-> s * [\utf@sc@le] phirakakuw6-h}{}
+-	\DeclareFontShape{JY1}{mg}{m}{prp}{<-> s * [\utf@sc@le] phiramaruw4-h}{}
+-	\DeclareFontShape{JT1}{mc}{m}{prp}{<-> s * [\utf@sc@le] phiraminw3-v}{}
+-	\DeclareFontShape{JT1}{mc}{bx}{prp}{<-> s * [\utf@sc@le] phiraminw6-v}{}
+-	\DeclareFontShape{JT1}{gt}{m}{prp}{<-> s * [\utf@sc@le] phirakakuw3-v}{}
+-	\DeclareFontShape{JT1}{gt}{bx}{prp}{<-> s * [\utf@sc@le] phirakakuw6-v}{}
+-	\DeclareFontShape{JT1}{mg}{m}{prp}{<-> s * [\utf@sc@le] phiramaruw4-v}{}
++	\DeclareFontShape{\otf@JYn}{gt}{eb}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgotheb-h}{}
++	\DeclareFontShape{\otf@JTn}{gt}{eb}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlgotheb-v}{}
++	\DeclareFontShape{\otf@JYn}{mc}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw3-h}{}
++	\DeclareFontShape{\otf@JYn}{mc}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw6-h}{}
++	\DeclareFontShape{\otf@JYn}{gt}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw3-h}{}
++	\DeclareFontShape{\otf@JYn}{gt}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw6-h}{}
++	\DeclareFontShape{\otf@JYn}{mg}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiramaruw4-h}{}
++	\DeclareFontShape{\otf@JTn}{mc}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw3-v}{}
++	\DeclareFontShape{\otf@JTn}{mc}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw6-v}{}
++	\DeclareFontShape{\otf@JTn}{gt}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw3-v}{}
++	\DeclareFontShape{\otf@JTn}{gt}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw6-v}{}
++	\DeclareFontShape{\otf@JTn}{mg}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiramaruw4-v}{}
+ 	\DeclareRobustCommand\propshape
+ 		{\not@math@alphabet\propshape\relax
+ 		\kanjishape\propdefault\selectfont}

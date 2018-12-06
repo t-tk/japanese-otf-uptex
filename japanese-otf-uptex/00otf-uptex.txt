@@ -14,12 +14,11 @@ umkjvf : mkjvf with unicode support
 basepl/ubase-h.pl : unicode version of base-h.pl
 basepl/ubase-v.pl : unicode version of base-v.pl
 
-tfm/*.tfm : tfm files
-vf/*.vf  : vf files
 sty/*.sty : style files to overwirte original ones.
 
 test/uplatex : test sample.
 
+patch/*.patch : patch for original style files sty/*.sty in otfstable.zip
 
 [ status ]
 alpha version.
@@ -29,13 +28,19 @@ proportional kana is not supported yet.
 [ history ]
 2007.12.09 Ver0.00
   Initial version.
-2007.01.12 Ver0.01
+2008.01.12 Ver0.01
   umakeotf
     Revised: for upTeX-0.20
   umkjvf::
     Bug fix: Ruby glyphs, horizontally- and vertically optimized kana glyphs.
     Revised: for upTeX-0.20
   ubase-h.pl::
-    Insert glue between halfwidth kana and others at vertical writing.
+    Insert glue between halfwidth kana and others at horizontal writing.
   test/uplatex::
     Revised.
+2008.10.01 Ver0.02
+  re-packaged for upTeX-0.24
+  tfm/*.tfm, vf/*.vf::
+    Deleted
+  patch/*.patch::
+    Included
