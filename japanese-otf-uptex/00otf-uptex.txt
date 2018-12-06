@@ -44,3 +44,14 @@ proportional kana is not supported yet.
     Deleted
   patch/*.patch::
     Included
+2008.11.08 Ver0.03
+  Revised: for upTeX-0.25
+  umkjvf::
+    Add: Ruby glyphs, horizontally- and vertically optimized kana glyphs
+      in JIS X 0213 (ainu kana, etc.)
+  fontmap/*::
+    Revised.
+  test/uplatex/*::
+    Revised.
+  patch/*.patch::
+    Revised.

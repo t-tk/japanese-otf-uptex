@@ -3,6 +3,7 @@
 \def\@opt@{multi}
 \def\@default{default}
 \def\@jarticle{jarticle}
+\def\@tarticle{tarticle}
 
 \ifx\option\@undefined
  \def\option{default}
@@ -17,7 +18,10 @@
 \fi
 \ifx\class\@jarticle
 \else
- \edef\@opt@{uplatex,\@opt@}
+ \ifx\class\@tarticle
+ \else
+  \edef\@opt@{uplatex,\@opt@}
+ \fi
 \fi
 
 \documentclass[a4paper,titlepage, draft]{\class}

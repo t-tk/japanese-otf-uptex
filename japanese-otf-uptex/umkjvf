@@ -124,6 +124,14 @@ sub font_header {
 			print  OVP "   (FONTAT R 1)\n";
 			printf OVP "   (FONTDSIZE R 10)\n";
 			print  OVP "   )\n";
+		    if ($ucs) {
+			print  OVP "(MAPFONT D 3\n";
+			print  OVP "   (FONTNAME $face"."4-h)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			print  OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		    }
 		}elsif ($direction eq "t"){
 			print  OVP "(MAPFONT D 2\n";
 			print  OVP "   (FONTNAME $face"."3-v)\n";
@@ -131,6 +139,14 @@ sub font_header {
 			printf OVP "   (FONTAT R 1)\n";
 			printf OVP "   (FONTDSIZE R 10)\n";
 			print  OVP "   )\n";
+		    if ($ucs) {
+			print  OVP "(MAPFONT D 3\n";
+			print  OVP "   (FONTNAME $face"."4-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			print  OVP "   (FONTAT R 1)\n";
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		    }
 		}
 	} elsif ($expert == 1) {
 		&get_face;
@@ -154,6 +170,14 @@ sub font_header {
 			printf OVP "   (FONTAT R %f)\n",$scale;
 			printf OVP "   (FONTDSIZE R 10)\n";
 			print  OVP "   )\n";
+		    if ($ucs) {
+			print  OVP "(MAPFONT D 3\n";
+			print  OVP "   (FONTNAME $face"."4-v)\n";
+			print  OVP "   (FONTCHECKSUM O 0)\n";
+			printf OVP "   (FONTAT R %f)\n",$scale;
+			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   )\n";
+		    }
 		}
 	} else {
 		if ($kana_font ne ""){
@@ -617,6 +641,9 @@ sub print_hankana_char{
 	print  OVP "   )\n";
 }
 sub print_ruby_hira_char{
+	if (&is_dvicode('hira-Vu')){$ruby_hira_code=0x3744;}
+	if (&is_dvicode('hira-ka')){$ruby_hira_code=0x363A;}
+	if (&is_dvicode('hira-ke')){$ruby_hira_code=0x3641;}
 	$ruby_hira_code_orig=$ruby_hira_code;
 	if ($direction eq "t"){&fix_ruby_hira_code;}
 	printf OVP "(CHARACTER H %X\n", $dvicode;
@@ -638,11 +665,15 @@ sub print_ruby_kata_char{
 	$ruby_kata_code_orig=$ruby_kata_code;
 	if (&is_dvicode('kata-ka')){$ruby_kata_code=0x375C;}
 	if (&is_dvicode('kata-ke')){$ruby_kata_code=0x3763;}
+	if (&is_dvicode('kata-Va')){$ruby_kata_code_orig=$ruby_kata_code=0x306C;
+							$ruby_font_map=3;}        # JIS X 0213
+	if (&is_dvicode('kata-ku')){$ruby_kata_code_orig=$ruby_kata_code=0x305B;} # JIS X 0213
+	if (&is_dvicode('kata-mu')){$ruby_kata_code_orig=$ruby_kata_code=0x3066;} # JIS X 0213
 	if ($direction eq "t"){&fix_ruby_kata_code;}
 	printf OVP "(CHARACTER H %X\n", $dvicode;
 	printf OVP "   (CHARWD R %f)\n",$font_at;
 	print  OVP "   (MAP\n";
-	print  OVP "      (SELECTFONT D 2)\n";
+	printf OVP "      (SELECTFONT D %d)\n",$ruby_font_map;
 	&baseline_shift;
 	printf OVP "      (SETCHAR H %X)\n", $ruby_kata_code;
 	print  OVP "      )\n";
@@ -654,6 +685,9 @@ sub print_ruby_kata_char{
 	if ($ruby_kata_code == 0x3763){$ruby_kata_code=0x3764;}
 }
 sub exp_hira_h_char{
+	if (&is_dvicode('hira-Vu')){$exp_hira_code_h=0x3139;$exp_font_map=3;} # JIS X 0213
+	if (&is_dvicode('hira-ka')){$exp_hira_code_h=0x6f6d;$exp_font_map=2;} # JIS X 0213
+	if (&is_dvicode('hira-ke')){$exp_hira_code_h=0x3034;$exp_font_map=3;} # JIS X 0213
 	printf OVP "(CHARACTER H %X\n", $dvicode;
 	printf OVP "   (CHARWD R %f)\n",$font_at;
 	print  OVP "   (MAP\n";
@@ -673,6 +707,9 @@ sub exp_hira_h_char{
 sub exp_kata_h_char{
 	if (&is_dvicode('kata-ka')){$exp_kata_code_h=0x3147;}
 	if (&is_dvicode('kata-ke')){$exp_kata_code_h=0x314e;}
+	if (&is_dvicode('kata-Va')){$exp_kata_code_h=0x3254;} # JIS X 0213
+	if (&is_dvicode('kata-ku')){$exp_kata_code_h=0x6f5d;} # JIS X 0213
+	if (&is_dvicode('kata-mu')){$exp_kata_code_h=0x6f68;} # JIS X 0213
 	printf OVP "(CHARACTER H %X\n", $dvicode;
 	printf OVP "   (CHARWD R %f)\n",$font_at;
 	print  OVP "   (MAP\n";
@@ -689,10 +726,13 @@ sub exp_kata_h_char{
 	if ($exp_kata_code_h == 0x3151){$exp_kata_code_h++;}
 }
 sub exp_hira_v_char{
+	if (&is_dvicode('hira-Vu')){$exp_hira_code_v=0x3430;$exp_font_map=2;} # JIS X 0213
+	if (&is_dvicode('hira-ka')){$exp_hira_code_v=0x3264;$exp_font_map=2;} # JIS X 0213
+	if (&is_dvicode('hira-ke')){$exp_hira_code_v=0x326b;$exp_font_map=2;} # JIS X 0213
 	printf OVP "(CHARACTER H %X\n", $dvicode;
 	printf OVP "   (CHARWD R %f)\n",$font_at;
 	print  OVP "   (MAP\n";
-	printf OVP "      (SELECTFONT D 2)\n";
+	printf OVP "      (SELECTFONT D %d)\n", $exp_font_map;
 	&baseline_shift;
 	&scaled_shift;
 	printf OVP "      (SETCHAR H %X)\n", $exp_hira_code_v;
@@ -707,10 +747,13 @@ sub exp_hira_v_char{
 sub exp_kata_v_char{
 	if (&is_dvicode('kata-ka')){$exp_kata_code_v=0x343e;}
 	if (&is_dvicode('kata-ke')){$exp_kata_code_v=0x3445;}
+	if (&is_dvicode('kata-Va')){$exp_kata_code_v=0x354b;}                 # JIS X 0213
+	if (&is_dvicode('kata-ku')){$exp_kata_code_v=0x303b;$exp_font_map=3;} # JIS X 0213
+	if (&is_dvicode('kata-mu')){$exp_kata_code_v=0x3046;}                 # JIS X 0213
 	printf OVP "(CHARACTER H %X\n", $dvicode;
 	printf OVP "   (CHARWD R %f)\n",$font_at;
 	print  OVP "   (MAP\n";
-	print  OVP "      (SELECTFONT D 2)\n";
+	printf OVP "      (SELECTFONT D %d)\n", $exp_font_map;
 	&baseline_shift;
 	&scaled_shift;
 	printf OVP "      (SETCHAR H %X)\n", $exp_kata_code_v;
@@ -733,6 +776,8 @@ sub fix_ruby_hira_code{
 	if (&is_dvicode('hira-yu' )){$ruby_hira_code=0x374e;}#yu
 	if (&is_dvicode('hira-yo' )){$ruby_hira_code=0x374f;}#yo
 	if (&is_dvicode('hira-wa' )){$ruby_hira_code=0x3750;}#wa
+	if (&is_dvicode('hira-ka' )){$ruby_hira_code=0x374a;} # JIS X 0213
+	if (&is_dvicode('hira-ke' )){$ruby_hira_code=0x374b;} # JIS X 0213
 }
 sub fix_ruby_kata_code{
 	if (&is_dvicode('kata-a'  )){$ruby_kata_code=0x3867;}#a
@@ -747,6 +792,7 @@ sub fix_ruby_kata_code{
 	if (&is_dvicode('kata-wa' )){$ruby_kata_code=0x3932;}#wa
 	if (&is_dvicode('kata-ka' )){$ruby_kata_code=0x386c;}#ka
 	if (&is_dvicode('kata-ke' )){$ruby_kata_code=0x386d;}#ke 
+	if (&is_dvicode('kata-ku..ro')){$ruby_kata_code+=215;} # JIS X 0213
 }
 sub get_shift_jiscode{
 	$c1=$ku+32;
@@ -824,28 +870,39 @@ sub is_dvicode{
 
 	die "illegal keyname ($key)\n";
     } else { # ucs
-	if ($key eq 'hira-a')   { return ($code == 0x3041);}
-	if ($key eq 'hira-i')   { return ($code == 0x3043);}
-	if ($key eq 'hira-u')   { return ($code == 0x3045);}
-	if ($key eq 'hira-e')   { return ($code == 0x3047);}
-	if ($key eq 'hira-o')   { return ($code == 0x3049);}
-	if ($key eq 'hira-tsu') { return ($code == 0x3063);}
-	if ($key eq 'hira-ya')  { return ($code == 0x3083);}
-	if ($key eq 'hira-yu')  { return ($code == 0x3085);}
-	if ($key eq 'hira-yo')  { return ($code == 0x3087);}
-	if ($key eq 'hira-wa')  { return ($code == 0x308E);}
-	if ($key eq 'kata-a')   { return ($code == 0x30A1);}
-	if ($key eq 'kata-i')   { return ($code == 0x30A3);}
-	if ($key eq 'kata-u')   { return ($code == 0x30A5);}
-	if ($key eq 'kata-e')   { return ($code == 0x30A7);}
-	if ($key eq 'kata-o')   { return ($code == 0x30A9);}
-	if ($key eq 'kata-tsu') { return ($code == 0x30C3);}
-	if ($key eq 'kata-ya')  { return ($code == 0x30E3);}
-	if ($key eq 'kata-yu')  { return ($code == 0x30E5);}
-	if ($key eq 'kata-yo')  { return ($code == 0x30E7);}
-	if ($key eq 'kata-wa')  { return ($code == 0x30EE);}
-	if ($key eq 'kata-ka')  { return ($code == 0x30F5);}
-	if ($key eq 'kata-ke')  { return ($code == 0x30F6);}
+	if ($key eq 'hira-a')   { return ($code == 0x3041);} # small
+	if ($key eq 'hira-i')   { return ($code == 0x3043);} # :
+	if ($key eq 'hira-u')   { return ($code == 0x3045);} # :
+	if ($key eq 'hira-e')   { return ($code == 0x3047);} # :
+	if ($key eq 'hira-o')   { return ($code == 0x3049);} # :
+	if ($key eq 'hira-tsu') { return ($code == 0x3063);} # :
+	if ($key eq 'hira-ya')  { return ($code == 0x3083);} # :
+	if ($key eq 'hira-yu')  { return ($code == 0x3085);} # :
+	if ($key eq 'hira-yo')  { return ($code == 0x3087);} # :
+	if ($key eq 'hira-wa')  { return ($code == 0x308E);} # small
+	if ($key eq 'hira-Vu')  { return ($code == 0x3094);} # large  JIS X 0213
+	if ($key eq 'hira-ka')  { return ($code == 0x3095);} # small  JIS X 0213
+	if ($key eq 'hira-ke')  { return ($code == 0x3096);} # small  JIS X 0213
+	if ($key eq 'kata-a')   { return ($code == 0x30A1);} # small
+	if ($key eq 'kata-i')   { return ($code == 0x30A3);} # :
+	if ($key eq 'kata-u')   { return ($code == 0x30A5);} # :
+	if ($key eq 'kata-e')   { return ($code == 0x30A7);} # :
+	if ($key eq 'kata-o')   { return ($code == 0x30A9);} # :
+	if ($key eq 'kata-tsu') { return ($code == 0x30C3);} # :
+	if ($key eq 'kata-ya')  { return ($code == 0x30E3);} # :
+	if ($key eq 'kata-yu')  { return ($code == 0x30E5);} # :
+	if ($key eq 'kata-yo')  { return ($code == 0x30E7);} # :
+	if ($key eq 'kata-wa')  { return ($code == 0x30EE);} # :
+	if ($key eq 'kata-ka')  { return ($code == 0x30F5);} # :
+	if ($key eq 'kata-ke')  { return ($code == 0x30F6);} # small
+	if ($key eq 'kata-Va')  { return ($code == 0x30F7);} # large  JIS X 0213
+	if ($key eq 'kata-Vi')  { return ($code == 0x30F8);} # :      JIS X 0213
+	if ($key eq 'kata-Ve')  { return ($code == 0x30F9);} # :      JIS X 0213
+	if ($key eq 'kata-Vo')  { return ($code == 0x30FA);} # large  JIS X 0213
+	if ($key eq 'kata-ku')  { return ($code == 0x31F0);} # small  JIS X 0213
+	if ($key eq 'kata-mu')  { return ($code == 0x31FA);} # small  JIS X 0213
+	if ($key eq 'kata-ku..ro')  { return
+		($code >= 0x31F0 && $code <= 0x31FF);}       # small  JIS X 0213
 	if ($key eq 'comma')  { return ($code == 0xFF0C);}
 	if ($key eq 'period') { return ($code == 0xFF0E);}
 	if ($key eq 'odoriji') { return 
@@ -899,7 +956,8 @@ sub is_ucs_kigo{
 	return 1 if ($ucscode>=0x2018 && $ucscode<=0x2019);
 	return 1 if ($ucscode>=0x201C && $ucscode<=0x201D);
 	return 1 if ($ucscode>=0x3001 && $ucscode<=0x301F);
-	return 1 if ($ucscode>=0x3090 && $ucscode<=0x309F);
+	return 1 if ($ucscode>=0x3090 && $ucscode<=0x3093);
+	return 1 if ($ucscode>=0x3097 && $ucscode<=0x309F);
 	return 1 if ($ucscode>=0x30FB && $ucscode<=0x30FE);
 	return 1 if ($ucscode>=0xFF08 && $ucscode<=0xFF60);
 
@@ -908,11 +966,14 @@ sub is_ucs_kigo{
 
 sub is_ucs_hira{
 	return 1 if ($ucscode>=0x3041 && $ucscode<=0x308F);
+	return 1 if ($ucscode>=0x3094 && $ucscode<=0x3096); # Vu, small Ka, small Ke
 	return 0;
 }
 
 sub is_ucs_kata{
 	return 1 if ($ucscode>=0x30A1 && $ucscode<=0x30F6);
+	return 1 if ($ucscode>=0x30F7 && $ucscode<=0x30FA); # Va, Vi, Ve, Vo
+	return 1 if ($ucscode>=0x31F0 && $ucscode<=0x31FF); # small Ku, small Shi, ... , Small Re, Small Ro
 	return 0;
 }
 

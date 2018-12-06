@@ -81,5 +81,11 @@ echo "making alt. kana ..."
 ./umkjvf -ucs -cq -chk -ruby uprubyminl-h uphminl-h cidjminl
 ./umkjvf -ucs -cm -cp -ruby uprubyminl-v uphminl-v cidjminl
 echo "finishing ..."
+if test ! -d vf; then
+mkdir vf
+fi
+if test ! -d tfm; then
+mkdir tfm
+fi
 mv *.vf vf/
 mv *.tfm tfm/

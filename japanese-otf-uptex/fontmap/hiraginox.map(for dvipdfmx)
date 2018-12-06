@@ -1,0 +1,69 @@
+otf-ujmr-h      UniJIS-UTF16-H        HiraMinPro-W3
+otf-ujmr-v      UniJIS-UTF16-V        HiraMinPro-W3
+otf-cjmr-h       Identity-H      HiraMinPro-W3
+otf-cjmr-v       Identity-V  HiraMinPro-W3
+hminr-h   H HiraMinPro-W3
+hminr-v V HiraMinPro-W3
+uphminr-h      UniJIS-UTF16-H        HiraMinPro-W3
+uphminr-v      UniJIS-UTF16-V        HiraMinPro-W3
+
+otf-ujgr-h    UniJIS-UTF16-H       HiraKakuPro-W3
+otf-ujgr-v    UniJIS-UTF16-V       HiraKakuPro-W3
+otf-cjgr-h     Identity-H     HiraKakuPro-W3
+otf-cjgr-v     Identity-V HiraKakuPro-W3
+hgothr-h   H HiraKakuPro-W3
+hgothr-v V HiraKakuPro-W3
+uphgothr-h    UniJIS-UTF16-H       HiraKakuPro-W3
+uphgothr-v    UniJIS-UTF16-V       HiraKakuPro-W3
+
+otf-ujmb-h      UniJIS-UTF16-H    HiraMinPro-W6
+otf-ujmb-v      UniJIS-UTF16-V    HiraMinPro-W6
+otf-cjmb-h  Identity-H HiraMinPro-W6
+otf-cjmb-v  Identity-V HiraMinPro-W6
+hminb-h   H HiraMinPro-W6
+hminb-v V HiraMinPro-W6
+uphminb-h      UniJIS-UTF16-H    HiraMinPro-W6
+uphminb-v      UniJIS-UTF16-V    HiraMinPro-W6
+
+otf-ujgb-h    UniJIS-UTF16-H    HiraKakuPro-W6
+otf-ujgb-v    UniJIS-UTF16-V    HiraKakuPro-W6
+otf-cjgb-h  Identity-H HiraKakuPro-W6
+otf-cjgb-v  Identity-V HiraKakuPro-W6
+hgothb-h   H HiraKakuPro-W6
+hgothb-v V HiraKakuPro-W6
+uphgothb-h    UniJIS-UTF16-H    HiraKakuPro-W6
+uphgothb-v    UniJIS-UTF16-V    HiraKakuPro-W6
+
+hgotheb-h H HiraKakuStd-W8
+hgotheb-v V HiraKakuStd-W8
+uphgotheb-h UniJIS-UTF16-H HiraKakuStd-W8
+uphgotheb-v UniJIS-UTF16-V HiraKakuStd-W8
+
+otf-ujmgr-h    UniJIS-UTF16-H       HiraMaruPro-W4
+otf-ujmgr-v    UniJIS-UTF16-V       HiraMaruPro-W4
+otf-cjmgr-h     Identity-H     HiraMaruPro-W4
+otf-cjmgr-v     Identity-V HiraMaruPro-W4
+hmgothr-h    H HiraMaruPro-W4
+hmgothr-v  V HiraMaruPro-W4
+uphmgothr-h    UniJIS-UTF16-H       HiraMaruPro-W4
+uphmgothr-v    UniJIS-UTF16-V       HiraMaruPro-W4
+
+otf-ujml-h      UniJIS-UTF16-H        HiraMinPro-W2
+otf-ujml-v      UniJIS-UTF16-V        HiraMinPro-W2
+otf-cjml-h       Identity-H      HiraMinPro-W2
+otf-cjml-v       Identity-V  HiraMinPro-W2
+hminl-h   H HiraMinPro-W2
+hminl-v V HiraMinPro-W2
+uphminl-h      UniJIS-UTF16-H        HiraMinPro-W2
+uphminl-v      UniJIS-UTF16-V        HiraMinPro-W2
+
+hiramin-w3-h Identity-H HiraMinPro-W3
+hiramin-w6-h Identity-H HiraMinPro-W6
+hirakaku-w3-h Identity-H HiraKakuPro-W3
+hirakaku-w6-h Identity-H HiraKakuPro-W6
+hiramaru-w4-h Identity-H HiraMaruPro-W4
+hiramin-w3-v Identity-V HiraMinPro-W3
+hiramin-w6-v Identity-V HiraMinPro-W6
+hirakaku-w3-v Identity-V HiraKakuPro-W3
+hirakaku-w6-v Identity-V HiraKakuPro-W6
+hiramaru-w4-v Identity-V HiraMaruPro-W4
