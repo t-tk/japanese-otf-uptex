@@ -1,0 +1,352 @@
+diff -uNr otfstable.orig/fontmap/hiragino.map(for udvips) otfstable/fontmap/hiragino.map(for udvips)
+--- otfstable.orig/fontmap/hiragino.map(for udvips)	2004-02-18 00:01:34 +0900
++++ otfstable/fontmap/hiragino.map(for udvips)	2008-10-29 21:01:26 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v 	HiraMinPro-W3-Identity-V
+ hminr-h HiraMinPro-W3-H
+ hminr-v HiraMinPro-W3-V
++uphminr-h	HiraMinPro-W3-UniJIS-UTF16-H
++uphminr-v	HiraMinPro-W3-UniJIS-UTF16-V
+ 
+ otf-ujgr-h	HiraKakuPro-W3-UniJIS-UTF16-H
+ otf-ujgr-v	HiraKakuPro-W3-UniJIS-UTF16-V
+@@ -11,6 +13,8 @@
+ otf-cjgr-v 	HiraKakuPro-W3-Identity-V
+ hgothr-h HiraKakuPro-W3-H
+ hgothr-v HiraKakuPro-W3-V
++uphgothr-h	HiraKakuPro-W3-UniJIS-UTF16-H
++uphgothr-v	HiraKakuPro-W3-UniJIS-UTF16-V
+ 
+ otf-ujmb-h	HiraMinPro-W6-UniJIS-UTF16-H
+ otf-ujmb-v	HiraMinPro-W6-UniJIS-UTF16-V
+@@ -18,6 +22,8 @@
+ otf-cjmb-v 	HiraMinPro-W6-Identity-V
+ hminb-h HiraMinPro-W6-H
+ hminb-v HiraMinPro-W6-V
++uphminb-h	HiraMinPro-W6-UniJIS-UTF16-H
++uphminb-v	HiraMinPro-W6-UniJIS-UTF16-V
+ 
+ otf-cjgb-h 	HiraKakuPro-W6-Identity-H
+ otf-cjgb-v 	HiraKakuPro-W6-Identity-V
+@@ -25,9 +31,13 @@
+ otf-ujgb-v	HiraKakuPro-W6-UniJIS-UTF16-V
+ hgothb-h HiraKakuPro-W6-H
+ hgothb-v HiraKakuPro-W6-V
++uphgothb-h	HiraKakuPro-W6-UniJIS-UTF16-H
++uphgothb-v	HiraKakuPro-W6-UniJIS-UTF16-V
+ 
+ hgotheb-h HiraKakuStd-W8-H
+ hgotheb-v HiraKakuStd-W8-V
++uphgotheb-h HiraKakuStd-W8-UniJIS-UTF16-H
++uphgotheb-v HiraKakuStd-W8-UniJIS-UTF16-V
+ 
+ otf-ujmgr-h	HiraMaruPro-W4-UniJIS-UTF16-H
+ otf-ujmgr-v	HiraMaruPro-W4-UniJIS-UTF16-V
+@@ -35,6 +45,8 @@
+ otf-cjmgr-v 	HiraMaruPro-W4-Identity-V
+ hmgothr-h HiraMaruPro-W4-H
+ hmgothr-v HiraMaruPro-W4-V
++uphmgothr-h	HiraMaruPro-W4-UniJIS-UTF16-H
++uphmgothr-v	HiraMaruPro-W4-UniJIS-UTF16-V
+ 
+ otf-ujml-h	HiraMinPro-W2-UniJIS-UTF16-H
+ otf-ujml-v	HiraMinPro-W2-UniJIS-UTF16-V
+@@ -42,6 +54,8 @@
+ otf-cjml-v 	HiraMinPro-W2-Identity-V
+ hminl-h HiraMinPro-W2-H
+ hminl-v HiraMinPro-W2-V
++uphminl-h	HiraMinPro-W2-UniJIS-UTF16-H
++uphminl-v	HiraMinPro-W2-UniJIS-UTF16-V
+ 
+ hiramin-w3-h HiraMinPro-W3-Identity-H
+ hiramin-w6-h HiraMinPro-W6-Identity-H
+diff -uNr otfstable.orig/fontmap/hiraginox.map(for dvipdfmx) otfstable/fontmap/hiraginox.map(for dvipdfmx)
+--- otfstable.orig/fontmap/hiraginox.map(for dvipdfmx)	2004-02-18 00:00:44 +0900
++++ otfstable/fontmap/hiraginox.map(for dvipdfmx)	2008-10-29 21:04:33 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v       Identity-V  HiraMinPro-W3
+ hminr-h   H HiraMinPro-W3
+ hminr-v V HiraMinPro-W3
++uphminr-h      UniJIS-UTF16-H        HiraMinPro-W3
++uphminr-v      UniJIS-UTF16-V        HiraMinPro-W3
+ 
+ otf-ujgr-h    UniJIS-UTF16-H       HiraKakuPro-W3
+ otf-ujgr-v    UniJIS-UTF16-V       HiraKakuPro-W3
+@@ -11,6 +13,8 @@
+ otf-cjgr-v     Identity-V HiraKakuPro-W3
+ hgothr-h   H HiraKakuPro-W3
+ hgothr-v V HiraKakuPro-W3
++uphgothr-h    UniJIS-UTF16-H       HiraKakuPro-W3
++uphgothr-v    UniJIS-UTF16-V       HiraKakuPro-W3
+ 
+ otf-ujmb-h      UniJIS-UTF16-H    HiraMinPro-W6
+ otf-ujmb-v      UniJIS-UTF16-V    HiraMinPro-W6
+@@ -18,6 +22,8 @@
+ otf-cjmb-v  Identity-V HiraMinPro-W6
+ hminb-h   H HiraMinPro-W6
+ hminb-v V HiraMinPro-W6
++uphminb-h      UniJIS-UTF16-H    HiraMinPro-W6
++uphminb-v      UniJIS-UTF16-V    HiraMinPro-W6
+ 
+ otf-ujgb-h    UniJIS-UTF16-H    HiraKakuPro-W6
+ otf-ujgb-v    UniJIS-UTF16-V    HiraKakuPro-W6
+@@ -25,9 +31,13 @@
+ otf-cjgb-v  Identity-V HiraKakuPro-W6
+ hgothb-h   H HiraKakuPro-W6
+ hgothb-v V HiraKakuPro-W6
++uphgothb-h    UniJIS-UTF16-H    HiraKakuPro-W6
++uphgothb-v    UniJIS-UTF16-V    HiraKakuPro-W6
+ 
+ hgotheb-h H HiraKakuStd-W8
+ hgotheb-v V HiraKakuStd-W8
++uphgotheb-h UniJIS-UTF16-H HiraKakuStd-W8
++uphgotheb-v UniJIS-UTF16-V HiraKakuStd-W8
+ 
+ otf-ujmgr-h    UniJIS-UTF16-H       HiraMaruPro-W4
+ otf-ujmgr-v    UniJIS-UTF16-V       HiraMaruPro-W4
+@@ -35,6 +45,8 @@
+ otf-cjmgr-v     Identity-V HiraMaruPro-W4
+ hmgothr-h    H HiraMaruPro-W4
+ hmgothr-v  V HiraMaruPro-W4
++uphmgothr-h    UniJIS-UTF16-H       HiraMaruPro-W4
++uphmgothr-v    UniJIS-UTF16-V       HiraMaruPro-W4
+ 
+ otf-ujml-h      UniJIS-UTF16-H        HiraMinPro-W2
+ otf-ujml-v      UniJIS-UTF16-V        HiraMinPro-W2
+@@ -42,6 +54,8 @@
+ otf-cjml-v       Identity-V  HiraMinPro-W2
+ hminl-h   H HiraMinPro-W2
+ hminl-v V HiraMinPro-W2
++uphminl-h      UniJIS-UTF16-H        HiraMinPro-W2
++uphminl-v      UniJIS-UTF16-V        HiraMinPro-W2
+ 
+ hiramin-w3-h Identity-H HiraMinPro-W3
+ hiramin-w6-h Identity-H HiraMinPro-W6
+diff -uNr otfstable.orig/fontmap/kozuka.map otfstable/fontmap/kozuka.map
+--- otfstable.orig/fontmap/kozuka.map	2003-12-21 16:39:34 +0900
++++ otfstable/fontmap/kozuka.map	2008-10-29 20:56:09 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v      KozMinPro-Regular-Acro-Identity-V
+ hminr-h         KozMinPro-Regular-Acro-H
+ hminr-v         KozMinPro-Regular-Acro-V
++uphminr-h       KozMinPro-Regular-Acro-UniJIS-UTF16-H
++uphminr-v       KozMinPro-Regular-Acro-UniJIS-UTF16-V
+ 
+ otf-ujgr-h      KozGoStd-Regular-UniJIS-UTF16-H
+ otf-ujgr-v      KozGoStd-Regular-UniJIS-UTF16-V
+@@ -11,6 +13,8 @@
+ otf-cjgr-v      KozGoStd-Regular-Identity-V
+ hgothr-h        KozGoStd-Regular-H
+ hgothr-v        KozGoStd-Regular-V
++uphgothr-h      KozGoStd-Regular-UniJIS-UTF16-H
++uphgothr-v      KozGoStd-Regular-UniJIS-UTF16-V
+ 
+ otf-ujmb-h      KozMinStd-Bold-UniJIS-UTF16-H
+ otf-ujmb-v      KozMinStd-Bold-UniJIS-UTF16-V
+@@ -18,6 +22,8 @@
+ otf-cjmb-v      KozMinStd-Bold-Identity-V
+ hminb-h         KozMinStd-Bold-H
+ hminb-v         KozMinStd-Bold-V
++uphminb-h       KozMinStd-Bold-UniJIS-UTF16-H
++uphminb-v       KozMinStd-Bold-UniJIS-UTF16-V
+ 
+ otf-cjgb-h      KozGoStd-Bold-Identity-H
+ otf-cjgb-v      KozGoStd-Bold-Identity-V
+@@ -25,6 +31,8 @@
+ otf-ujgb-v      KozGoStd-Bold-UniJIS-UTF16-V
+ hgothb-h        KozGoStd-Bold-H
+ hgothb-v        KozGoStd-Bold-V
++uphgothb-h      KozGoStd-Bold-UniJIS-UTF16-H
++uphgothb-v      KozGoStd-Bold-UniJIS-UTF16-V
+ 
+ otf-ujmgr-h     KozGoStd-Heavy-UniJIS-UTF16-H
+ otf-ujmgr-v     KozGoStd-Heavy-UniJIS-UTF16-V
+@@ -32,3 +40,5 @@
+ otf-cjmgr-v     KozGoStd-Heavy-Identity-V
+ hmgothr-h       KozGoStd-Heavy-H
+ hmgothr-v       KozGoStd-Heavy-V
++uphmgothr-h     KozGoStd-Heavy-UniJIS-UTF16-H
++uphmgothr-v     KozGoStd-Heavy-UniJIS-UTF16-V
+diff -uNr otfstable.orig/fontmap/kozukax.map otfstable/fontmap/kozukax.map
+--- otfstable.orig/fontmap/kozukax.map	2003-12-19 07:14:46 +0900
++++ otfstable/fontmap/kozukax.map	2008-10-29 20:58:29 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v    Identity-V KozMinPro-Regular-Acro.otf
+ hminr-h       H KozMinPro-Regular-Acro.otf
+ hminr-v       V KozMinPro-Regular-Acro.otf
++uphminr-h     UniJIS-UTF16-H KozMinPro-Regular-Acro.otf
++uphminr-v     UniJIS-UTF16-V KozMinPro-Regular-Acro.otf
+ 
+ otf-ujgr-h    UniJIS-UTF16-H KozGoStd-Regular.otf
+ otf-ujgr-v    UniJIS-UTF16-V KozGoStd-Regular.otf
+@@ -11,6 +13,8 @@
+ otf-cjgr-v    Identity-V KozGoStd-Regular.otf
+ hgothr-h      H KozGoStd-Regular.otf
+ hgothr-v      V KozGoStd-Regular.otf
++uphgothr-h    UniJIS-UTF16-H KozGoStd-Regular.otf
++uphgothr-v    UniJIS-UTF16-V KozGoStd-Regular.otf
+ 
+ otf-ujmb-h    UniJIS-UTF16-H KozMinStd-Bold.otf
+ otf-ujmb-v    UniJIS-UTF16-V KozMinStd-Bold.otf
+@@ -18,6 +22,8 @@
+ otf-cjmb-v    Identity-V KozMinStd-Bold.otf
+ hminb-h       H KozMinStd-Bold.otf
+ hminb-v       V KozMinStd-Bold.otf
++uphminb-h     UniJIS-UTF16-H KozMinStd-Bold.otf
++uphminb-v     UniJIS-UTF16-V KozMinStd-Bold.otf
+ 
+ otf-cjgb-h    Identity-H KozGoStd-Bold.otf
+ otf-cjgb-v    Identity-V KozGoStd-Bold.otf
+@@ -25,6 +31,8 @@
+ otf-ujgb-v    UniJIS-UTF16-V KozGoStd-Bold.otf
+ hgothb-h      H KozGoStd-Bold.otf
+ hgothb-v      V KozGoStd-Bold.otf
++uphgothb-h    UniJIS-UTF16-H KozGoStd-Bold.otf
++uphgothb-v    UniJIS-UTF16-V KozGoStd-Bold.otf
+ 
+ otf-ujmgr-h   UniJIS-UTF16-H KozGoStd-Heavy.otf
+ otf-ujmgr-v   UniJIS-UTF16-V KozGoStd-Heavy.otf
+@@ -32,3 +40,5 @@
+ otf-cjmgr-v   Identity-V KozGoStd-Heavy.otf
+ hmgothr-h     H KozGoStd-Heavy.otf
+ hmgothr-v     V KozGoStd-Heavy.otf
++uphmgothr-h   UniJIS-UTF16-H KozGoStd-Heavy.otf
++uphmgothr-v   UniJIS-UTF16-V KozGoStd-Heavy.otf
+diff -uNr otfstable.orig/fontmap/morisawa.map(for udvips) otfstable/fontmap/morisawa.map(for udvips)
+--- otfstable.orig/fontmap/morisawa.map(for udvips)	2003-12-16 23:43:02 +0900
++++ otfstable/fontmap/morisawa.map(for udvips)	2008-10-29 21:06:09 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v 	RyuminPro-Light-Identity-V
+ hminr-h RyuminPro-Light-H
+ hminr-v RyuminPro-Light-V
++uphminr-h	RyuminPro-Light-UniJIS-UTF16-H
++uphminr-v	RyuminPro-Light-UniJIS-UTF16-V
+ 
+ otf-ujgr-h	GothicBBBPro-Medium-UniJIS-UTF16-H
+ otf-ujgr-v	GothicBBBPro-Medium-UniJIS-UTF16-V
+@@ -11,6 +13,8 @@
+ otf-cjgr-v 	GothicBBBPro-Medium-Identity-V
+ hgothr-h GothicBBBPro-Medium-H
+ hgothr-v GothicBBBPro-Medium-V
++uphgothr-h	GothicBBBPro-Medium-UniJIS-UTF16-H
++uphgothr-v	GothicBBBPro-Medium-UniJIS-UTF16-V
+ 
+ otf-ujmb-h	FutoMinA101Pro-Bold-UniJIS-UTF16-H
+ otf-ujmb-v	FutoMinA101Pro-Bold-UniJIS-UTF16-V
+@@ -18,6 +22,8 @@
+ otf-cjmb-v 	FutoMinA101Pro-Bold-Identity-V
+ hminb-h FutoMinA101Pro-Bold-H
+ hminb-v FutoMinA101Pro-Bold-V
++uphminb-h	FutoMinA101Pro-Bold-UniJIS-UTF16-H
++uphminb-v	FutoMinA101Pro-Bold-UniJIS-UTF16-V
+ 
+ otf-cjgb-h 	FutoGoB101Pro-Bold-Identity-H
+ otf-cjgb-v 	FutoGoB101Pro-Bold-Identity-V
+@@ -25,6 +31,8 @@
+ otf-ujgb-v	FutoGoB101Pro-Bold-UniJIS-UTF16-V
+ hgothb-h FutoGoB101Pro-Bold-H
+ hgothb-v FutoGoB101Pro-Bold-V
++uphgothb-h	FutoGoB101Pro-Bold-UniJIS-UTF16-H
++uphgothb-v	FutoGoB101Pro-Bold-UniJIS-UTF16-V
+ 
+ otf-ujmgr-h	Jun101Pro-Light-UniJIS-UTF16-H
+ otf-ujmgr-v	Jun101Pro-Light-UniJIS-UTF16-V
+@@ -32,3 +40,5 @@
+ otf-cjmgr-v 	Jun101Pro-Light-Identity-V
+ hmgothr-h Jun101Pro-Light-H
+ hmgothr-v Jun101Pro-Light-V
++uphmgothr-h	Jun101Pro-Light-UniJIS-UTF16-H
++uphmgothr-v	Jun101Pro-Light-UniJIS-UTF16-V
+diff -uNr otfstable.orig/fontmap/morisawax.map(for dvipdfmx) otfstable/fontmap/morisawax.map(for dvipdfmx)
+--- otfstable.orig/fontmap/morisawax.map(for dvipdfmx)	2004-08-17 21:36:06 +0900
++++ otfstable/fontmap/morisawax.map(for dvipdfmx)	2008-10-29 21:15:16 +0900
+@@ -4,6 +4,8 @@
+ otf-cjmr-v    Identity-V    A-OTF-RyuminPro-Light.otf
+ hminr-h    H    A-OTF-RyuminPro-Light.otf
+ hminr-v    V    A-OTF-RyuminPro-Light.otf
++uphminr-h    UniJIS-UTF16-H    A-OTF-RyuminPro-Light.otf
++uphminr-v    UniJIS-UTF16-V    A-OTF-RyuminPro-Light.otf
+ 
+ otf-ujgr-h    UniJIS-UTF16-H    A-OTF-GothicBBBPro-Medium.otf
+ otf-ujgr-v    UniJIS-UTF16-V    A-OTF-GothicBBBPro-Medium.otf
+@@ -11,6 +13,8 @@
+ otf-cjgr-v    Identity-V    A-OTF-GothicBBBPro-Medium.otf
+ hgothr-h    H    A-OTF-GothicBBBPro-Medium.otf
+ hgothr-v    V    A-OTF-GothicBBBPro-Medium.otf
++uphgothr-h    UniJIS-UTF16-H    A-OTF-GothicBBBPro-Medium.otf
++uphgothr-v    UniJIS-UTF16-V    A-OTF-GothicBBBPro-Medium.otf
+ 
+ otf-ujmb-h    UniJIS-UTF16-H    A-OTF-FutoMinA101Pro-Bold.otf
+ otf-ujmb-v    UniJIS-UTF16-V    A-OTF-FutoMinA101Pro-Bold.otf
+@@ -18,6 +22,8 @@
+ otf-cjmb-v    Identity-V    A-OTF-FutoMinA101Pro-Bold.otf
+ hminb-h    H    A-OTF-FutoMinA101Pro-Bold.otf
+ hminb-v    V    A-OTF-FutoMinA101Pro-Bold.otf
++uphminb-h    UniJIS-UTF16-H    A-OTF-FutoMinA101Pro-Bold.otf
++uphminb-v    UniJIS-UTF16-V    A-OTF-FutoMinA101Pro-Bold.otf
+ 
+ otf-ujgb-h    UniJIS-UTF16-H    A-OTF-FutoGoB101Pro-Bold.otf
+ otf-ujgb-v    UniJIS-UTF16-V    A-OTF-FutoGoB101Pro-Bold.otf
+@@ -25,6 +31,8 @@
+ otf-cjgb-v    Identity-V    A-OTF-FutoGoB101Pro-Bold.otf
+ hgothb-h    H    A-OTF-FutoGoB101Pro-Bold.otf
+ hgothb-v    V    A-OTF-FutoGoB101Pro-Bold.otf
++uphgothb-h    UniJIS-UTF16-H    A-OTF-FutoGoB101Pro-Bold.otf
++uphgothb-v    UniJIS-UTF16-V    A-OTF-FutoGoB101Pro-Bold.otf
+ 
+ otf-ujmgr-h    UniJIS-UTF16-H    A-OTF-Jun101Pro-Light.otf
+ otf-ujmgr-v    UniJIS-UTF16-V    A-OTF-Jun101Pro-Light.otf
+@@ -32,3 +40,5 @@
+ otf-cjmgr-v    Identity-V    A-OTF-Jun101Pro-Light.otf
+ hmgothr-h    H    A-OTF-Jun101Pro-Light.otf
+ hmgothr-v    V    A-OTF-Jun101Pro-Light.otf
++uphmgothr-h    UniJIS-UTF16-H    A-OTF-Jun101Pro-Light.otf
++uphmgothr-v    UniJIS-UTF16-V    A-OTF-Jun101Pro-Light.otf
+diff -uNr otfstable.orig/fontmap/vfontmap.txt otfstable/fontmap/vfontmap.txt
+--- otfstable.orig/fontmap/vfontmap.txt	2003-11-10 19:23:12 +0900
++++ otfstable/fontmap/vfontmap.txt	2008-11-02 18:07:00 +0900
+@@ -20,6 +20,8 @@
+ otf-cjmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf adobejapan
+ hminr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf
+ hminr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf
++uphminr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf unicode
++uphminr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf unicode
+ 
+ otf-ujgr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf unicode
+ otf-ujgr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf unicode
+@@ -27,6 +29,8 @@
+ otf-cjgr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf adobejapan
+ hgothr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf
+ hgothr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf
++uphgothr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf unicode
++uphgothr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W3.otf unicode
+ 
+ otf-ujmb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf unicode
+ otf-ujmb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf unicode
+@@ -34,6 +38,8 @@
+ otf-cjmb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf adobejapan
+ hminb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf
+ hminb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf
++uphminb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf unicode
++uphminb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W6.otf unicode
+ 
+ otf-ujgb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf unicode
+ otf-ujgb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf unicode
+@@ -41,6 +47,8 @@
+ otf-cjgb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf adobejapan
+ hgothb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf
+ hgothb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf
++uphgothb-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf unicode
++uphgothb-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraKakuPro-W6.otf unicode
+ 
+ otf-ujmgr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf unicode
+ otf-ujmgr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf unicode
+@@ -48,6 +56,8 @@
+ otf-cjmgr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf adobejapan
+ hmgothr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf
+ hmgothr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf
++uphmgothr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf unicode
++uphmgothr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMaruPro-W4.otf unicode
+ 
+ otf-ukmr-h /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
+ otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode

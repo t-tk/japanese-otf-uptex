@@ -1,7 +1,7 @@
 [ abstract ]
 
 This is a test package for upLaTeX support of
-"otfstable (v1.2.9 2007/3/19)"
+"otfstable (v1.2.9.2 2010/3/26)"
 It requires upTeX-0.20 or later.
 
 
@@ -21,13 +21,14 @@ test/uplatex : test sample.
 patch/*.patch : patch for original style files sty/*.sty in otfstable.zip
 
 [ status ]
-alpha version.
+beta version.
 proportional kana is not supported yet.
 
 
 [ history ]
 2007.12.09 Ver0.00
   Initial version.
+  for "otfstable (v1.2.9 2007/3/19)"
 2008.01.12 Ver0.01
   umakeotf
     Revised: for upTeX-0.20
@@ -60,3 +61,11 @@ proportional kana is not supported yet.
   umkjvf::
     Bug fix: SIP option did not work
     Revised: help message
+2010.03.28 Ver0.05
+  Revised: for "otfstable (v1.2.9.2 2010/3/26)", upTeX-0.30
+  umkjvf::
+    Revised: It may work with C-version ovp2ovf, opl2ofm
+  patch/*.patch::
+    Revised.
+  sty/*::
+    Removed.
