@@ -55,3 +55,8 @@ proportional kana is not supported yet.
     Revised.
   patch/*.patch::
     Revised.
+2009.08.01 Ver0.04
+  Revised: for upTeX-0.28
+  umkjvf::
+    Bug fix: SIP option did not work
+    Revised: help message

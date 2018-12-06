@@ -306,7 +306,7 @@ sub make_vf {
 	my ($ovp2ovf);
 
 	close(OVP);
-	$ovp2ovf = $ucs ? 'ovp2ovf' : 'upovp2ovf';
+	$ovp2ovf = ($ucs && $sip) ? 'upovp2ovf' : 'ovp2ovf';
 	system("$ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
 	unlink "$tfm_name.ovp";
 	unlink "$tfm_name.ofm";
@@ -347,8 +347,9 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is mkjvf version 1.0b19 (2004/2/25) by psitau\n";
-	print "Usage: mkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
+	print "This is umkjvf version 0.04 by ttk\n";
+	print "Based on mkjvf version 1.0b19 (2004/2/25) by psitau\n";
+	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
 	print "   -m              translate quotation mark to minute\n";
 	print "   -cm             translate quotation mark to CID minute\n";
