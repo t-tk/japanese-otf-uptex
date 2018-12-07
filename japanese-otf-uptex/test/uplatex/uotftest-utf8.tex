@@ -4,6 +4,7 @@
 \def\@default{default}
 \def\@jarticle{jarticle}
 \def\@tarticle{tarticle}
+\def\@utarticle{utarticle}
 
 \ifx\option\@undefined
  \def\option{default}
@@ -12,6 +13,10 @@
 \else
  \edef\@opt@{\option,\@opt@}
 \fi
+
+\def\baseshift{-.12zh}
+\ifx\class\@tarticle\def\baseshift{-.5zh}\fi
+\ifx\class\@utarticle\def\baseshift{-.5zh}\fi
 
 \ifx\class\@undefined
  \def\class{jarticle}
@@ -90,6 +95,12 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \fi
 \makeatother
 
+\vspace{\baselineskip}
+
+アイウエオ\raisebox\baseshift{\frame{ア}\frame{イ}\frame{ウ}\frame{エ}\frame{オ}}
+
+ｱｲｳｴｵ\raisebox\baseshift{\frame{ｱ}\frame{ｲ}\frame{ｳ}\frame{ｴ}\frame{ｵ}}
+
 
 \clearpage
 [mc/m]
@@ -106,6 +117,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
 
+“回”、‘回’。“回”，‘回’．
+
 {\bfseries%
 [mc/bx]
 
@@ -120,6 +133,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }
 
 {\gtfamily
@@ -137,6 +152,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
 
+“回”、‘回’。“回”，‘回’．
+
 {\bfseries%
 [gt/bx]
 
@@ -151,6 +168,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }}
 
 {\mgfamily
@@ -167,6 +186,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }
 
 {\rubyfamily%
@@ -189,6 +210,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
 
+“回”、‘回’。“回”，‘回’．
+
 {\bfseries%
 [ruby/bx]
 
@@ -203,6 +226,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }}
 
 {\gtfamily\rubyfamily%
@@ -219,6 +244,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 
 {\gtfamily\rubyfamily\bfseries%
 [rubyg/bx]
@@ -238,6 +265,8 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }}
 
 {\mgfamily\rubyfamily%
@@ -254,5 +283,7 @@ mg/m & {\mgfamily ひらかな} & {\mgfamily 漢字} & {\mgfamily\UTF{9DD7}} & {
 \ifuptexmode
 ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
 \fi
+
+“回”、‘回’。“回”，‘回’．
 }
 \end{document}

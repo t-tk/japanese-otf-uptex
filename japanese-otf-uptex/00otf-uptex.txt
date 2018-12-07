@@ -38,57 +38,73 @@ Combination of burasage and ucs option is not tested yet, and vf is not generate
   for "otfstable (v1.2.9 2007/3/19)"
 2008.01.12 Ver0.01
   umakeotf
-    Revised: for upTeX-0.20
+    Revise: for upTeX-0.20
   umkjvf::
     Bug fix: Ruby glyphs, horizontally- and vertically optimized kana glyphs.
-    Revised: for upTeX-0.20
+    Revise: for upTeX-0.20
   ubase-h.pl::
     Insert glue between halfwidth kana and others at horizontal writing.
   test/uplatex::
-    Revised.
+    Revise.
 2008.10.01 Ver0.02
   re-packaged for upTeX-0.24
   tfm/*.tfm, vf/*.vf::
-    Deleted
+    Delete
   patch/*.patch::
-    Included
+    Include
 2008.11.08 Ver0.03
-  Revised: for upTeX-0.25
+  Revise: for upTeX-0.25
   umkjvf::
     Add: Ruby glyphs, horizontally- and vertically optimized kana glyphs
       in JIS X 0213 (ainu kana, etc.)
   fontmap/*::
-    Revised.
+    Revise.
   test/uplatex/*::
-    Revised.
+    Revise.
   patch/*.patch::
-    Revised.
+    Revise.
 2009.08.01 Ver0.04
-  Revised: for upTeX-0.28
+  Revise: for upTeX-0.28
   umkjvf::
     Bug fix: SIP option did not work
-    Revised: help message
+    Revise: help message
 2010.03.28 Ver0.05
-  Revised: for "otfstable (v1.2.9.2 2010/3/26)", upTeX-0.30
+  Revise: for "otfstable (v1.2.9.2 2010/3/26)", upTeX-0.30
   umkjvf::
-    Revised: It may work with C-version ovp2ovf, opl2ofm
+    Revise: It may work with C-version ovp2ovf, opl2ofm
   patch/*.patch::
-    Revised.
+    Revise.
   sty/*::
     Removed.
 2010.05.xx Ver0.06
   Test only. Not released.
 2012.01.02 Ver0.07
-  Revised: for "otfbeta (v1.7b3 2011/10/28)", upTeX in TeXLive svn r24922
+  Revise: for "otfbeta (v1.7b3 2011/10/28)", upTeX in TeXLive svn r24922
   umkjvf::
-    Revised: Based on "mkjvf version 1.0b21 (2010/3/25)"
-    Revised: use ovp2ovf (WEB version) in TeXLive svn r24922 for SIP
+    Revise: Based on "mkjvf version 1.0b21 (2010/3/25)"
+    Revise: use ovp2ovf (WEB version) in TeXLive svn r24922 for SIP
     Bug fix: pTeX mode was not compatible with mkjvf for ruby.
   umakeotf
-    Revised: Minor update about "mkdir tfm"
+    Revise: Minor update about "mkdir tfm"
   fontmap/*::
-    Revised.
+    Revise.
   patch/*.patch::
-    Revised.
+    Revise.
   COPYRIGHT::
-    Added.
+    Add.
+2012.01.22 Ver0.08
+  ## Thank Kitagawa san and Norbert san for helpful bug reports.
+  umkjvf::
+    Add: option '-ovp2ovf' and '-dbg'.
+    Revise: hankaku kana in ucs mode base font.
+    Support ovp2ovf (C version) in TeXLive svn r24887 for BMP.
+    Bug fix: combination of '-cp' and '-ucs'.
+  umakeotf::
+    Bug fix: up{exp,ruby}mgothr-{h,v}.vf was broken.
+    Revise: do not use '-chk' for hankaku kana in ucs mode base font.
+  basepl/ubase-{h,v}.pl::
+    Convert from ISO-2022-JP to UTF-8.
+    Add U+2014 as Type 5.
+    Revise hankaku kana.
+  test/uplatex/uotftest-utf8.tex::
+    Revise.

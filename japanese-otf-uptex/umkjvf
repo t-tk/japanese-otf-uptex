@@ -32,6 +32,35 @@ sub initialize_constant{
 	$exp_font_map=2;
 	@yoko_tfm_binary=(0x00, 0x0B, 0x00, 0x01, 0x00, 0x1B, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x14, 0x7B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xEB, 0x85, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 	@tate_tfm_binary=(0x00, 0x09, 0x00, 0x01, 0x00, 0x1B, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+	@yoko_ucs_tfm_binary=map{ hex($_) } qw/
+		00 0b 00 40 00 6c 00 12 00 00 00 01 00 03 00 02
+		00 02 00 01 00 00 00 00 00 00 00 09 00 00 00 00
+		00 a0 00 00 0b 55 4e 53 50 45 43 49 46 49 45 44
+		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+		00 00 00 00 00 00 00 00 00 00 00 00 0b 55 4e 53
+		50 45 43 49 46 49 45 44 00 00 00 00 00 00 00 00
+		80 00 00 00 00 00 00 00 ff 61 00 01 ff 62 00 01
+		ff 63 00 01 ff 64 00 01 ff 65 00 01 ff 66 00 01
+		ff 67 00 01 ff 68 00 01 ff 69 00 01 ff 6a 00 01
+		ff 6b 00 01 ff 6c 00 01 ff 6d 00 01 ff 6e 00 01
+		ff 6f 00 01 ff 70 00 01 ff 71 00 01 ff 72 00 01
+		ff 73 00 01 ff 74 00 01 ff 75 00 01 ff 76 00 01
+		ff 77 00 01 ff 78 00 01 ff 79 00 01 ff 7a 00 01
+		ff 7b 00 01 ff 7c 00 01 ff 7d 00 01 ff 7e 00 01
+		ff 7f 00 01 ff 80 00 01 ff 81 00 01 ff 82 00 01
+		ff 83 00 01 ff 84 00 01 ff 85 00 01 ff 86 00 01
+		ff 87 00 01 ff 88 00 01 ff 89 00 01 ff 8a 00 01
+		ff 8b 00 01 ff 8c 00 01 ff 8d 00 01 ff 8e 00 01
+		ff 8f 00 01 ff 90 00 01 ff 91 00 01 ff 92 00 01
+		ff 93 00 01 ff 94 00 01 ff 95 00 01 ff 96 00 01
+		ff 97 00 01 ff 98 00 01 ff 99 00 01 ff 9a 00 01
+		ff 9b 00 01 ff 9c 00 01 ff 9d 00 01 ff 9e 00 01
+		ff 9f 00 01 02 11 00 00 01 11 00 00 00 00 00 00
+		00 08 00 00 00 10 00 00 00 00 00 00 00 0e 14 7b
+		00 00 00 00 00 01 eb 85 00 00 00 00 00 00 00 00
+		00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00
+		00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+	/;
 	@minute_code=(0x216C, 0x216C, 0x216D, 0x216D);
 	@shift_minute_code=(0x818C, 0x818C, 0x818D, 0x818D);
 	@cid_minute_code=(0x6E3D, 0x6E3E, 0x6C44, 0x6C45);
@@ -61,7 +90,7 @@ JIS     UCS
 }
 sub proc_arg {
 	if ($#ARGV == -1) {&print_help;}
-	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-h(e|el|elp)?', \$help, 0], ['^-(.+)', \$unknown, 0]);
+	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-ovp2ovf', \$ovp2ovf_command, 1], ['^-h(e|el|elp)?', \$help, 0], ['^-dbg', \$debug_mode, 0], ['^-(.+)', \$unknown, 0]);
 	if ($unknown == 1){
 		print "mkjvf: Unknown options!\n";
 		&print_help;
@@ -119,7 +148,7 @@ sub proc_arg {
 }
 sub font_header {
 	print  OVP "(VTITLE )\n";
-	print  OVP "(OFMLEVEL D 0)";
+	print  OVP "(OFMLEVEL D 0)\n";
 	print  OVP "(DESIGNSIZE R 10.000000)\n";
 	print  OVP "(CHECKSUM O 0)\n";
 	print  OVP "(MAPFONT D 1\n";
@@ -141,8 +170,8 @@ sub font_header {
 			print  OVP "(MAPFONT D 3\n";
 			print  OVP "   (FONTNAME $face"."4-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			print  OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    }
 		}elsif ($direction eq "t"){
@@ -156,8 +185,8 @@ sub font_header {
 			print  OVP "(MAPFONT D 3\n";
 			print  OVP "   (FONTNAME $face"."4-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			print  OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    }
 		}
@@ -188,7 +217,7 @@ sub font_header {
 			print  OVP "   (FONTNAME $face"."4-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
 			printf OVP "   (FONTAT R %f)\n",$scale;
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		    }
 		}
@@ -225,16 +254,16 @@ sub font_header {
 			print  OVP "(MAPFONT D 4\n";
 			print  OVP "   (FONTNAME $face"."0-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		}
 		elsif ($direction eq "t"){
 			print  OVP "(MAPFONT D 4\n";
 			print  OVP "   (FONTNAME $face"."2-v)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		}
 	}
@@ -278,8 +307,8 @@ sub font_header {
 			print  OVP "(MAPFONT D 6\n";
 			print  OVP "   (FONTNAME $face"."0-h)\n";
 			print  OVP "   (FONTCHECKSUM O 0)\n";
-			printf OVP "   (FONTAT R 1)\n";
-			printf OVP "   (FONTDSIZE R 10)\n";
+			print  OVP "   (FONTAT R 1.0)\n";
+			print  OVP "   (FONTDSIZE R 10.0)\n";
 			print  OVP "   )\n";
 		}
 	}
@@ -314,7 +343,7 @@ sub write_char {
 		}
 	}
     } else { # ucs
-	$max_ucs= ($sip) ? 0x2FA1F : 0xFFFF;
+	$max_ucs= $sip ? 0x2FA1F : 0xFFFF;
 	for ($ucscode=0; $ucscode<=$max_ucs; $ucscode++){
 		next unless (&is_ucs_jpn_range);
 		$dvicode=$ucscode;
@@ -353,8 +382,12 @@ sub make_vf {
 	my ($ovp2ovf);
 
 	close(OVP);
-#	$ovp2ovf = ($ucs && $sip) ? 'upovp2ovf' : 'ovp2ovf'; # obsolete
-	$ovp2ovf = 'ovp2ovf'; # use ovp2ovf in TeXLive svn r24922 or later for SIP
+	exit if $debug_mode;
+	if ($ovp2ovf eq '') {
+		$ovp2ovf = 'ovp2ovf'; # use ovp2ovf WEB version in TeXLive svn r24922 or later if you use SIP
+	}else{
+		$ovp2ovf = $ovp2ovf_command;
+	}
 	system("$ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
 	unlink "$tfm_name.ovp";
 	unlink "$tfm_name.ofm";
@@ -363,7 +396,8 @@ sub make_tfm {
 	open(KANJITFM,">$kanji_font.tfm") || die "Can't make \'$kanji_font.tfm\'!\n";
 	binmode(KANJITFM);
 	if ($direction eq "y") {
-		foreach $binary(@yoko_tfm_binary) {
+		my (@tfm) = $ucs ? @yoko_ucs_tfm_binary : @yoko_tfm_binary;
+		foreach $binary(@tfm) {
 			$_ = pack("C", $binary);
 			print KANJITFM "$_";
 		}
@@ -395,7 +429,7 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is umkjvf version 0.07 (2012/1/2) by ttk\n";
+	print "This is umkjvf version 0.08 (2012/1/22) by ttk\n";
 	print "Based on mkjvf version 1.0b21 (2010/3/25) by psitau\n";
 	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
@@ -413,6 +447,8 @@ sub print_help {
 	print "   -sip            include supplemental ideographic plane (umkjvf extention)\n";
 	print "   -SJIS           make shift jis mapped vf (experimental)\n";
 	print "   -scale <0--1>   make kokana vf\n";
+	print "   -ovp2ovf <command>  use ovp2ovf command\n";
+	print "   -dbg            debug mode\n";
 	print "   -help           print this message\n";
 	exit;
 }
@@ -647,8 +683,10 @@ sub print_kigo_char{
 			$odorijicode= $dvicode;
 		}
 		printf OVP "      (SETCHAR H %X)\n",$odorijicode;
-	} elsif ((&is_dvicode('comma') || &is_dvicode('period')) && $comma_period == 1){
-		printf OVP "      (SETCHAR H %X)\n",$char_code-2;
+	} elsif (&is_dvicode('comma') && $comma_period == 1){
+		printf OVP "      (SETCHAR H %X)\n", ($ucs ? 0x3001 : $char_code-2);
+	} elsif (&is_dvicode('period') && $comma_period == 1){
+		printf OVP "      (SETCHAR H %X)\n", ($ucs ? 0x3002 : $char_code-2);
 	}else {
 		printf OVP "      (SETCHAR H %X)\n",$char_code;
 	}
@@ -690,7 +728,7 @@ sub print_kana_char{
 }
 sub print_hankana_char{
 	printf OVP "(CHARACTER H %X\n", $dvicode;
-	print  OVP "   (CHARWD R $font_at)\n";
+	printf OVP "   (CHARWD R %f)\n", $font_at/2.0;
 	print  OVP "   (MAP\n";
 	if ($cid_hankana == 1){
 		print  OVP "      (SELECTFONT D 6)\n";
