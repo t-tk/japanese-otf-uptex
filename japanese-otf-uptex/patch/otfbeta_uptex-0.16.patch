@@ -440,11 +440,11 @@ diff -urN otfbeta-1.7b6/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
  otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
 diff -urN otfbeta-1.7b6/sty/mlutf.sty otfbeta/sty/mlutf.sty
 --- otfbeta-1.7b6/sty/mlutf.sty	2010-03-22 14:50:54.000000000 +0900
-+++ otfbeta/sty/mlutf.sty	2014-03-24 22:39:37.000000000 +0900
++++ otfbeta/sty/mlutf.sty	2014-07-26 19:00:00.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau]
-+\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.15 ttk]
++\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.16 ttk]
  %force catcode of \" be 12
  \count@\catcode`\"
  \catcode`\"=12
@@ -486,11 +486,11 @@ diff -urN otfbeta-1.7b6/sty/mlutf.sty otfbeta/sty/mlutf.sty
  \endinput
 diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
 --- otfbeta-1.7b6/sty/otf.sty	2013-11-17 09:30:36.000000000 +0900
-+++ otfbeta/sty/otf.sty	2014-03-24 21:51:25.000000000 +0900
++++ otfbeta/sty/otf.sty	2014-07-26 19:00:00.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau]
-+\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.15 ttk]
++\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.16 ttk]
  \RequirePackage{keyval}
  %for processing options 
  \newif\if@kana \@kanafalse
@@ -732,8 +732,8 @@ diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
 -	\Declare@FontShape{utfjg}{bx}{0123456789abcdef}{utfjgb\nlck@sfx@}
 +	\Declare@FontShape{utfjg}{bx}{0123456789abcdefjklmnopqrstuvz}{utfjgb\nlck@sfx@}
  	\Declare@FontShape{cidjg}{bx}{012345}{cidjgb}
-+	\Declare@FontShape{utfjg}{eb}{0123456789abcdefjklmnopqrstuvz}{utfjgb\nlck@sfx@}
-+	\Declare@FontShape{cidjg}{eb}{012345}{cidjgb}
++	\Declare@FontShape{utfjg}{eb}{0123456789abcdefjklmnopqrstuvz}{utfjge\nlck@sfx@}
++	\Declare@FontShape{cidjg}{eb}{012345}{cidjge}
  	\DeclareKanjiFamily{\otf@JYn}{utfjmg}{}
  	\DeclareKanjiFamily{\otf@JTn}{utfjmg}{}
  	\DeclareKanjiFamily{\otf@JYn}{cidjmg}{}
