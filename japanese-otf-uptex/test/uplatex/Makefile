@@ -6,12 +6,13 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx
 PDVITYPE = pdvitype
 
-all: uplatex-otf platex-otf uplatex-sp platex-sp uplatex-article platex-article uplatex-brsg platex-brsg
+all: otf sp art bsrg jis04
 
 otf: uplatex-otf platex-otf
 sp: uplatex-sp platex-sp
 art: uplatex-article platex-article
 brsg: uplatex-brsg platex-brsg
+jis04: uplatex-jis04 platex-jis04
 
 uplatex-otf:
 	for opt in default deluxe expert bold noreplace; do \
@@ -88,6 +89,34 @@ platex-brsg:
 		$(PLATEX) "\def\option{$$opt}\def\burasage{$$burasage}\def\class{tbook}\input" upbrsgtest.tex ; \
 		mv upbrsgtest.dvi upbrsgtest-$$opt-$$burasage-v-platex.dvi ; \
 		$(DVIPDFMX) upbrsgtest-$$opt-$$burasage-v-platex.dvi ; \
+	done \
+	done
+
+uplatex-jis04:
+	for opt in default expert; do \
+	for brsg in br oi; do \
+	for jis in 00 04; do \
+		$(UPLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{ujarticle}\input" upjis2004.tex ; \
+		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-h-uplatex.dvi ; \
+		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-h-uplatex.dvi ; \
+		$(UPLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{utarticle}\input" upjis2004.tex ; \
+		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-v-uplatex.dvi ; \
+		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-v-uplatex.dvi ; \
+	done \
+	done \
+	done
+
+platex-jis04:
+	for opt in default expert; do \
+	for brsg in br oi; do \
+	for jis in 00 04; do \
+		$(PLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{jarticle}\input" upjis2004.tex ; \
+		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-h-platex.dvi ; \
+		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-h-platex.dvi ; \
+		$(PLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{tarticle}\input" upjis2004.tex ; \
+		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
+		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
+	done \
 	done \
 	done
 

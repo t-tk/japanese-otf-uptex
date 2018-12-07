@@ -1,5 +1,9 @@
 #!/bin/sh
 
+#
+# This script is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
+#
+
 #OVP2OVF='omfonts -ovp2ovf'
 #OVP2OVF='wovp2ovf'
 #export OVP2OVF
@@ -7,93 +11,65 @@
 if test ! -d tfm; then
 mkdir tfm
 fi
+
+
 echo "making tfm ..."
-#perl script/mktfm.pl
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgothr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgothb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgothb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlmgothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlmgothr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpgothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpgothr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpgothb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpgothb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpmgothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpmgothr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubygothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubygothr-v.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubygothb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubygothb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubymgothr-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubymgothr-v.tfm
+for series in nml exp ruby
+do
+for face in minr gothr minb gothb mgothr
+do
+uppltotf -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}-h.tfm
+uppltotf -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}-v.tfm
+done
+done
 #for extra fonts
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlgotheb-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlgotheb-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upnmlminl-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upnmlminl-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminl-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminl-v.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminl-v.tfm
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminl-h.tfm
+for series in nml exp ruby
+do
+for face in gotheb minl
+do
+uppltotf -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}-h.tfm
+uppltotf -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}-v.tfm
+done
+done
+
+
 echo "making vf (wait a while)..."
-perl script/mkutfvf_sp.pl
-./umkjvf -ucs -sp 1 -cq upnmlminr-h uphminr-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlminr-v uphminr-v
-./umkjvf -ucs -sp 1 -cq upnmlgothr-h uphgothr-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlgothr-v uphgothr-v
-./umkjvf -ucs -sp 1 -cq upnmlminb-h uphminb-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlminb-v uphminb-v
-./umkjvf -ucs -sp 1 -cq upnmlgothb-h uphgothb-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlgothb-v uphgothb-v
-./umkjvf -ucs -sp 1 -cq upnmlmgothr-h uphmgothr-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlmgothr-v uphmgothr-v
+for face in minr gothr minb gothb mgothr
+do
+./umkjvf -ucs -sp 1 -cq     upnml${face}-h uph${face}-h
+./umkjvf -ucs -sp 1 -cm -cp upnml${face}-v uph${face}-v
+done
 #extra fonts
-./umkjvf -ucs -sp 1 -cq upnmlgotheb-h uphgotheb-h
-./umkjvf -ucs -sp 1 -cp upnmlgotheb-v uphgotheb-v
-./umkjvf -ucs -sp 1 -cq upnmlminl-h uphminl-h
-./umkjvf -ucs -sp 1 -cm -cp upnmlminl-v uphminl-v
+for face in gotheb minl
+do
+./umkjvf -ucs -sp 1 -cq     upnml${face}-h uph${face}-h
+./umkjvf -ucs -sp 1 -cm -cp upnml${face}-v uph${face}-v
+done
+
 echo "making alt. kana ..."
-./umkjvf -ucs -sp 1 -cq -expert upexpminr-h uphminr-h cidjminr
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpminr-v uphminr-v cidjminr
-./umkjvf -ucs -sp 1 -cq -expert upexpgothr-h uphgothr-h cidjgothr
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpgothr-v uphgothr-v cidjgothr
-./umkjvf -ucs -sp 1 -cq -expert upexpminb-h uphminb-h cidjminb
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpminb-v uphminb-v cidjminb
-./umkjvf -ucs -sp 1 -cq -expert upexpgothb-h uphgothb-h cidjgothb
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpgothb-v uphgothb-v cidjgothb
-./umkjvf -ucs -sp 1 -cq -expert upexpmgothr-h uphmgothr-h cidjmgothr
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpmgothr-v uphmgothr-v cidjmgothr
-./umkjvf -ucs -sp 1 -cq -ruby uprubyminr-h uphminr-h cidjminr
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminr-v uphminr-v cidjminr
-./umkjvf -ucs -sp 1 -cq -ruby uprubygothr-h uphgothr-h cidjgothr
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubygothr-v uphgothr-v cidjgothr
-./umkjvf -ucs -sp 1 -cq -ruby uprubyminb-h uphminb-h cidjminb
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminb-v uphminb-v cidjminb
-./umkjvf -ucs -sp 1 -cq -ruby uprubygothb-h uphgothb-h cidjgothb
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubygothb-v uphgothb-v cidjgothb
-./umkjvf -ucs -sp 1 -cq -ruby uprubymgothr-h uphmgothr-h cidjmgothr
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubymgothr-v uphmgothr-v cidjmgothr
-./umkjvf -ucs -sp 1 -cq -expert upexpminl-h uphminl-h cidjminl
-./umkjvf -ucs -sp 1 -cm -cp -expert upexpminl-v uphminl-v cidjminl
-./umkjvf -ucs -sp 1 -cq -ruby uprubyminl-h uphminl-h cidjminl
-./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminl-v uphminl-v cidjminl
+for face in minr gothr minb gothb mgothr
+do
+./umkjvf -ucs -sp 1 -cq     -expert upexp${face}-h  uph${face}-h cidj${face}
+./umkjvf -ucs -sp 1 -cm -cp -expert upexp${face}-v  uph${face}-v cidj${face}
+./umkjvf -ucs -sp 1 -cq     -ruby   upruby${face}-h uph${face}-h cidj${face}
+./umkjvf -ucs -sp 1 -cm -cp -ruby   upruby${face}-v uph${face}-v cidj${face}
+done
+#extra fonts
+for face in gotheb minl
+do
+./umkjvf -ucs -sp 1 -cq     -expert upexp${face}-h  uph${face}-h cidj${face}
+./umkjvf -ucs -sp 1 -cm -cp -expert upexp${face}-v  uph${face}-v cidj${face}
+./umkjvf -ucs -sp 1 -cq     -ruby   upruby${face}-h uph${face}-h cidj${face}
+./umkjvf -ucs -sp 1 -cm -cp -ruby   upruby${face}-v uph${face}-v cidj${face}
+done
+
+
 echo "making tfm for supplementary plane ..."
 perl script/mktfm_sp.pl
 echo "making vf for supplementary plane ..."
 perl script/mkutfvf_sp.pl
+
+
 echo "finishing ..."
 if test ! -d vf; then
 mkdir vf

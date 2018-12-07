@@ -73,28 +73,40 @@ otf-ujmrn-h    HiraMinProN-W3-UniJIS2004-UTF16-H
 otf-ujmrn-v    HiraMinProN-W3-UniJIS2004-UTF16-V
 hminrn-h    HiraMinProN-W3-H
 hminrn-v    HiraMinProN-W3-V
+uphminrn-h     HiraMinPro-W3-UniJIS2004-UTF16-H
+uphminrn-v     HiraMinPro-W3-UniJIS2004-UTF16-V
 
 otf-ujgrn-h    HiraKakuProN-W3-UniJIS2004-UTF16-H
 otf-ujgrn-v    HiraKakuProN-W3-UniJIS2004-UTF16-V
 hgothrn-h    HiraKakuProN-W3-H
 hgothrn-v    HiraKakuProN-W3-V
+uphgothrn-h    HiraKakuProN-W3-UniJIS2004-UTF16-H
+uphgothrn-v    HiraKakuProN-W3-UniJIS2004-UTF16-V
 
 otf-ujmbn-h    HiraMinProN-W6-UniJIS2004-UTF16-H
 otf-ujmbn-v    HiraMinProN-W6-UniJIS2004-UTF16-V
 hminbn-h    HiraMinProN-W6-H
 hminbn-v    HiraMinProN-W6-V
+uphminbn-h     HiraMinProN-W6-UniJIS2004-UTF16-H
+uphminbn-v     HiraMinProN-W6-UniJIS2004-UTF16-V
 
 otf-ujgbn-h    HiraKakuProN-W6-UniJIS2004-UTF16-H
 otf-ujgbn-v    HiraKakuProN-W6-UniJIS2004-UTF16-V
 hgothbn-h    HiraKakuProN-W6-H
 hgothbn-v    HiraKakuProN-W6-V
+uphgothbn-h    HiraKakuProN-W6-UniJIS2004-UTF16-H
+uphgothbn-v    HiraKakuProN-W6-UniJIS2004-UTF16-V
 
 otf-ujmgrn-h    HiraMaruProN-W4-UniJIS2004-UTF16-H
 otf-ujmgrn-v    HiraMaruProN-W4-UniJIS2004-UTF16-V
 hmgothrn-h    HiraMaruProN-W4-H
 hmgothrn-v    HiraMaruProN-W4-V
+uphmgothrn-h    HiraMaruProN-W4-UniJIS2004-UTF16-H
+uphmgothrn-v    HiraMaruProN-W4-UniJIS2004-UTF16-V
 
 otf-ujmln-h    HiraMinProN-W2-UniJIS2004-UTF16-H
 otf-ujmln-v    HiraMinProN-W2-UniJIS2004-UTF16-V
 hminln-h    HiraMinProN-W2-H
 hminln-v    HiraMinProN-W2-V
+uphminln-h     HiraMinProN-W2-UniJIS2004-UTF16-H
+uphminln-v     HiraMinProN-W2-UniJIS2004-UTF16-V

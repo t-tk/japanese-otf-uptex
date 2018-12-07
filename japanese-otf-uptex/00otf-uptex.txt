@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.11  2012/07/09
+otfbeta-uptex (japanese-otf-uptex) Ver.0.12  2013/06/02
 
 
 [ Abstract ]
@@ -13,6 +13,7 @@ It requires upTeX-0.20 or later.
 00otf-uptex.txt : this file
 umakeotf : script to make vf, tfm
 umakeotf_brsg : script to make vf, tfm for burasage option
+umakeotf_jis04 : script to make vf, tfm for jis2004 option
 umkjvf : mkjvf with unicode support
 
 basepl/ubase-h.pl : unicode version of base-h.pl
@@ -43,8 +44,24 @@ COPYRIGHT : copyright notice of this package.
 [ Status ]
 Beta version.
 Proportional kana is not supported yet.
-Combination of jis2004 and ucs option is not supported yet
-  because Adobe standard CMap "UniJIS2004-UTF16-H", etc. will be effective.
+
+
+[ About jis2004 option ]
+otfbeta-uptex (japanese-otf-uptex) Ver.0.12 or later supports
+combination of "jis2004" and "uplatex" option.
+If you run the script "umakeotf_jis04", tfm and vf for jis2004 will be generated.
+They cousumes about 36.1 Mbytes in total.
+You will get expected results by mapping the new fonts
+  up{,brsg}{nml,exp}{minr,gothr,minb,gothb,mgothr,minl,gotheb}n-{h,v}.tfm
+to Adobe standard CMap "UniJIS2004-UTF16-{H,V}".
+
+If you do not use "jis2004" option, you can delete tfm and vf:
+  up{,brsg}{nml,exp}{minr,gothr,minb,gothb,mgothr,minl,gotheb}n-{h,v}.{tfm,vf}
+
+Instead of using "jis2004" option,
+you can get same result by mapping conventional fonts
+  up{,brsg}{nml,exp}{minr,gothr,minb,gothb,mgothr,minl,gotheb}-{h,v}.tfm
+to Adobe standard CMap "UniJIS2004-UTF16-{H,V}".
 
 
 [ History ]
@@ -179,4 +196,26 @@ Combination of jis2004 and ucs option is not supported yet
     The new code is written by ZR san.
   test/uplatex/uotftest-utf8.tex ::
     Revise.
+2013.06.02 Ver0.12
+  ## Thank Kitagawa san for helpful reports.
+  script/mktfm_sp.pl, script/mkutfvf_sp.pl, umakeotf, umakeotf_bsrg, umkjvf ::
+    Support Gothic/ExtraBold (gt/eb).
+  script/mkutfvf_sp.pl ::
+    Refer an environment variable OVP2OVF to set ovp2ovf command.
+  umakeotf_jis04 ::
+    Add. The script generates vf and tfm for jis2004 option on uplatex.
+    The vf and tfm consume about 36.1 Mbytes in total.
+  fontmap/hiragino.map(for udvips), fontmap/hiraginox.map(for dvipdfmx) ::
+    Add jis2004 entry.
+  umkjvf ::
+    Revise comment.
+  umakeotf, umakeotf_bsrg ::
+    Clean up.
+  sty/otf.sty, sty/mlutf.sty ::
+    Add jis2004 entry.
+    Increment version number.
+  patch/*.patch::
+    Revise.
+  test/uplatex/upjis2004.tex, test/uplatex/Makefile::
+    Add new test.
 

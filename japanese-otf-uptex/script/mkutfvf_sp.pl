@@ -18,13 +18,15 @@ This software is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
 
 use script::MakeSPList;
 
-$ovp2ovf = 'ovp2ovf' if (!defined($ovp2ovf)); # option -ovp2ovf
+if (!defined($ovp2ovf)) { ## check option '-ovp2ovf=????'
+    $ovp2ovf = defined($ENV{'OVP2OVF'}) ? $ENV{'OVP2OVF'} : 'ovp2ovf';
+}
 
 $multi=3;
 opendir(OVP, "ovp") || mkdir("ovp",0755) || die "cannot mkdir ovp";
 opendir(VF, "vf") || mkdir("vf",0755) || die "cannot mkdir vf";
 
-my @face = qw/mr gr mb gb mgr ml/;
+my @face = qw/mr gr mb gb mgr ml ge/;
 my @lang = qw/j t c k/; ## priority: j > t > c > k
 my %lang_id; foreach $_ (0..$#lang) { $lang_id{$lang[$_]}=$_; }
 my @dir = qw/h v/;

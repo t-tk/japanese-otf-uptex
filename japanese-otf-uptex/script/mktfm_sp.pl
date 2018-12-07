@@ -24,7 +24,7 @@ $multi=3;
 
 opendir(TFM, "tfm") || mkdir("tfm",0755) || die "cannot mkdir tfm";
 
-my @face = qw/mr gr mb gb mgr ml/;
+my @face = qw/mr gr mb gb mgr ml ge/;
 my @lang = qw/j t c k/;
 my @dir = qw/h v/;
 my %font_id = qw/1b g      1d h 1e i 1f j

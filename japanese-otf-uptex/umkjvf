@@ -440,7 +440,7 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is umkjvf version 0.10 (2012/4/21) by ttk\n";
+	print "This is umkjvf version 0.12 (2013/6/02) by ttk\n";
 	print "Based on mkjvf version 1.0b21 (2010/3/25) by psitau\n";
 	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
@@ -554,6 +554,8 @@ sub get_face{
 		$face="cidjmgr";
 	}elsif($kana_font eq "cidjminl"){
 		$face="cidjml";
+	}elsif($kana_font eq "cidjgotheb"){
+		$face="cidjge";
 	}elsif($kana_font eq "cidmin"){
 		$face="cidm";
 	}elsif($kana_font eq "cidgoth"){
@@ -571,6 +573,8 @@ sub get_face{
 			$face="cidjmgr";
 		}elsif($kanji_font =~ /hminl/){
 			$face="cidjml";
+		}elsif($kanji_font =~ /hgotheb/){
+			$face="cidjge";
 		}
 	}
 }
@@ -1170,11 +1174,11 @@ sub is_ucs_jpn_range{
 }
 
 __END__
-0xFF5F: JIS X 0213  1-02-54 ªœ§·∆ÛΩ≈•–°º•Ï°º•Û
-0x3018: JIS X 0213  1-02-56 ªœ§·∆ÛΩ≈µµπ√≥Á∏Ã
-0x3016: JIS X 0213  1-02-58 ªœ§·§π§ﬂ…’§≠≥Á∏Ã(«Ú)
-0x301D: JIS X 0213  1-13-64 ªœ§·•¿•÷•Î•ﬂ•À•Â°º•»
-0xFF60: JIS X 0213  1-02-55 Ω™§Ô§Í∆ÛΩ≈•–°º•Ï°º•Û
-0x3019: JIS X 0213  1-02-57 Ω™§Ô§Í∆ÛΩ≈µµπ√≥Á∏Ã
-0x3017: JIS X 0213  1-02-59 Ω™§Ô§Í§π§ﬂ…’§≠≥Á∏Ã(«Ú)
-0x301F: JIS X 0213  1-13-65 Ω™§Ô§Í•¿•÷•Î•ﬂ•À•Â°º•»
+0xFF5F: JIS X 0213  1-02-54 FULLWIDTH LEFT WHITE PARENTHESIS     Âßã„ÇÅ‰∫åÈáç„Éê„Éº„É¨„Éº„É≥
+0x3018: JIS X 0213  1-02-56 LEFT WHITE TORTOISE SHELL BRACKET    Âßã„ÇÅ‰∫åÈáç‰∫ÄÁî≤Êã¨Âºß
+0x3016: JIS X 0213  1-02-58 LEFT WHITE LENTICULAR BRACKET        Âßã„ÇÅ„Åô„Åø‰ªò„ÅçÊã¨Âºß(ÁôΩ)
+0x301D: JIS X 0213  1-13-64 REVERSED DOUBLE PRIME QUOTATION MARK Âßã„ÇÅ„ÉÄ„Éñ„É´„Éü„Éã„É•„Éº„Éà
+0xFF60: JIS X 0213  1-02-55 FULLWIDTH RIGHT WHITE PARENTHESIS    ÁµÇ„Çè„Çä‰∫åÈáç„Éê„Éº„É¨„Éº„É≥
+0x3019: JIS X 0213  1-02-57 RIGHT WHITE TORTOISE SHELL BRACKET   ÁµÇ„Çè„Çä‰∫åÈáç‰∫ÄÁî≤Êã¨Âºß
+0x3017: JIS X 0213  1-02-59 RIGHT WHITE LENTICULAR BRACKET       ÁµÇ„Çè„Çä„Åô„Åø‰ªò„ÅçÊã¨Âºß(ÁôΩ)
+0x301F: JIS X 0213  1-13-65 LOW DOUBLE PRIME QUOTATION MARK      ÁµÇ„Çè„Çä„ÉÄ„Éñ„É´„Éü„Éã„É•„Éº„Éà
