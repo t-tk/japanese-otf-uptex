@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.10  2012/04/21
+otfbeta-uptex (japanese-otf-uptex) Ver.0.11  2012/07/09
 
 
 [ Abstract ]
@@ -170,5 +170,13 @@ Combination of jis2004 and ucs option is not supported yet
   test/uplatex/Makefile, test/uplatex/uotftest-utf8.tex ::
     Revise.
   patch/*.patch::
+    Revise.
+2012.07.09 Ver0.11
+  ## Thank ZR san for great contribution.
+  sty/otf.sty, sty/mlutf.sty ::
+    Apply new code to support surrogate pairs
+    when macros \UTF{}, \UTFT{}, \UTFC{} and/or \UTFM{} are used with hyperref package.
+    The new code is written by ZR san.
+  test/uplatex/uotftest-utf8.tex ::
     Revise.
 

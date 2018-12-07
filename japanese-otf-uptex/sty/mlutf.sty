@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.10 ttk]
+\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.11 ttk]
 %force catcode of \" be 12
 \count@\catcode`\"
 \catcode`\"=12
@@ -27,10 +27,10 @@
 %end of changing catcode of \"
 \gdef\Redefine@MLUTF{%
 	\@ifpackageloaded{hyperref}{%
-		\def\hyper@UTFC##1{\ifHy@pdfstring\0x##1\else\csname UTFC \endcsname{##1}\fi}
-		\def\hyper@UTFK##1{\ifHy@pdfstring\0x##1\else\csname UTFK \endcsname{##1}\fi}
-		\def\hyper@UTFT##1{\ifHy@pdfstring\0x##1\else\csname UTFT \endcsname{##1}\fi}
-		\def\hyper@UTFM##1{\ifHy@pdfstring\0x##1\else\csname UTFM \endcsname{##1}\fi}
+		\def\hyper@UTFC##1{\ifHy@pdfstring\hyper@UTF@{##1}\else\csname UTFC \endcsname{##1}\fi}
+		\def\hyper@UTFK##1{\ifHy@pdfstring\hyper@UTF@{##1}\else\csname UTFK \endcsname{##1}\fi}
+		\def\hyper@UTFT##1{\ifHy@pdfstring\hyper@UTF@{##1}\else\csname UTFT \endcsname{##1}\fi}
+		\def\hyper@UTFM##1{\ifHy@pdfstring\hyper@UTF@{##1}\else\csname UTFM \endcsname{##1}\fi}
 		\def\UTFC{\protect\hyper@UTFC}
 		\def\UTFK{\protect\hyper@UTFK}
 		\def\UTFT{\protect\hyper@UTFT}

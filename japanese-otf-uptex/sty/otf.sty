@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau, u0.10 ttk]
+\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau, u0.11 ttk]
 %for processing options 
 \newif\if@kana \@kanafalse
 \newif\if@macro \@macrotrue
@@ -57,8 +57,141 @@
 	}
 \fi
 \gdef\Redefine@UTF{\@ifpackageloaded{hyperref}{%
-	\def\hyper@UTF##1{\ifHy@pdfstring\0x##1\else\csname UTF \endcsname{##1}\fi}
+	\def\hyper@UTF##1{\ifHy@pdfstring\hyper@UTF@{##1}\else\csname UTF \endcsname{##1}\fi}
 	\def\UTF{\protect\hyper@UTF}}{}
+}
+% support surrogate pair in \hyper@UTF@{} by ZR-san
+\def\otf@end{\otf@end@}
+\def\otf@mark{\otf@mark@}
+\def\otf@triexpandafter{%
+	\expandafter\expandafter\expandafter
+}
+\begingroup \catcode`\|=0
+\gdef\otf@cond#1|fi{%
+	#1\expandafter\@firstoftwo
+	|else \expandafter\@secondoftwo
+	|fi
+}
+\endgroup
+\def\otf@next#1#2#3#4#5{%
+	\@namedef{otf@qh/#1#2}{#3}%
+	\@namedef{otf@hq/#3}{#1#2}%
+	\@namedef{otf@lhq/#4#5}{#1#2}%
+}
+\@for\otf@x:={%
+	00001,01102,02203,03304,10405,11506,12607,13708,%
+	20809,2190A,22A0B,23B0C,30C0D,31D0E,32E0F,33F10}\do{%
+	\expandafter\otf@next\otf@x
+}
+\def\otf@next#1{%
+	\lowercase{\def\otf@y{#1}}%
+	\@namedef{otf@hd/#1}{#1}%
+	\@namedef{otf@hd/\otf@y}{#1}%
+}
+\@tfor\otf@x:=0123456789ABCDEF\do{%
+	\expandafter\otf@next\otf@x
+}
+\def\hyper@UTF@#1{%
+	\expandafter\otf@hy@utf@pre@a#1\relax{}\otf@mark\otf@end
+}
+\def\otf@hy@utf@pre@a{%
+	\expandafter\otf@hy@utf@pre@b\romannumeral-`>%
+}
+\def\otf@hy@utf@pre@b#1#{%
+	\otf@cond \ifx\otf@end#1\otf@end \fi{%
+		\otf@hy@utf@bombout
+	}{%
+		\otf@hy@utf@pre@c#1%
+	}%
+}
+\def\otf@hy@utf@pre@c#1{%
+	\otf@cond \ifx#1\relax \fi{%
+		\otf@hy@utf@pre@end
+	}{%
+		\otf@triexpandafter\otf@hy@utf@pre@d
+		\csname otf@hd/\string#1\endcsname
+	}%
+}
+\def\otf@hy@utf@pre@d#1{%
+	\otf@cond \ifx#1\relax \fi{%
+		\otf@hy@utf@bombout
+	}{%
+		\otf@hy@utf@pre@e#1%
+	}%
+}
+\def\otf@hy@utf@pre@e#1#2\otf@mark#3\otf@end{%
+	\otf@cond \if 0#1\fi{%
+		\otf@cond \ifx\otf@end#3\otf@end \fi{%
+			\otf@hy@utf@pre@f{#2}{#3}%
+		}{%
+			\otf@hy@utf@pre@f{#2}{#3#1}%
+		}%
+	}{%
+		\otf@hy@utf@pre@f{#2}{#3#1}%
+	}%
+}
+\def\otf@hy@utf@pre@f#1#2{%
+	\otf@hy@utf@pre@a#1\otf@mark#2\otf@end
+}
+\def\otf@hy@utf@pre@end#1\otf@mark#2\otf@end{%
+	\otf@cond \ifx\otf@end#1\otf@end \fi{%
+		\otf@hy@utf@sw{#2}%
+	}{%
+		\otf@hy@utf@error
+	}%
+}
+\def\otf@hy@utf@bombout#1\otf@end{%
+	\otf@hy@utf@error
+}
+
+\def\otf@hy@utf@sw#1{%
+	\otf@cond \ifnum"0#1>"10FFFF \fi{%
+		\otf@hy@utf@error
+	}{%
+		\otf@hy@utf@sw@a{#1}%
+	}%
+}
+\def\otf@hy@utf@sw@a#1{%
+	\otf@cond \ifnum"0#1>"FFFF \fi{%
+		\otf@hy@utf@big#1"000000\otf@end
+	}{%
+		\otf@hy@utf@small#1"0000\otf@end
+	}%
+}
+\def\otf@hy@utf@small#1#2#3#4#5#6\otf@end{%
+	\otf@hy@utf@small@a#1#2#3#4#5\otf@end
+}
+\def\otf@hy@utf@small@a#1"#2\otf@end{%
+	\otf@hy@utf@unit{#2#1}%
+}
+\def\otf@hy@utf@big#1#2#3#4#5#6#7#8\otf@end{%
+	\otf@hy@utf@big@a#1#2#3#4#5#6#7\otf@end
+}
+\def\otf@hy@utf@big@a#1"#2\otf@end{%
+	\otf@hy@utf@big@b#2#1\otf@end
+}
+\def\otf@hy@utf@big@b#1#2#3#4{%
+	\otf@triexpandafter\otf@hy@utf@big@c
+	\csname otf@lhq/#1#2\otf@triexpandafter\endcsname
+	\csname otf@hq/#3\otf@triexpandafter\endcsname
+	\csname otf@hq/#4\endcsname
+}
+\def\otf@hy@utf@big@c#1#2#3#4#5#6{%
+	\otf@triexpandafter\otf@hy@utf@big@d
+	\csname otf@qh/2#1\otf@triexpandafter\endcsname
+	\csname otf@qh/#2#3\otf@triexpandafter\endcsname
+	\csname otf@qh/#4#5\otf@triexpandafter\endcsname
+	\csname otf@qh/3#6\endcsname
+}
+\def\otf@hy@utf@big@d#1#2#3#4#5\otf@end{%
+	\otf@hy@utf@unit{D#1#2#3}%
+	\otf@hy@utf@unit{D#4#5}%
+}
+\def\otf@hy@utf@error{%
+	\otf@hy@utf@unit{FFFD}%
+}
+\def\otf@hy@utf@unit#1{%
+	\0x#1%
 }
 \AtBeginDocument{\Redefine@UTF}
 %internal macros
