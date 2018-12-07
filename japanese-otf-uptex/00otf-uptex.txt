@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.16  2014/07/26
+otfbeta-uptex (japanese-otf-uptex) Ver.0.17  2015/04/10
 
 
 [ Abstract ]
@@ -269,4 +269,14 @@ proportional kana at deluxe option and \propshape with limitation:
     Bug fix for ExtraBold (eb).
   patch/*.patch::
     Revise.
+2015.04.10 Ver0.17
+  ## Thank Akira Kakuto san for helpful reports.
+  sty/otf.sty, sty/mlutf.sty ::
+    Increment version number.
+  sty/otf.sty ::
+    Fix bug for ruby.
+  patch/*.patch::
+    Revise.
+  COPYRIGHT ::
+    Update year.
 

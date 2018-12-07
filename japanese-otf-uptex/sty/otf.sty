@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.16 ttk]
+\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.17 ttk]
 \RequirePackage{keyval}
 %for processing options 
 \newif\if@kana \@kanafalse
@@ -345,13 +345,13 @@
 		\if@bold
 			\DeclareFontShape{\otf@JYn}{hgt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expgothb\nlck@sfx@-h}{}
 			\DeclareFontShape{\otf@JTn}{hgt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expgothb\nlck@sfx@-v}{}
-			\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb\nlck@sfx@-h}{}
-			\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb\nlck@sfx@-v}{}
+			\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-h}{}
+			\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothb-v}{}
 		\else
 			\DeclareFontShape{\otf@JYn}{hgt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expgothr\nlck@sfx@-h}{}
 			\DeclareFontShape{\otf@JTn}{hgt}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expgothr\nlck@sfx@-v}{}
-			\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr\nlck@sfx@-h}{}
-			\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr\nlck@sfx@-v}{}
+			\DeclareFontShape{\otf@JYn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr-h}{}
+			\DeclareFontShape{\otf@JTn}{ruby}{bx}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubygothr-v}{}
 		\fi
 	\else
 		\if@bold
