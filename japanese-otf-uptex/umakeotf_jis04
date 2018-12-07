@@ -4,9 +4,9 @@
 # This script is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
 #
 
-#OVP2OVF="../../../omfonts -ovp2ovf"
-#OVP2OVF='wovp2ovf'
-#export OVP2OVF
+#OVP2OVF='omfonts -ovp2ovf'
+OVP2OVF='wovp2ovf'
+export OVP2OVF
 
 if test ! -d tfm; then
 mkdir tfm

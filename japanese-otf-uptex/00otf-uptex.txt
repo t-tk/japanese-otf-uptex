@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.13  2013/11/23
+otfbeta-uptex (japanese-otf-uptex) Ver.0.14  2014/03/22
 
 
 [ Abstract ]
@@ -14,6 +14,7 @@ It requires upTeX-0.20 or later.
 umakeotf : script to make vf, tfm
 umakeotf_brsg : script to make vf, tfm for burasage option
 umakeotf_jis04 : script to make vf, tfm for jis2004 option
+umakeotf_prop : script to make vf, tfm for proportional kana
 umkjvf : mkjvf with unicode support
 
 basepl/ubase-h.pl : unicode version of base-h.pl
@@ -29,6 +30,9 @@ script/sp_list_j.txt : a list of characters on supplementary planes in UniJIS-UT
 script/sp_list_c.txt : a list of characters on supplementary planes in UniCNS-UTF32.
 script/sp_list_t.txt : a list of characters on supplementary planes in UniGB-UTF32.
 script/sp_list_k.txt : a list of characters on supplementary planes in UniKS-UTF32.
+script/CheckDVICode.pm : perl module checking category of characters.
+script/umkpkana.pl   : perl script making pl, ovp for proportional kana
+script/umkvpkana.pl  : perl script making pl, ovp for proportional kana
 
 sty/otf.sty   : basic style file 
 sty/mlutf.sty : style file for multi option
@@ -43,7 +47,6 @@ COPYRIGHT : copyright notice of this package.
 
 [ Status ]
 Beta version.
-Proportional kana is not supported yet.
 
 
 [ About jis2004 option ]
@@ -62,6 +65,15 @@ Instead of using "jis2004" option,
 you can get same result by mapping conventional fonts
   up{,brsg}{nml,exp}{minr,gothr,minb,gothb,mgothr,minl,gotheb}-{h,v}.tfm
 to Adobe standard CMap "UniJIS2004-UTF16-{H,V}".
+
+
+[ About proportional kana ]
+otfbeta-uptex (japanese-otf-uptex) Ver.0.14 or later supports
+proportional kana at deluxe option and \propshape with limitation:
+* The following Kana letters are not proportional:
+  〃〆ヿゟゔゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿヷヸヹヺ  (in UTF-8)
+* Halfwidth katakana letters are not supported:
+  ｱｲｳｴｵｶｷｸｹｺ ... (in UTF-8)
 
 
 [ History ]
@@ -228,4 +240,18 @@ to Adobe standard CMap "UniJIS2004-UTF16-{H,V}".
     Revise.
   test/uplatex/otfscale.tex, test/uplatex/Makefile::
     Add new test.
+2014.03.22 Ver0.14
+  umkjvf, sty/otf.sty, sty/mlutf.sty, otfbeta_uptex-0.14.patch ::
+    Increment version number.
+  script/umk{,v}pkana.pl ::
+    Add proportional kana support.
+  umakeotf_prop ::
+    Add. The script generates vf and tfm for proportional kana on uplatex.
+    The vf and tfm consume about 6.4 Mbytes in total.
+  umkjvf, script/CheckDVICode.pm, script/MakeSPList.pm ::
+    Move some subroutines in the new module and tune up.
+  test/uplatex/upkanatest{1,2}.tex, test/uplatex/Makefile ::
+    Add new tests.
+  COPYRIGHT ::
+    Update year.
 

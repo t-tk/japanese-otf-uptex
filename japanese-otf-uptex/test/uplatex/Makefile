@@ -6,7 +6,7 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx
 PDVITYPE = pdvitype
 
-all: otf sp art bsrg jis04 scale
+all: otf sp art bsrg jis04 scale prop
 
 otf: uplatex-otf platex-otf
 sp: uplatex-sp platex-sp
@@ -14,6 +14,7 @@ art: uplatex-article platex-article
 brsg: uplatex-brsg platex-brsg
 jis04: uplatex-jis04 platex-jis04
 scale: uplatex-scale platex-scale
+prop: uplatex-prop platex-prop
 
 uplatex-otf:
 	for opt in default deluxe expert bold noreplace; do \
@@ -143,6 +144,26 @@ platex-scale:
 		$(PLATEX) "\def\scale{$$scl}\def\class{jsarticle}\input" otfscale.tex ; \
 		mv otfscale.dvi otfscale-$$scl-js-platex.dvi ; \
 		$(DVIPDFMX) otfscale-$$scl-js-platex.dvi ; \
+	done
+
+uplatex-prop:
+	for test in 1 2; do \
+		$(UPLATEX) "\def\class{ujarticle}\input" upkanatest$$test.tex ; \
+		mv upkanatest$$test.dvi upkanatest$$test-h-uplatex.dvi ; \
+		$(DVIPDFMX) upkanatest$$test-h-uplatex.dvi ; \
+		$(UPLATEX) "\def\class{utarticle}\input" upkanatest$$test.tex ; \
+		mv upkanatest$$test.dvi upkanatest$$test-v-uplatex.dvi ; \
+		$(DVIPDFMX) -l upkanatest$$test-v-uplatex.dvi ; \
+	done
+
+platex-prop:
+	for test in 1 2; do \
+		$(PLATEX) "\def\class{jarticle}\input" upkanatest$$test.tex ; \
+		mv upkanatest$$test.dvi upkanatest$$test-h-platex.dvi ; \
+		$(DVIPDFMX) upkanatest$$test-h-platex.dvi ; \
+		$(PLATEX) "\def\class{tarticle}\input" upkanatest$$test.tex ; \
+		mv upkanatest$$test.dvi upkanatest$$test-v-platex.dvi ; \
+		$(DVIPDFMX) -l upkanatest$$test-v-platex.dvi ; \
 	done
 
 clean:

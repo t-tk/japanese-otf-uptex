@@ -2,6 +2,7 @@ package MakeSPList;
 
 use strict;
 use Exporter;
+use File::Basename qw/dirname/;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(make_sp_char_list);
 
@@ -24,8 +25,10 @@ sub make_sp_char_list(@) {
     my (@exist_head_mul, %exist_char_mul)=();
     my ($lang, $first_hex);
 
+    my $moduledir=dirname(__FILE__);
+
     foreach $lang (@lang) {
-	open(LIST, "script/sp_list_$lang.txt") || die "$!";
+	open(LIST, "$moduledir/sp_list_$lang.txt") || die "$!";
 	my (@exist_head_each, %exist_char_each)=();
 	while (<LIST>) {
 	    chomp;
