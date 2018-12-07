@@ -1,4 +1,9 @@
 #!/bin/sh
+
+#OVP2OVF='omfonts -ovp2ovf'
+#OVP2OVF='wovp2ovf'
+#export OVP2OVF
+
 if test ! -d tfm; then
 mkdir tfm
 fi

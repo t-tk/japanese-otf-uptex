@@ -1,0 +1,70 @@
+#!/bin/sh
+
+#OVP2OVF='omfonts -ovp2ovf'
+#OVP2OVF='wovp2ovf'
+#export OVP2OVF
+
+if test ! -d tfm; then
+mkdir tfm
+fi
+
+echo "making tfm/vf for burasage ..."
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlminr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlminr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlgothr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlgothr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlminb-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlminb-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlgothb-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlgothb-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlmgothr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlmgothr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpminr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpminr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpgothr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpgothr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpminb-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpminb-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpgothb-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpgothb-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpmgothr-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpmgothr-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlgotheb-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlgotheb-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgnmlminl-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgnmlminl-v.tfm
+uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsgexpminl-h.tfm
+uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsgexpminl-v.tfm
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlminr-h uphminr-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlminr-v uphminr-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlgothr-h uphgothr-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlgothr-v uphgothr-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlminb-h uphminb-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlminb-v uphminb-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlgothb-h uphgothb-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlgothb-v uphgothb-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlmgothr-h uphmgothr-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlmgothr-v uphmgothr-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlgotheb-h uphgotheb-h
+./umkjvf -ucs -sp 1 -sage -cp upbrsgnmlgotheb-v uphgotheb-v
+./umkjvf -ucs -sp 1 -sage -cq upbrsgnmlminl-h uphminl-h
+./umkjvf -ucs -sp 1 -sage -cm -cp upbrsgnmlminl-v uphminl-v
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpminr-h uphminr-h cidjminr
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpminr-v uphminr-v cidjminr
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpgothr-h uphgothr-h cidjgothr
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpgothr-v uphgothr-v cidjgothr
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpminb-h uphminb-h cidjminb
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpminb-v uphminb-v cidjminb
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpgothb-h uphgothb-h cidjgothb
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpgothb-v uphgothb-v cidjgothb
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpmgothr-h uphmgothr-h cidjmgothr
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpmgothr-v uphmgothr-v cidjmgothr
+./umkjvf -ucs -sp 1 -sage -cq -expert upbrsgexpminl-h uphminl-h cidjminl
+./umkjvf -ucs -sp 1 -sage -cm -cp -expert upbrsgexpminl-v uphminl-v cidjminl
+
+echo "finishing ..."
+if test ! -d vf; then
+mkdir vf
+fi
+mv *.vf vf/
+mv *.tfm tfm/

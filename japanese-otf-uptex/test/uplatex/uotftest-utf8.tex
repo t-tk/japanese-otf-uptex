@@ -1,3 +1,7 @@
+% -*- coding: utf-8 -*-
+\newif\ifuptexmode\uptexmodefalse
+\ifnum\jis"2121="3000 \uptexmodetrue\fi
+
 \makeatletter
 
 \def\@opt@{multi}
@@ -14,23 +18,21 @@
  \edef\@opt@{\option,\@opt@}
 \fi
 
+\ifx\class\@undefined
+ \ifuptexmode
+  \def\class{ujarticle}
+ \else
+  \def\class{jarticle}
+ \fi
+\fi
+
 \def\baseshift{-.12zh}
 \ifx\class\@tarticle\def\baseshift{-.5zh}\fi
 \ifx\class\@utarticle\def\baseshift{-.5zh}\fi
 
-\ifx\class\@undefined
- \def\class{jarticle}
+\ifuptexmode
+ \edef\@opt@{uplatex,\@opt@}
 \fi
-\ifx\class\@jarticle
-\else
- \ifx\class\@tarticle
- \else
-  \edef\@opt@{uplatex,\@opt@}
- \fi
-\fi
-\newif\ifuptexmode\uptexmodefalse
-\ifnum\jis"2121="3000 \uptexmodetrue\fi
-
 \documentclass[a4paper,titlepage, draft]{\class}
 %\documentclass[a4paper,titlepage, draft,landscape]{\class}
 

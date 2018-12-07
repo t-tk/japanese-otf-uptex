@@ -358,11 +358,11 @@ diff -urN otfbeta.orig/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
  otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
 diff -urN otfbeta.orig/sty/mlutf.sty otfbeta/sty/mlutf.sty
 --- otfbeta.orig/sty/mlutf.sty	2010-03-22 14:50:54 +0900
-+++ otfbeta/sty/mlutf.sty	2012-02-15 23:48:15 +0900
++++ otfbeta/sty/mlutf.sty	2012-04-15 07:53:43 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau]
-+\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.09 ttk]
++\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.10 ttk]
  %force catcode of \" be 12
  \count@\catcode`\"
  \catcode`\"=12
@@ -388,12 +388,12 @@ diff -urN otfbeta.orig/sty/mlutf.sty otfbeta/sty/mlutf.sty
 +\Declare@FontShape{utf}{bx}{0123456789abcdefjklmnopqrstuvz}{utfgr}
  \endinput
 diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
---- otfbeta.orig/sty/otf.sty	2010-03-27 11:13:54 +0900
-+++ otfbeta/sty/otf.sty	2012-02-15 23:48:12 +0900
+--- otfbeta.orig/sty/otf.sty	2012-04-11 13:08:12 +0900
++++ otfbeta/sty/otf.sty	2012-04-15 07:51:44 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
--\ProvidesPackage{otf}[2010/03/25 v1.7b1 psitau]
-+\ProvidesPackage{otf}[2010/03/25 v1.7b1 psitau, u0.09 ttk]
+-\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau]
++\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau, u0.10 ttk]
  %for processing options 
  \newif\if@kana \@kanafalse
  \newif\if@macro \@macrotrue
@@ -408,7 +408,7 @@ diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
  	\selectfont%
  	\multiply\@tempcntb by "1000
  	\advance\@tempcnta by -\@tempcntb
-@@ -278,34 +280,34 @@
+@@ -280,34 +282,34 @@
  \DeclareKanjiFamily{\otf@JTn}{utfj}{}
  \DeclareKanjiFamily{\otf@JYn}{cidj}{}
  \DeclareKanjiFamily{\otf@JTn}{cidj}{}

@@ -391,9 +391,12 @@ sub make_vf {
 
 	close(OVP);
 	exit if $debug_mode;
-	if ($ovp2ovf eq '') {
-		$ovp2ovf = 'ovp2ovf'; # use ovp2ovf WEB version in TeXLive svn r24922 or later if you use SP
-	}else{
+
+	$ovp2ovf = 'ovp2ovf'; # use ovp2ovf WEB version in TeXLive svn r24922 or later if you use SP
+	if (defined($ENV{'OVP2OVF'})) {
+		$ovp2ovf = $ENV{'OVP2OVF'};
+	}
+	if ($ovp2ovf_command ne '') {
 		$ovp2ovf = $ovp2ovf_command;
 	}
 	system("$ovp2ovf $tfm_name.ovp $tfm_name.vf $tfm_name.ofm");
@@ -437,7 +440,7 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is umkjvf version 0.09 (2012/2/18) by ttk\n";
+	print "This is umkjvf version 0.10 (2012/4/21) by ttk\n";
 	print "Based on mkjvf version 1.0b21 (2010/3/25) by psitau\n";
 	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
