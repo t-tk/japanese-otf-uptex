@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.21  2018/05/13
+japanese-otf-uptex Ver.0.22  2018/12/07
 
 
 [ Abstract ]
@@ -28,8 +28,8 @@ script/MakeSPList.pm : perl module making data of characters on supplementary pl
 script/mktfm_sp.pl   : perl script making tfm for characters on supplementary planes.
 script/mkutfvf_sp.pl : perl script making vf for characters on supplementary planes.
 script/sp_list_j.txt : a list of characters on supplementary planes in UniJIS-UTF32.
-script/sp_list_c.txt : a list of characters on supplementary planes in UniCNS-UTF32.
-script/sp_list_t.txt : a list of characters on supplementary planes in UniGB-UTF32.
+script/sp_list_c.txt : a list of characters on supplementary planes in UniGB-UTF32.
+script/sp_list_t.txt : a list of characters on supplementary planes in UniCNS-UTF32.
 script/sp_list_k.txt : a list of characters on supplementary planes in UniKS-UTF32.
 script/CheckDVICode.pm : perl module checking category of characters.
 script/umkpkana.pl   : perl script making pl, ovp for proportional kana
@@ -311,7 +311,7 @@ To build tfm files, uppltotf in TeX Live r43143 or TeX Live 2017 or later is req
     Update references:
     Adobe-CNS1-7 cid2code.txt (Version  10/24/2017), and
     Adobe-Japan1-6 cid2code.txt (Version 10/24/2017).
-  script/CheckDVICode.pm, basepl/u{base,brsg}-{h,v}.pl ::
+  script/CheckDVICode.pm, script/umk{,v}pkana.pl, basepl/u{base,brsg}-{h,v}.pl ::
     Add U+00B7 to char_type 3.
   COPYRIGHT ::
     Update year.
@@ -334,4 +334,18 @@ To build tfm files, uppltotf in TeX Live r43143 or TeX Live 2017 or later is req
     Remove feature 'switch'
   test/uplatex/{exclam,upkanatest1}.tex, test/uplatex/Makefile ::
     Add a new test for punctuations and halfwidth katakana.
-
+2018.12.07 Ver0.22
+  ## Thank @aminophen san, 柳田 Ryo san and @Man-Ting-Fan san for many contributions.
+  sty/otf.sty, sty/mlutf.sty ::
+    Increment version number.
+  script/CheckDVICode.pm ::
+    Bug fix on U+3090..3093.
+  script/mkutf32list.pl ::
+    Replace encoding pragma to binmode.
+  script/mktfm_sp.pl, script/mkutfvf_sp.pl ::
+    Apply FindBin module.
+  script/mkutf32list.pl, script/sp_list_j.txt, test/uplatex/sp_jp_{utf,text}.tex ::
+    Update references:
+    Adobe-Japan1-7 cid2code.txt (Version 07/30/2018).
+  test/uplatex/paren0.tex ::
+    Fix typo.
