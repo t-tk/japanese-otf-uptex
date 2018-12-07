@@ -4,9 +4,8 @@
 # This script is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
 #
 
-#OVP2OVF='omfonts -ovp2ovf'
-OVP2OVF='wovp2ovf'
-export OVP2OVF
+# setting for ovp2ovf & uppltotf
+. ./umakeotf_pre
 
 if test ! -d tfm; then
 mkdir tfm
@@ -18,8 +17,8 @@ for series in nml exp
 do
 for face in minr gothr minb gothb mgothr
 do
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}n-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}n-v.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}n-h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}n-v.tfm
 done
 done
 #for extra fonts
@@ -27,8 +26,8 @@ for series in nml exp
 do
 for face in gotheb minl
 do
-uppltotf -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}n-h.tfm
-uppltotf -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}n-v.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-h.pl tfm/up${series}${face}n-h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-v.pl tfm/up${series}${face}n-v.tfm
 done
 done
 
@@ -38,8 +37,8 @@ for series in nml exp
 do
 for face in minr gothr minb gothb mgothr
 do
-uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsg${series}${face}n-h.tfm
-uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsg${series}${face}n-v.tfm
+$UPPLTOTF -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsg${series}${face}n-h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsg${series}${face}n-v.tfm
 done
 done
 #for extra fonts
@@ -47,8 +46,8 @@ for series in nml exp
 do
 for face in gotheb minl
 do
-uppltotf -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsg${series}${face}n-h.tfm
-uppltotf -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsg${series}${face}n-v.tfm
+$UPPLTOTF -kanji=uptex basepl/ubrsg-h.pl tfm/upbrsg${series}${face}n-h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubrsg-v.pl tfm/upbrsg${series}${face}n-v.tfm
 done
 done
 

@@ -10,6 +10,7 @@ mkutf32list.pl cid2code.txt > sp_jp_text.tex
 mkutf32list.pl -style=utf cid2code.txt > sp_jp_utf.tex
 mkutf32list.pl -style=kchar cid2code.txt > sp_jp_kchar.tex
 mkutf32list.pl -style=list cid2code.txt > sp_list_j.txt
+mkutf32list.pl -allrange cid2code.txt > sp_jp_text.tex
 
 =head1 AUTHOR
 
@@ -25,7 +26,7 @@ use strict;
 use encoding 'utf8';
 use feature 'switch';
 
-our ($style);
+our ($style, $allrange);
 our (@count, %reset_ch, $icollec, $cid2code, $line);
 our ($col_utf32, @out);
 our (@cid_max, $collection_n, $collection, $utfmac, $cmap, $source);
@@ -50,16 +51,16 @@ if (/((Adobe.*)-\d) Character Collection/) {
     given($collection) {
 	when (/cns/i) { @cid_max = qw/-1 14098 17407 17600 18845 18964 19087 19155/;
 			$utfmac="UTFT"; $cmap="UniCNS-UTF32";
-			$source="cmapresources_cns1-6.tar.z"; }
+			$source="cmapresources_cns1-6/cid2code.txt"; }
 	when (/gb/i)  { @cid_max = qw/-1 7716 9896 22126 22352 29063 30283/;
 			$utfmac="UTFC"; $cmap="UniGB-UTF32";
-			$source="cmapresources_gb1-5.tar.z"; }
+			$source="cmapresources_gb1-5/cid2code.txt"; }
 	when (/kor/i) { @cid_max = qw/-1 9332 18154 18351/;
 			$utfmac="UTFK"; $cmap="UniKS-UTF32";
-			$source="cmapresources_korean1-2.tar.z"; }
+			$source="cmapresources_korea1-2/cid2code.txt"; }
 	default       { @cid_max = qw/-1 8283 8358 8719 9353 15443 20316 23057/;
 			$utfmac="UTF";  $cmap="UniJIS-UTF32";
-			$source="cmapresources_japan1-6.tar.z"; }
+			$source="cmapresources_japan1-6/cid2code.txt"; }
     }
 }
 
@@ -73,7 +74,7 @@ $cid2code
 % for $collection_n
 %
 % Reference:
-%   http://sourceforge.net/adobe/cmap/home/Home/
+%   https://github.com/adobe-type-tools/cmap-resources/
 %   $source
 %
 % A newer CMap may be required for some code points.
@@ -105,7 +106,7 @@ foreach (@utf32) {
     next if ($_ =~ 'v');
     tr/a-z/A-Z/;
     my $ch=hex($_);
-    next if ($ch < 0x10000);
+    next if ($ch < 0x10000 && !$allrange);
 
     while(!($cid_max[$icollec+1]>=$cid && $cid>$cid_max[$icollec])) {
 	$icollec++;
@@ -145,7 +146,9 @@ END {
 	    print "," if ($style =~ /list/);
 	}
 	print $out;
-	if ($i % 10 == 0) {
+	my ($newline);
+	$newline = $allrange ? 25 : 10;
+	if ($i % $newline == 0) {
 	    print "%" if ($style =~ /utf/);
 	    print "\n" ;
 	}
