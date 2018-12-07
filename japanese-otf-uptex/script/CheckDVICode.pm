@@ -130,7 +130,8 @@ sub is_dvicode($){
 	if ($key eq 'burasage') { return 
 		($code == 0x3001 || $code == 0x3002 ||
 		 $code == 0xFF0C || $code == 0xFF0E);}
-	if ($key eq 'nakaten'  ) { return ($code == 0x30FB);}
+	if ($key eq 'nakaten'  ) { return 
+		($code == 0x30FB || $code == 0x00B7);}
 	if ($key eq 'colon'    ) { return ($code == 0xFF1A);}
 	if ($key eq 'semicolon') { return ($code == 0xFF1B);}
 	if ($key eq 'quote') { return 
@@ -167,6 +168,7 @@ sub is_ucs_open{
 }
 
 sub is_ucs_kigo{
+	return 1 if ($dvicode==0x00B7);
 	return 1 if ($dvicode>=0x2018 && $dvicode<=0x2019);
 	return 1 if ($dvicode>=0x201C && $dvicode<=0x201D);
 	return 1 if ($dvicode>=0x3001 && $dvicode<=0x301F);
@@ -198,8 +200,8 @@ sub is_ucs_hankana{
 
 # Reference:
 #   http://www.unicode.org/Public/UNIDATA/Blocks.txt
-#     Blocks-9.0.0.txt
-#     Date: 2016-02-05, 23:48:00 GMT [KW]
+#     Blocks-10.0.0.txt
+#     Date: 2017-04-12, 17:30:00 GMT [KW]
 sub is_ucs_jpn_range{
 	return 1 if ($dvicode<=0x04FF); # Cyrillic
 
@@ -244,6 +246,7 @@ sub is_ucs_jpn_range{
 
 	return 0 if ($dvicode< 0x1B000);
 	return 1 if ($dvicode<=0x1B0FF); # Kana Supplement
+	return 1 if ($dvicode<=0x1B12F); # Kana Extended-A
 
 	return 0 if ($dvicode< 0x1F100);
 	return 1 if ($dvicode<=0x1F1FF); # Enclosed Alphanumeric Supplement
@@ -254,6 +257,7 @@ sub is_ucs_jpn_range{
 	return 1 if ($dvicode<=0x2B73F); # CJK Unified Ideographs Extension C
 	return 1 if ($dvicode<=0x2B81F); # CJK Unified Ideographs Extension D
 	return 1 if ($dvicode<=0x2CEAF); # CJK Unified Ideographs Extension E
+	return 1 if ($dvicode<=0x2EBEF); # CJK Unified Ideographs Extension F
 
 	return 0 if ($dvicode< 0x2F800);
 	return 1 if ($dvicode<=0x2FA1F); # CJK Compatibility Ideographs Supplement

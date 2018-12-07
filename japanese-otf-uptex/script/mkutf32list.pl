@@ -10,6 +10,7 @@ mkutf32list.pl cid2code.txt > sp_jp_text.tex
 mkutf32list.pl -style=utf cid2code.txt > sp_jp_utf.tex
 mkutf32list.pl -style=kchar cid2code.txt > sp_jp_kchar.tex
 mkutf32list.pl -style=list cid2code.txt > sp_list_j.txt
+mkutf32list.pl -style=list-wo-collec cid2code.txt > sp_list_ja.txt
 mkutf32list.pl -allrange cid2code.txt > sp_jp_text.tex
 
 =head1 AUTHOR
@@ -45,22 +46,23 @@ if (/cid2code/) {
     $cid2code=$_;
     $cid2code=~s/^#/%/;
 }
-if (/((Adobe.*)-\d) Character Collection/) {
+
+if ($.<8 & /((Adobe-(?:Japan|CNS|GB|Korea).*)-\d)\s/) {
     $collection_n=$1;
     $collection=$2;
     given($collection) {
-	when (/cns/i) { @cid_max = qw/-1 14098 17407 17600 18845 18964 19087 19155/;
+	when (/cns/i) { @cid_max = qw/-1 14098 17407 17600 18845 18964 19087 19155 19178/;
 			$utfmac="UTFT"; $cmap="UniCNS-UTF32";
-			$source="cmapresources_cns1-6/cid2code.txt"; }
+			$source="Adobe-CNS1-7/cid2code.txt"; }
 	when (/gb/i)  { @cid_max = qw/-1 7716 9896 22126 22352 29063 30283/;
 			$utfmac="UTFC"; $cmap="UniGB-UTF32";
-			$source="cmapresources_gb1-5/cid2code.txt"; }
+			$source="Adobe-GB1-5/cid2code.txt"; }
 	when (/kor/i) { @cid_max = qw/-1 9332 18154 18351/;
 			$utfmac="UTFK"; $cmap="UniKS-UTF32";
-			$source="cmapresources_korea1-2/cid2code.txt"; }
+			$source="Adobe-Korea1-2/cid2code.txt"; }
 	default       { @cid_max = qw/-1 8283 8358 8719 9353 15443 20316 23057/;
 			$utfmac="UTF";  $cmap="UniJIS-UTF32";
-			$source="cmapresources_japan1-6/cid2code.txt"; }
+			$source="Adobe-Japan1-6/cid2code.txt"; }
     }
 }
 
@@ -125,8 +127,11 @@ foreach (@utf32) {
 END {
     my ($i, $out, $ch);
 
+    if ($style eq "list-wo-collec") { @out = sort(@out); }
+
     foreach $ch (@out) {
-	if (defined($reset_ch{$ch})) {
+	if ($style eq "list-wo-collec") {}
+	elsif (defined($reset_ch{$ch})) {
 	    $i=0;
 	    print "\n\n";
 	    print "%" if ($style =~ /list/);
@@ -142,12 +147,12 @@ END {
 	    when (/list/)  { $out=sprintf "%X", $ch; }
 	    default        { $out=chr($ch); }
 	}
-	if ($i % 10 != 1) {
+	my ($newline);
+	$newline = $allrange ? 25 : 10;
+	if ($i % $newline != 1) {
 	    print "," if ($style =~ /list/);
 	}
 	print $out;
-	my ($newline);
-	$newline = $allrange ? 25 : 10;
 	if ($i % $newline == 0) {
 	    print "%" if ($style =~ /utf/);
 	    print "\n" ;
