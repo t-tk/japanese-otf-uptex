@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.14 ttk]
+\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.15 ttk]
 \RequirePackage{keyval}
 %for processing options 
 \newif\if@kana \@kanafalse
@@ -245,6 +245,11 @@
 	\if@jsclasses\def\utf@sc@le{0.92469}\else\def\utf@sc@le{0.962216}\fi
 \fi
 %definitions of alt-normal font family
+\@ifundefined{if@enablejfam}{%
+	\let\if@jfam@used\iffalse
+}{%
+	\let\if@jfam@used\if@enablejfam
+}
 \if@replace
 	\DeclareErrorKanjiFont{\otf@JYn}{hmc}{m}{n}{10}
 	\DeclareKanjiSubstitution{\otf@JYn}{hmc}{m}{n}
@@ -269,19 +274,16 @@
 		\DeclareRelationFont{\otf@JTn}{hgt}{bx}{}{OT1}{cmr}{bx}{}
 	\fi
 	\@ifpackageloaded{jisx0213}{\relax}{\def\mcdefault{hmc}\def\gtdefault{hgt}}
-	\@ifundefined{if@enablejfam}{%if disablejfam option is not available, do nothing.
-	}{%
-		\if@enablejfam
-			\if@compatibility\else
-				\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
-				\DeclareSymbolFontAlphabet{\mathmc}{mincho}
-				\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
-				\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
-				\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
-				\jfam\symmincho
-			\fi
+	\if@jfam@used
+		\if@compatibility\else
+			\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
+			\DeclareSymbolFontAlphabet{\mathmc}{mincho}
+			\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
+			\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
+			\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
+			\jfam\symmincho
 		\fi
-	}
+	\fi
 \fi
 \if@kana
 	\DeclareKanjiFamily{\otf@JYn}{ruby}{}

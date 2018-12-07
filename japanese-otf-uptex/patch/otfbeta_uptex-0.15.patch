@@ -440,11 +440,11 @@ diff -urN otfbeta-1.7b6/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
  otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
 diff -urN otfbeta-1.7b6/sty/mlutf.sty otfbeta/sty/mlutf.sty
 --- otfbeta-1.7b6/sty/mlutf.sty	2010-03-22 14:50:54.000000000 +0900
-+++ otfbeta/sty/mlutf.sty	2014-03-22 12:00:00.000000000 +0900
++++ otfbeta/sty/mlutf.sty	2014-03-24 22:39:37.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau]
-+\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.14 ttk]
++\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.15 ttk]
  %force catcode of \" be 12
  \count@\catcode`\"
  \catcode`\"=12
@@ -486,11 +486,11 @@ diff -urN otfbeta-1.7b6/sty/mlutf.sty otfbeta/sty/mlutf.sty
  \endinput
 diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
 --- otfbeta-1.7b6/sty/otf.sty	2013-11-17 09:30:36.000000000 +0900
-+++ otfbeta/sty/otf.sty	2014-03-22 12:00:00.000000000 +0900
++++ otfbeta/sty/otf.sty	2014-03-24 21:51:25.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau]
-+\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.14 ttk]
++\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.15 ttk]
  \RequirePackage{keyval}
  %for processing options 
  \newif\if@kana \@kanafalse
@@ -649,7 +649,48 @@ diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
  	\selectfont%
  	\multiply\@tempcntb by "1000
  	\advance\@tempcnta by -\@tempcntb
-@@ -264,6 +399,8 @@
+@@ -110,6 +245,11 @@
+ 	\if@jsclasses\def\utf@sc@le{0.92469}\else\def\utf@sc@le{0.962216}\fi
+ \fi
+ %definitions of alt-normal font family
++\@ifundefined{if@enablejfam}{%
++	\let\if@jfam@used\iffalse
++}{%
++	\let\if@jfam@used\if@enablejfam
++}
+ \if@replace
+ 	\DeclareErrorKanjiFont{\otf@JYn}{hmc}{m}{n}{10}
+ 	\DeclareKanjiSubstitution{\otf@JYn}{hmc}{m}{n}
+@@ -134,19 +274,16 @@
+ 		\DeclareRelationFont{\otf@JTn}{hgt}{bx}{}{OT1}{cmr}{bx}{}
+ 	\fi
+ 	\@ifpackageloaded{jisx0213}{\relax}{\def\mcdefault{hmc}\def\gtdefault{hgt}}
+-	\@ifundefined{if@enablejfam}{%if disablejfam option is not available, do nothing.
+-	}{%
+-		\if@enablejfam
+-			\if@compatibility\else
+-				\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
+-				\DeclareSymbolFontAlphabet{\mathmc}{mincho}
+-				\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
+-				\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
+-				\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
+-				\jfam\symmincho
+-			\fi
++	\if@jfam@used
++		\if@compatibility\else
++			\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
++			\DeclareSymbolFontAlphabet{\mathmc}{mincho}
++			\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
++			\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
++			\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
++			\jfam\symmincho
+ 		\fi
+-	}
++	\fi
+ \fi
+ \if@kana
+ 	\DeclareKanjiFamily{\otf@JYn}{ruby}{}
+@@ -264,6 +401,8 @@
  		\DeclareFontShape{\otf@JTn}{rubymg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubymgothr-v}{}
  		\DeclareFontShape{\otf@JYn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expminl\nlck@sfx@-h}{}
  		\DeclareFontShape{\otf@JTn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expminl\nlck@sfx@-v}{}
@@ -658,7 +699,7 @@ diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
  		\DeclareFontShape{\otf@JYn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-h}{}
  		\DeclareFontShape{\otf@JTn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-v}{}
  	\else
-@@ -272,8 +409,8 @@
+@@ -272,8 +411,8 @@
  		\DeclareFontShape{\otf@JYn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl\nlck@sfx@-h}{}
  		\DeclareFontShape{\otf@JTn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl\nlck@sfx@-v}{}
  	\fi
@@ -669,7 +710,7 @@ diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
  	\DeclareFontShape{\otf@JYn}{hmc}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw3-h}{}
  	\DeclareFontShape{\otf@JYn}{hmc}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw6-h}{}
  	\DeclareFontShape{\otf@JYn}{hgt}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw3-h}{}
-@@ -290,34 +427,36 @@
+@@ -290,34 +429,36 @@
  \DeclareKanjiFamily{\otf@JTn}{utfj}{}
  \DeclareKanjiFamily{\otf@JYn}{cidj}{}
  \DeclareKanjiFamily{\otf@JTn}{cidj}{}

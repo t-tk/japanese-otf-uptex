@@ -1,5 +1,5 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.14  2014/03/22
+otfbeta-uptex (japanese-otf-uptex) Ver.0.15  2014/03/28
 
 
 [ Abstract ]
@@ -254,4 +254,11 @@ proportional kana at deluxe option and \propshape with limitation:
     Add new tests.
   COPYRIGHT ::
     Update year.
+2014.03.28 Ver0.15
+  sty/otf.sty, sty/mlutf.sty ::
+    Increment version number.
+  sty/otf.sty ::
+    Apply again update of otf.sty [2012/04/11 v1.7b5 psitau] in otfbeta (v1.7b5 2012/4/11).
+  patch/*.patch::
+    Revise.
 
