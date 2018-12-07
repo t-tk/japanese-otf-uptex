@@ -1,10 +1,10 @@
 [ Title ]
-otfbeta-uptex (japanese-otf-uptex) Ver.0.12  2013/06/02
+otfbeta-uptex (japanese-otf-uptex) Ver.0.13  2013/11/23
 
 
 [ Abstract ]
 This is a package for upLaTeX support of
-japanese-otf package "otfbeta (v1.7b5 2012/4/11)" by psitau-san
+japanese-otf package "otfbeta (v1.7b6 2013/11/17)" by psitau-san
 ( http://psitau.kitunebi.com/otf.html )
 It requires upTeX-0.20 or later.
 
@@ -217,5 +217,15 @@ to Adobe standard CMap "UniJIS2004-UTF16-{H,V}".
   patch/*.patch::
     Revise.
   test/uplatex/upjis2004.tex, test/uplatex/Makefile::
+    Add new test.
+2013.11.21 Ver0.13
+  sty/otf.sty ::
+    Add scale option by following otfbeta v1.7b6.
+    Increment version number.
+  sty/mlutf.sty ::
+    Increment version number.
+  patch/*.patch::
+    Revise.
+  test/uplatex/otfscale.tex, test/uplatex/Makefile::
     Add new test.
 

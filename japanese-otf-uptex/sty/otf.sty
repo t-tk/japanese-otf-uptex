@@ -1,5 +1,6 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau, u0.12 ttk]
+\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.13 ttk]
+\RequirePackage{keyval}
 %for processing options 
 \newif\if@kana \@kanafalse
 \newif\if@macro \@macrotrue
@@ -9,6 +10,9 @@
 \newif\if@burasage \@burasagefalse
 \newif\if@newglyph \@newglyphfalse
 \newif\if@otf@uplatex \@otf@uplatexfalse
+\newif\if@otf@scale \@otf@scalefalse
+\newif\if@jsclasses \@jsclassesfalse
+
 \DeclareOption{nomacro}{\@macrofalse}
 \DeclareOption{nomacros}{\@macrofalse}
 \DeclareOption{noreplace}{\@replacefalse}
@@ -19,6 +23,11 @@
 \DeclareOption{burasage}{\@burasagetrue}
 \DeclareOption{uplatex}{\@otf@uplatextrue}
 \DeclareOption{jis2004}{\@newglyphtrue}
+\DeclareOption*{\otfpkg@setkey}
+\def\otfpkg@setkey{\expandafter\otfpkg@setkey@a\expandafter{\CurrentOption}}
+\def\otfpkg@setkey@a{\setkeys{otfpkg}}
+\define@key{otfpkg}{scale}{\@otf@scaletrue\def\utf@sc@le{#1}}
+
 \def\otf@JYn{\if@otf@uplatex JY2\else JY1\fi}
 \def\otf@JTn{\if@otf@uplatex JT2\else JT1\fi}
 \def\otf@pfx@{\if@otf@uplatex up\else \fi}
@@ -227,17 +236,15 @@
 	\DeclareFontShape{#1}{#2}{#3}{#6}{<->s*[\utf@sc@le]#4#6-#5}{}%
 	\Declare@FontShape@Enc{#1}{#2}{#3}{#4}{#5}\fi}
 \def\Declare@FontShape@Enc#1\fi{\fi\Declare@FontShapeEnc#1}
-%for jsclasses
-\newif\if@jsclasses \@jsclassesfalse
-\@ifclassloaded{jsarticle}{\@jsclassestrue}{}
-\@ifclassloaded{jsbook}{\@jsclassestrue}{}
-\if@jsclasses\def\utf@sc@le{0.92469}\else\def\utf@sc@le{0.962216}\fi
+\if@otf@scale
+	\relax
+\else
+	%for jsclasses
+	\@ifclassloaded{jsarticle}{\@jsclassestrue}{}
+	\@ifclassloaded{jsbook}{\@jsclassestrue}{}
+	\if@jsclasses\def\utf@sc@le{0.92469}\else\def\utf@sc@le{0.962216}\fi
+\fi
 %definitions of alt-normal font family
-\@ifundefined{if@enablejfam}{%
-	\let\if@jfam@used\iffalse
-}{%
-	\let\if@jfam@used\if@enablejfam
-}
 \if@replace
 	\DeclareErrorKanjiFont{\otf@JYn}{hmc}{m}{n}{10}
 	\DeclareKanjiSubstitution{\otf@JYn}{hmc}{m}{n}
@@ -262,16 +269,19 @@
 		\DeclareRelationFont{\otf@JTn}{hgt}{bx}{}{OT1}{cmr}{bx}{}
 	\fi
 	\@ifpackageloaded{jisx0213}{\relax}{\def\mcdefault{hmc}\def\gtdefault{hgt}}
-	\if@jfam@used
-		\if@compatibility\else
-			\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
-			\DeclareSymbolFontAlphabet{\mathmc}{mincho}
-			\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
-			\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
-			\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
-			\jfam\symmincho
+	\@ifundefined{if@enablejfam}{%if disablejfam option is not available, do nothing.
+	}{%
+		\if@enablejfam
+			\if@compatibility\else
+				\DeclareSymbolFont{mincho}{\otf@JYn}{hmc}{m}{n}
+				\DeclareSymbolFontAlphabet{\mathmc}{mincho}
+				\SetSymbolFont{mincho}{bold}{\otf@JYn}{hmc}{bx}{n}
+				\DeclareMathAlphabet{\mathgt}{\otf@JYn}{hgt}{m}{n}
+				\SetMathAlphabet{\mathgt}{bold}{\otf@JYn}{hgt}{bx}{n}
+				\jfam\symmincho
+			\fi
 		\fi
-	\fi
+	}
 \fi
 \if@kana
 	\DeclareKanjiFamily{\otf@JYn}{ruby}{}

@@ -6,13 +6,14 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx
 PDVITYPE = pdvitype
 
-all: otf sp art bsrg jis04
+all: otf sp art bsrg jis04 scale
 
 otf: uplatex-otf platex-otf
 sp: uplatex-sp platex-sp
 art: uplatex-article platex-article
 brsg: uplatex-brsg platex-brsg
 jis04: uplatex-jis04 platex-jis04
+scale: uplatex-scale platex-scale
 
 uplatex-otf:
 	for opt in default deluxe expert bold noreplace; do \
@@ -118,6 +119,30 @@ platex-jis04:
 		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
 	done \
 	done \
+	done
+
+uplatex-scale:
+	for scl in default 0.5 1.0 1.5 2.0; do \
+		$(UPLATEX) "\def\scale{$$scl}\def\class{ujarticle}\input" otfscale.tex ; \
+		mv otfscale.dvi otfscale-$$scl-uplatex.dvi ; \
+		$(DVIPDFMX) otfscale-$$scl-uplatex.dvi ; \
+	done
+	for scl in default 1.0; do \
+		$(UPLATEX) "\def\scale{$$scl}\def\class{jsarticle}\input" otfscale.tex ; \
+		mv otfscale.dvi otfscale-$$scl-js-uplatex.dvi ; \
+		$(DVIPDFMX) otfscale-$$scl-js-uplatex.dvi ; \
+	done
+
+platex-scale:
+	for scl in default 0.5 1.0 1.5 2.0; do \
+		$(PLATEX) "\def\scale{$$scl}\def\class{jarticle}\input" otfscale.tex ; \
+		mv otfscale.dvi otfscale-$$scl-platex.dvi ; \
+		$(DVIPDFMX) otfscale-$$scl-platex.dvi ; \
+	done
+	for scl in default 1.0; do \
+		$(PLATEX) "\def\scale{$$scl}\def\class{jsarticle}\input" otfscale.tex ; \
+		mv otfscale.dvi otfscale-$$scl-js-platex.dvi ; \
+		$(DVIPDFMX) otfscale-$$scl-js-platex.dvi ; \
 	done
 
 clean:

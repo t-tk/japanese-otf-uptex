@@ -1,6 +1,6 @@
-diff -urN otfbeta.orig/fontmap/hiragino.map(for udvips) otfbeta/fontmap/hiragino.map(for udvips)
---- otfbeta.orig/fontmap/hiragino.map(for udvips)	2010-03-27 09:38:48 +0900
-+++ otfbeta/fontmap/hiragino.map(for udvips)	2013-06-02 15:49:35 +0900
+diff -urN otfbeta-1.7b6/fontmap/hiragino.map(for udvips) otfbeta/fontmap/hiragino.map(for udvips)
+--- otfbeta-1.7b6/fontmap/hiragino.map(for udvips)	2010-03-27 09:38:48.000000000 +0900
++++ otfbeta/fontmap/hiragino.map(for udvips)	2013-06-02 16:55:51.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v 	HiraMinPro-W3-Identity-V
  hminr-h HiraMinPro-W3-H
@@ -101,9 +101,9 @@ diff -urN otfbeta.orig/fontmap/hiragino.map(for udvips) otfbeta/fontmap/hiragino
  hminln-v    HiraMinProN-W2-V
 +uphminln-h     HiraMinProN-W2-UniJIS2004-UTF16-H
 +uphminln-v     HiraMinProN-W2-UniJIS2004-UTF16-V
-diff -urN otfbeta.orig/fontmap/hiraginox.map(for dvipdfmx) otfbeta/fontmap/hiraginox.map(for dvipdfmx)
---- otfbeta.orig/fontmap/hiraginox.map(for dvipdfmx)	2010-03-27 09:39:08 +0900
-+++ otfbeta/fontmap/hiraginox.map(for dvipdfmx)	2013-06-02 15:43:07 +0900
+diff -urN otfbeta-1.7b6/fontmap/hiraginox.map(for dvipdfmx) otfbeta/fontmap/hiraginox.map(for dvipdfmx)
+--- otfbeta-1.7b6/fontmap/hiraginox.map(for dvipdfmx)	2010-03-27 09:39:08.000000000 +0900
++++ otfbeta/fontmap/hiraginox.map(for dvipdfmx)	2013-06-02 16:55:51.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v       Identity-V  HiraMinPro-W3
  hminr-h   H HiraMinPro-W3
@@ -204,9 +204,9 @@ diff -urN otfbeta.orig/fontmap/hiraginox.map(for dvipdfmx) otfbeta/fontmap/hirag
  hminln-v V HiraMinProN-W2
 +uphminln-h       UniJIS2004-UTF16-H        HiraMinProN-W2
 +uphminln-v       UniJIS2004-UTF16-V        HiraMinProN-W2
-diff -urN otfbeta.orig/fontmap/kozuka.map otfbeta/fontmap/kozuka.map
---- otfbeta.orig/fontmap/kozuka.map	2004-12-23 23:56:18 +0900
-+++ otfbeta/fontmap/kozuka.map	2012-01-01 16:52:24 +0900
+diff -urN otfbeta-1.7b6/fontmap/kozuka.map otfbeta/fontmap/kozuka.map
+--- otfbeta-1.7b6/fontmap/kozuka.map	2004-12-23 23:56:18.000000000 +0900
++++ otfbeta/fontmap/kozuka.map	2012-01-01 16:52:24.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v      KozMinPro-Regular-Acro-Identity-V
  hminr-h         KozMinPro-Regular-Acro-H
@@ -252,9 +252,9 @@ diff -urN otfbeta.orig/fontmap/kozuka.map otfbeta/fontmap/kozuka.map
  
  %
  %for Adobe Reader 7
-diff -urN otfbeta.orig/fontmap/kozukax.map otfbeta/fontmap/kozukax.map
---- otfbeta.orig/fontmap/kozukax.map	2004-12-23 23:54:40 +0900
-+++ otfbeta/fontmap/kozukax.map	2012-01-01 16:52:55 +0900
+diff -urN otfbeta-1.7b6/fontmap/kozukax.map otfbeta/fontmap/kozukax.map
+--- otfbeta-1.7b6/fontmap/kozukax.map	2004-12-23 23:54:40.000000000 +0900
++++ otfbeta/fontmap/kozukax.map	2012-01-01 16:52:55.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v    Identity-V KozMinPro-Regular-Acro.otf
  hminr-h       H KozMinPro-Regular-Acro.otf
@@ -300,9 +300,9 @@ diff -urN otfbeta.orig/fontmap/kozukax.map otfbeta/fontmap/kozukax.map
  
  
  %
-diff -urN otfbeta.orig/fontmap/morisawa.map(for udvips) otfbeta/fontmap/morisawa.map(for udvips)
---- otfbeta.orig/fontmap/morisawa.map(for udvips)	2003-12-16 23:43:02 +0900
-+++ otfbeta/fontmap/morisawa.map(for udvips)	2012-01-01 16:47:01 +0900
+diff -urN otfbeta-1.7b6/fontmap/morisawa.map(for udvips) otfbeta/fontmap/morisawa.map(for udvips)
+--- otfbeta-1.7b6/fontmap/morisawa.map(for udvips)	2003-12-16 23:43:02.000000000 +0900
++++ otfbeta/fontmap/morisawa.map(for udvips)	2012-01-01 16:47:01.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v 	RyuminPro-Light-Identity-V
  hminr-h RyuminPro-Light-H
@@ -345,9 +345,9 @@ diff -urN otfbeta.orig/fontmap/morisawa.map(for udvips) otfbeta/fontmap/morisawa
  hmgothr-v Jun101Pro-Light-V
 +uphmgothr-h	Jun101Pro-Light-UniJIS-UTF16-H
 +uphmgothr-v	Jun101Pro-Light-UniJIS-UTF16-V
-diff -urN otfbeta.orig/fontmap/morisawax.map(for dvipdfmx) otfbeta/fontmap/morisawax.map(for dvipdfmx)
---- otfbeta.orig/fontmap/morisawax.map(for dvipdfmx)	2004-08-17 21:35:30 +0900
-+++ otfbeta/fontmap/morisawax.map(for dvipdfmx)	2012-01-01 16:47:01 +0900
+diff -urN otfbeta-1.7b6/fontmap/morisawax.map(for dvipdfmx) otfbeta/fontmap/morisawax.map(for dvipdfmx)
+--- otfbeta-1.7b6/fontmap/morisawax.map(for dvipdfmx)	2004-08-17 21:35:30.000000000 +0900
++++ otfbeta/fontmap/morisawax.map(for dvipdfmx)	2012-01-01 16:47:01.000000000 +0900
 @@ -4,6 +4,8 @@
  otf-cjmr-v    Identity-V    A-OTF-RyuminPro-Light.otf
  hminr-h    H    A-OTF-RyuminPro-Light.otf
@@ -390,9 +390,9 @@ diff -urN otfbeta.orig/fontmap/morisawax.map(for dvipdfmx) otfbeta/fontmap/moris
  hmgothr-v    V    A-OTF-Jun101Pro-Light.otf
 +uphmgothr-h    UniJIS-UTF16-H    A-OTF-Jun101Pro-Light.otf
 +uphmgothr-v    UniJIS-UTF16-V    A-OTF-Jun101Pro-Light.otf
-diff -urN otfbeta.orig/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
---- otfbeta.orig/fontmap/vfontmap.txt	2003-11-10 19:23:12 +0900
-+++ otfbeta/fontmap/vfontmap.txt	2012-01-01 16:47:01 +0900
+diff -urN otfbeta-1.7b6/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
+--- otfbeta-1.7b6/fontmap/vfontmap.txt	2003-11-10 19:23:12.000000000 +0900
++++ otfbeta/fontmap/vfontmap.txt	2012-01-01 16:47:01.000000000 +0900
 @@ -20,6 +20,8 @@
  otf-cjmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf adobejapan
  hminr-h /usr/local/share/texmf/dvipdfm/CIDFont/HiraMinPro-W3.otf
@@ -438,13 +438,13 @@ diff -urN otfbeta.orig/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
  
  otf-ukmr-h /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
  otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
-diff -urN otfbeta.orig/sty/mlutf.sty otfbeta/sty/mlutf.sty
---- otfbeta.orig/sty/mlutf.sty	2010-03-22 14:50:54 +0900
-+++ otfbeta/sty/mlutf.sty	2013-05-25 18:24:54 +0900
+diff -urN otfbeta-1.7b6/sty/mlutf.sty otfbeta/sty/mlutf.sty
+--- otfbeta-1.7b6/sty/mlutf.sty	2010-03-22 14:50:54.000000000 +0900
++++ otfbeta/sty/mlutf.sty	2013-11-23 22:32:27.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
 -\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau]
-+\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.12 ttk]
++\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.13 ttk]
  %force catcode of \" be 12
  \count@\catcode`\"
  \catcode`\"=12
@@ -484,17 +484,17 @@ diff -urN otfbeta.orig/sty/mlutf.sty otfbeta/sty/mlutf.sty
 +\Declare@FontShape{utf}{m}{0123456789abcdefjklmnopqrstuvz}{utfmr}
 +\Declare@FontShape{utf}{bx}{0123456789abcdefjklmnopqrstuvz}{utfgr}
  \endinput
-diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
---- otfbeta.orig/sty/otf.sty	2012-04-11 13:08:12 +0900
-+++ otfbeta/sty/otf.sty	2013-06-02 09:30:31 +0900
+diff -urN otfbeta-1.7b6/sty/otf.sty otfbeta/sty/otf.sty
+--- otfbeta-1.7b6/sty/otf.sty	2013-11-17 09:30:36.000000000 +0900
++++ otfbeta/sty/otf.sty	2013-11-23 12:27:24.000000000 +0900
 @@ -1,5 +1,5 @@
  \NeedsTeXFormat{pLaTeX2e}
--\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau]
-+\ProvidesPackage{otf}[2012/04/11 v1.7b5 psitau, u0.12 ttk]
+-\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau]
++\ProvidesPackage{otf}[2013/11/17 v1.7b6 psitau, u0.13 ttk]
+ \RequirePackage{keyval}
  %for processing options 
  \newif\if@kana \@kanafalse
- \newif\if@macro \@macrotrue
-@@ -57,9 +57,142 @@
+@@ -66,9 +66,142 @@
  	}
  \fi
  \gdef\Redefine@UTF{\@ifpackageloaded{hyperref}{%
@@ -638,7 +638,7 @@ diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
  \AtBeginDocument{\Redefine@UTF}
  %internal macros
  %macros by iNOUE Koich!
-@@ -67,7 +200,9 @@
+@@ -76,7 +209,9 @@
  \newcommand\put@character{%
  	\@tempcntb=\@tempcnta
  	\divide\@tempcntb by "1000
@@ -649,7 +649,7 @@ diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
  	\selectfont%
  	\multiply\@tempcntb by "1000
  	\advance\@tempcnta by -\@tempcntb
-@@ -254,6 +389,8 @@
+@@ -264,6 +399,8 @@
  		\DeclareFontShape{\otf@JTn}{rubymg}{m}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubymgothr-v}{}
  		\DeclareFontShape{\otf@JYn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expminl\nlck@sfx@-h}{}
  		\DeclareFontShape{\otf@JTn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ \brsg@pfx@ expminl\nlck@sfx@-v}{}
@@ -658,7 +658,7 @@ diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
  		\DeclareFontShape{\otf@JYn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-h}{}
  		\DeclareFontShape{\otf@JTn}{ruby}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ rubyminl-v}{}
  	\else
-@@ -262,8 +399,8 @@
+@@ -272,8 +409,8 @@
  		\DeclareFontShape{\otf@JYn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl\nlck@sfx@-h}{}
  		\DeclareFontShape{\otf@JTn}{hmc}{l}{n}{<-> s * [\utf@sc@le] \otf@pfx@ nmlminl\nlck@sfx@-v}{}
  	\fi
@@ -669,7 +669,7 @@ diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
  	\DeclareFontShape{\otf@JYn}{hmc}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw3-h}{}
  	\DeclareFontShape{\otf@JYn}{hmc}{bx}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phiraminw6-h}{}
  	\DeclareFontShape{\otf@JYn}{hgt}{m}{prp}{<-> s * [\utf@sc@le] \otf@pfx@ phirakakuw3-h}{}
-@@ -280,34 +417,36 @@
+@@ -290,34 +427,36 @@
  \DeclareKanjiFamily{\otf@JTn}{utfj}{}
  \DeclareKanjiFamily{\otf@JYn}{cidj}{}
  \DeclareKanjiFamily{\otf@JTn}{cidj}{}
