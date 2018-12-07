@@ -1,13 +1,15 @@
-[ abstract ]
+[ Title ]
+otfbeta-uptex (japanese-otf-uptex) Ver.0.09  2012/02/18
 
+
+[ Abstract ]
 This is a package for upLaTeX support of
-japanese-otf package "otfbeta (v1.7b3 2011/10/28)" by psitau-san
+japanese-otf package "otfbeta (v1.7b4 2012/1/22)" by psitau-san
 ( http://psitau.kitunebi.com/otf.html )
 It requires upTeX-0.20 or later.
 
 
-[ contents ]
-
+[ Contents ]
 00otf-uptex.txt : this file
 umakeotf : script to make vf, tfm
 umkjvf : mkjvf with unicode support
@@ -15,16 +17,27 @@ umkjvf : mkjvf with unicode support
 basepl/ubase-h.pl : unicode version of base-h.pl
 basepl/ubase-v.pl : unicode version of base-v.pl
 
+script/mkutf32list.pl : perl script making lists of characters on supplementary planes.
+script/MakeSPList.pm : perl module making data of characters on supplementary planes.
+script/mktfm_sp.pl   : perl script making tfm for characters on supplementary planes.
+script/mkutfvf_sp.pl : perl script making vf for characters on supplementary planes.
+script/sp_list_j.txt : a list of characters on supplementary planes in UniJIS-UTF32.
+script/sp_list_c.txt : a list of characters on supplementary planes in UniCNS-UTF32.
+script/sp_list_t.txt : a list of characters on supplementary planes in UniGB-UTF32.
+script/sp_list_k.txt : a list of characters on supplementary planes in UniKS-UTF32.
+
+sty/otf.sty   : basic style file 
+sty/mlutf.sty : style file for option multi
+
 test/uplatex : test samples.
 
-patch/*.patch : patch for original style files sty/*.sty in otfbeta.zip
+patch/*.patch : patch for original style files sty/*.sty
+    and fontmap files fontmap/* in otfbeta.zip
 
 COPYRIGHT : copyright notice of this package.
 
-### class files and style files in otfbeta.zip are avairable without patch.
 
-
-[ status ]
+[ Status ]
 Beta version.
 Proportional kana is not supported yet.
 Combination of jis2004 and ucs option is not supported yet
@@ -32,7 +45,7 @@ Combination of jis2004 and ucs option is not supported yet
 Combination of burasage and ucs option is not tested yet, and vf is not generated.
 
 
-[ history ]
+[ History ]
 2007.12.09 Ver0.00
   Initial version.
   for "otfstable (v1.2.9 2007/3/19)"
@@ -108,3 +121,32 @@ Combination of burasage and ucs option is not tested yet, and vf is not generate
     Revise hankaku kana.
   test/uplatex/uotftest-utf8.tex::
     Revise.
+2012.02.18 Ver0.09
+  For "otfbeta (v1.7b4 2012/01/22)", upTeX in TeXLive svn r24922
+  Enhance: support characters on supplementary planes (SP) in ucs mode base fonts
+    and those in macros \UTF{}, \UTFC{}, \UTFT{}, and \UTFM{}.
+    Not only upLaTeX but also pLaTeX can treat
+    the macros \UTF{}, \UTFC{}, \UTFT{}, and \UTFM{} for characters on SP.
+    To generate vf, we require ovp2ovf with set3 support
+    i.e. ovp2ovf (WEB version) in TeXLive svn r24922.
+    To treat dvi, we require dviware with set3 support
+    i.e. dvipdfmx in TeXLive svn r24509, dvipsk in TeXLive svn r18144.
+  sty/otf.sty ::
+    Support characters on SP in the macro \UTF{}.
+  sty/mlutf.sty ::
+    Support characters on SP in the macros \UTFC{}, \UTFT{}, and \UTFM{}.
+  umkjvf ::
+    Change option from '-sip' to '-sp <0-2>'.
+    Update references Unicode Blocks-6.1.0.txt (Date: 2011-06-14, 18:26:00 GMT [KW, LI])
+      and Adobe-Japan1-6 cid2code.txt (Version 02/04/2012).
+  umakeotf, script/sp_list_{j,c,t,k}.txt,
+  script/MakeSPList.pm, script/{mkutf32list,mktfm_sp,mkutfvf_sp}.pl ::
+    Add: New script to make vf, tfm for characters on SP.
+  test/uplatex/Makefile, test/uplatex/uotftest-utf8.tex ::
+    Revise.
+  test/uplatex/uotf-sp-utf8.tex, test/uplatex/sp_jp_text.tex,
+  test/uplatex/sp_{jp,cns,gb,kr}_utf.tex ::
+    Add.
+  patch/*.patch::
+    Revise.
+

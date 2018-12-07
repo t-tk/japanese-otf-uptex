@@ -356,3 +356,98 @@ diff -urN otfbeta.orig/fontmap/vfontmap.txt otfbeta/fontmap/vfontmap.txt
  
  otf-ukmr-h /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
  otf-ukmr-v /usr/local/share/texmf/dvipdfm/CIDFont/HYSMyeongJoStd-Medium-Acro.otf unicode
+diff -urN otfbeta.orig/sty/mlutf.sty otfbeta/sty/mlutf.sty
+--- otfbeta.orig/sty/mlutf.sty	2010-03-22 14:50:54 +0900
++++ otfbeta/sty/mlutf.sty	2012-02-15 23:48:15 +0900
+@@ -1,5 +1,5 @@
+ \NeedsTeXFormat{pLaTeX2e}
+-\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau]
++\ProvidesPackage{mlutf}[2004/04/17 v1.1.2 psitau, u0.09 ttk]
+ %force catcode of \" be 12
+ \count@\catcode`\"
+ \catcode`\"=12
+@@ -45,14 +45,14 @@
+ \Declare@FontShape{utfk}{bx}{0123456789abcdef}{utfkgr}
+ \DeclareKanjiFamily{\otf@JYn}{utfc}{}
+ \DeclareKanjiFamily{\otf@JTn}{utfc}{}
+-\Declare@FontShape{utfc}{m}{0123456789abcdef}{utfcmr}
+-\Declare@FontShape{utfc}{bx}{0123456789abcdef}{utfcgr}
++\Declare@FontShape{utfc}{m}{0123456789abcdefjklmnopqrstuvz}{utfcmr}
++\Declare@FontShape{utfc}{bx}{0123456789abcdefjklmnopqrstuvz}{utfcgr}
+ \DeclareKanjiFamily{\otf@JYn}{utft}{}
+ \DeclareKanjiFamily{\otf@JTn}{utft}{}
+-\Declare@FontShape{utft}{m}{0123456789abcdef}{utftmr}
+-\Declare@FontShape{utft}{bx}{0123456789abcdef}{utftgr}
++\Declare@FontShape{utft}{m}{0123456789abcdefjklmnopqrstuvz}{utftmr}
++\Declare@FontShape{utft}{bx}{0123456789abcdefjklmnopqrstuvz}{utftgr}
+ \DeclareKanjiFamily{\otf@JYn}{utf}{}
+ \DeclareKanjiFamily{\otf@JTn}{utf}{}
+-\Declare@FontShape{utf}{m}{0123456789abcdef}{utfmr}
+-\Declare@FontShape{utf}{bx}{0123456789abcdef}{utfgr}
++\Declare@FontShape{utf}{m}{0123456789abcdefjklmnopqrstuvz}{utfmr}
++\Declare@FontShape{utf}{bx}{0123456789abcdefjklmnopqrstuvz}{utfgr}
+ \endinput
+diff -urN otfbeta.orig/sty/otf.sty otfbeta/sty/otf.sty
+--- otfbeta.orig/sty/otf.sty	2010-03-27 11:13:54 +0900
++++ otfbeta/sty/otf.sty	2012-02-15 23:48:12 +0900
+@@ -1,5 +1,5 @@
+ \NeedsTeXFormat{pLaTeX2e}
+-\ProvidesPackage{otf}[2010/03/25 v1.7b1 psitau]
++\ProvidesPackage{otf}[2010/03/25 v1.7b1 psitau, u0.09 ttk]
+ %for processing options 
+ \newif\if@kana \@kanafalse
+ \newif\if@macro \@macrotrue
+@@ -67,7 +67,9 @@
+ \newcommand\put@character{%
+ 	\@tempcntb=\@tempcnta
+ 	\divide\@tempcntb by "1000
+-	\kanjishape{\ifcase\@tempcntb0\or1\or2\or3\or4\or5\or6\or7\or8\or9\or a\or b\or c\or d\or e\or f\fi}%
++	\kanjishape{\ifcase\@tempcntb0\or1\or2\or3\or4\or5\or6\or7\or8\or9\or a\or b\or c\or d\or e\or f\or
++	   \or  \or  \or  \or  \or  \or  \or  \or  \or  \or  \or g\or  \or h\or i\or j\or
++	  k\or l\or m\or n\or o\or p\or q\or r\or s\or t\or u\or v\or w\or x\or y\or z\fi}%
+ 	\selectfont%
+ 	\multiply\@tempcntb by "1000
+ 	\advance\@tempcnta by -\@tempcntb
+@@ -278,34 +280,34 @@
+ \DeclareKanjiFamily{\otf@JTn}{utfj}{}
+ \DeclareKanjiFamily{\otf@JYn}{cidj}{}
+ \DeclareKanjiFamily{\otf@JTn}{cidj}{}
+-\Declare@FontShape{utfj}{m}{0123456789abcdef}{utfjmr\nlck@sfx@}
++\Declare@FontShape{utfj}{m}{0123456789abcdefjklmnopqrstuvz}{utfjmr\nlck@sfx@}
+ \Declare@FontShape{cidj}{m}{012345}{cidjmr}
+ %definition of other utf/cid fonts
+ \if@deluxe
+-	\Declare@FontShape{utfj}{bx}{0123456789abcdef}{utfjmb\nlck@sfx@}
++	\Declare@FontShape{utfj}{bx}{0123456789abcdefjklmnopqrstuvz}{utfjmb\nlck@sfx@}
+ 	\Declare@FontShape{cidj}{bx}{012345}{cidjmb}
+ 	\DeclareKanjiFamily{\otf@JYn}{utfjg}{}
+ 	\DeclareKanjiFamily{\otf@JTn}{utfjg}{}
+ 	\DeclareKanjiFamily{\otf@JYn}{cidjg}{}
+ 	\DeclareKanjiFamily{\otf@JTn}{cidjg}{}
+-	\Declare@FontShape{utfjg}{m}{0123456789abcdef}{utfjgr\nlck@sfx@}
++	\Declare@FontShape{utfjg}{m}{0123456789abcdefjklmnopqrstuvz}{utfjgr\nlck@sfx@}
+ 	\Declare@FontShape{cidjg}{m}{012345}{cidjgr}
+-	\Declare@FontShape{utfjg}{bx}{0123456789abcdef}{utfjgb\nlck@sfx@}
++	\Declare@FontShape{utfjg}{bx}{0123456789abcdefjklmnopqrstuvz}{utfjgb\nlck@sfx@}
+ 	\Declare@FontShape{cidjg}{bx}{012345}{cidjgb}
+ 	\DeclareKanjiFamily{\otf@JYn}{utfjmg}{}
+ 	\DeclareKanjiFamily{\otf@JTn}{utfjmg}{}
+ 	\DeclareKanjiFamily{\otf@JYn}{cidjmg}{}
+ 	\DeclareKanjiFamily{\otf@JTn}{cidjmg}{}
+-	\Declare@FontShape{utfjmg}{m}{0123456789abcdef}{utfjmgr\nlck@sfx@}
++	\Declare@FontShape{utfjmg}{m}{0123456789abcdefjklmnopqrstuvz}{utfjmgr\nlck@sfx@}
+ 	\Declare@FontShape{cidjmg}{m}{012345}{cidjmgr}
+-	\Declare@FontShape{utfj}{l}{0123456789abcdef}{utfjml\nlck@sfx@}
++	\Declare@FontShape{utfj}{l}{0123456789abcdefjklmnopqrstuvz}{utfjml\nlck@sfx@}
+ 	\Declare@FontShape{cidj}{l}{012345}{cidjml}
+ \else
+ 	\if@bold
+-		\Declare@FontShape{utfj}{bx}{0123456789abcdef}{utfjgb\nlck@sfx@}
++		\Declare@FontShape{utfj}{bx}{0123456789abcdefjklmnopqrstuvz}{utfjgb\nlck@sfx@}
+ 		\Declare@FontShape{cidj}{bx}{012345}{cidjgb}
+ 	\else
+-		\Declare@FontShape{utfj}{bx}{0123456789abcdef}{utfjgr\nlck@sfx@}
++		\Declare@FontShape{utfj}{bx}{0123456789abcdefjklmnopqrstuvz}{utfjgr\nlck@sfx@}
+ 		\Declare@FontShape{cidj}{bx}{012345}{cidjgr}
+ 	\fi
+ \fi

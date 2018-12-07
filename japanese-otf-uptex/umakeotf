@@ -43,46 +43,52 @@ uppltotf -kanji=uptex basepl/ubase-h.pl tfm/upexpminl-h.tfm
 uppltotf -kanji=uptex basepl/ubase-v.pl tfm/upexpminl-v.tfm
 uppltotf -kanji=uptex basepl/ubase-v.pl tfm/uprubyminl-v.tfm
 uppltotf -kanji=uptex basepl/ubase-h.pl tfm/uprubyminl-h.tfm
-./umkjvf -ucs -cq upnmlminr-h uphminr-h
-./umkjvf -ucs -cm -cp upnmlminr-v uphminr-v
-./umkjvf -ucs -cq upnmlgothr-h uphgothr-h
-./umkjvf -ucs -cm -cp upnmlgothr-v uphgothr-v
-./umkjvf -ucs -cq upnmlminb-h uphminb-h
-./umkjvf -ucs -cm -cp upnmlminb-v uphminb-v
-./umkjvf -ucs -cq upnmlgothb-h uphgothb-h
-./umkjvf -ucs -cm -cp upnmlgothb-v uphgothb-v
-./umkjvf -ucs -cq upnmlmgothr-h uphmgothr-h
-./umkjvf -ucs -cm -cp upnmlmgothr-v uphmgothr-v
+echo "making vf (wait a while)..."
+perl script/mkutfvf_sp.pl
+./umkjvf -ucs -sp 1 -cq upnmlminr-h uphminr-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlminr-v uphminr-v
+./umkjvf -ucs -sp 1 -cq upnmlgothr-h uphgothr-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlgothr-v uphgothr-v
+./umkjvf -ucs -sp 1 -cq upnmlminb-h uphminb-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlminb-v uphminb-v
+./umkjvf -ucs -sp 1 -cq upnmlgothb-h uphgothb-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlgothb-v uphgothb-v
+./umkjvf -ucs -sp 1 -cq upnmlmgothr-h uphmgothr-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlmgothr-v uphmgothr-v
 #extra fonts
-./umkjvf -ucs -cq upnmlgotheb-h uphgotheb-h
-./umkjvf -ucs -cp upnmlgotheb-v uphgotheb-v
-./umkjvf -ucs -cq upnmlminl-h uphminl-h
-./umkjvf -ucs -cm -cp upnmlminl-v uphminl-v
+./umkjvf -ucs -sp 1 -cq upnmlgotheb-h uphgotheb-h
+./umkjvf -ucs -sp 1 -cp upnmlgotheb-v uphgotheb-v
+./umkjvf -ucs -sp 1 -cq upnmlminl-h uphminl-h
+./umkjvf -ucs -sp 1 -cm -cp upnmlminl-v uphminl-v
 echo "making alt. kana ..."
-./umkjvf -ucs -cq -expert upexpminr-h uphminr-h cidjminr
-./umkjvf -ucs -cm -cp -expert upexpminr-v uphminr-v cidjminr
-./umkjvf -ucs -cq -expert upexpgothr-h uphgothr-h cidjgothr
-./umkjvf -ucs -cm -cp -expert upexpgothr-v uphgothr-v cidjgothr
-./umkjvf -ucs -cq -expert upexpminb-h uphminb-h cidjminb
-./umkjvf -ucs -cm -cp -expert upexpminb-v uphminb-v cidjminb
-./umkjvf -ucs -cq -expert upexpgothb-h uphgothb-h cidjgothb
-./umkjvf -ucs -cm -cp -expert upexpgothb-v uphgothb-v cidjgothb
-./umkjvf -ucs -cq -expert upexpmgothr-h uphmgothr-h cidjmgothr
-./umkjvf -ucs -cm -cp -expert upexpmgothr-v uphmgothr-v cidjmgothr
-./umkjvf -ucs -cq -ruby uprubyminr-h uphminr-h cidjminr
-./umkjvf -ucs -cm -cp -ruby uprubyminr-v uphminr-v cidjminr
-./umkjvf -ucs -cq -ruby uprubygothr-h uphgothr-h cidjgothr
-./umkjvf -ucs -cm -cp -ruby uprubygothr-v uphgothr-v cidjgothr
-./umkjvf -ucs -cq -ruby uprubyminb-h uphminb-h cidjminb
-./umkjvf -ucs -cm -cp -ruby uprubyminb-v uphminb-v cidjminb
-./umkjvf -ucs -cq -ruby uprubygothb-h uphgothb-h cidjgothb
-./umkjvf -ucs -cm -cp -ruby uprubygothb-v uphgothb-v cidjgothb
-./umkjvf -ucs -cq -ruby uprubymgothr-h uphmgothr-h cidjmgothr
-./umkjvf -ucs -cm -cp -ruby uprubymgothr-v uphmgothr-v cidjmgothr
-./umkjvf -ucs -cq -expert upexpminl-h uphminl-h cidjminl
-./umkjvf -ucs -cm -cp -expert upexpminl-v uphminl-v cidjminl
-./umkjvf -ucs -cq -ruby uprubyminl-h uphminl-h cidjminl
-./umkjvf -ucs -cm -cp -ruby uprubyminl-v uphminl-v cidjminl
+./umkjvf -ucs -sp 1 -cq -expert upexpminr-h uphminr-h cidjminr
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpminr-v uphminr-v cidjminr
+./umkjvf -ucs -sp 1 -cq -expert upexpgothr-h uphgothr-h cidjgothr
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpgothr-v uphgothr-v cidjgothr
+./umkjvf -ucs -sp 1 -cq -expert upexpminb-h uphminb-h cidjminb
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpminb-v uphminb-v cidjminb
+./umkjvf -ucs -sp 1 -cq -expert upexpgothb-h uphgothb-h cidjgothb
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpgothb-v uphgothb-v cidjgothb
+./umkjvf -ucs -sp 1 -cq -expert upexpmgothr-h uphmgothr-h cidjmgothr
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpmgothr-v uphmgothr-v cidjmgothr
+./umkjvf -ucs -sp 1 -cq -ruby uprubyminr-h uphminr-h cidjminr
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminr-v uphminr-v cidjminr
+./umkjvf -ucs -sp 1 -cq -ruby uprubygothr-h uphgothr-h cidjgothr
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubygothr-v uphgothr-v cidjgothr
+./umkjvf -ucs -sp 1 -cq -ruby uprubyminb-h uphminb-h cidjminb
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminb-v uphminb-v cidjminb
+./umkjvf -ucs -sp 1 -cq -ruby uprubygothb-h uphgothb-h cidjgothb
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubygothb-v uphgothb-v cidjgothb
+./umkjvf -ucs -sp 1 -cq -ruby uprubymgothr-h uphmgothr-h cidjmgothr
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubymgothr-v uphmgothr-v cidjmgothr
+./umkjvf -ucs -sp 1 -cq -expert upexpminl-h uphminl-h cidjminl
+./umkjvf -ucs -sp 1 -cm -cp -expert upexpminl-v uphminl-v cidjminl
+./umkjvf -ucs -sp 1 -cq -ruby uprubyminl-h uphminl-h cidjminl
+./umkjvf -ucs -sp 1 -cm -cp -ruby uprubyminl-v uphminl-v cidjminl
+echo "making tfm for supplementary plane ..."
+perl script/mktfm_sp.pl
+echo "making vf for supplementary plane ..."
+perl script/mkutfvf_sp.pl
 echo "finishing ..."
 if test ! -d vf; then
 mkdir vf

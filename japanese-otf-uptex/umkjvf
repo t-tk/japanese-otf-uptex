@@ -6,6 +6,11 @@
 &initialize_constant;
 #processing arguments
 &proc_arg;
+if ($sp==1) { # supplemental plane
+    use script::MakeSPList;
+    &MakeSPList::make_sp_char_list('j');
+    %exist_char=%{$MakeSPList::r_exist_char->{'j'}};
+}
 #make ovp
 &font_header;
 &write_char;
@@ -90,7 +95,7 @@ JIS     UCS
 }
 sub proc_arg {
 	if ($#ARGV == -1) {&print_help;}
-	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sip', \$sip, 0], ['^-ovp2ovf', \$ovp2ovf_command, 1], ['^-h(e|el|elp)?', \$help, 0], ['^-dbg', \$debug_mode, 0], ['^-(.+)', \$unknown, 0]);
+	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sp', \$sp, 1], ['^-ovp2ovf', \$ovp2ovf_command, 1], ['^-h(e|el|elp)?', \$help, 0], ['^-dbg', \$debug_mode, 0], ['^-(.+)', \$unknown, 0]);
 	if ($unknown == 1){
 		print "mkjvf: Unknown options!\n";
 		&print_help;
@@ -343,9 +348,12 @@ sub write_char {
 		}
 	}
     } else { # ucs
-	$max_ucs= $sip ? 0x2FA1F : 0xFFFF;
+	$max_ucs= $sp ? 0x2FA1F : 0xFFFF;  # U+2FA1F: max of CJK Compatibility Ideographs Supplement
 	for ($ucscode=0; $ucscode<=$max_ucs; $ucscode++){
 		next unless (&is_ucs_jpn_range);
+		if ($sp==1 && $ucscode>0xFFFF) {
+			next unless ($exist_char{sprintf("%X",$ucscode)});
+		}
 		$dvicode=$ucscode;
 		$char_code=$ucscode;
 			if(&is_ucs_hankana && $direction eq "y"){
@@ -384,7 +392,7 @@ sub make_vf {
 	close(OVP);
 	exit if $debug_mode;
 	if ($ovp2ovf eq '') {
-		$ovp2ovf = 'ovp2ovf'; # use ovp2ovf WEB version in TeXLive svn r24922 or later if you use SIP
+		$ovp2ovf = 'ovp2ovf'; # use ovp2ovf WEB version in TeXLive svn r24922 or later if you use SP
 	}else{
 		$ovp2ovf = $ovp2ovf_command;
 	}
@@ -429,7 +437,7 @@ sub make_tfm {
 ####  dfn of sub sub rtns  ###
 ##############################
 sub print_help {
-	print "This is umkjvf version 0.08 (2012/1/22) by ttk\n";
+	print "This is umkjvf version 0.09 (2012/2/18) by ttk\n";
 	print "Based on mkjvf version 1.0b21 (2010/3/25) by psitau\n";
 	print "Usage: umkjvf [option] <TFMfile> <PSfontTFM> [<PSfontTFM>]\n";
 	print "   -b <number>     baseline shift\n";
@@ -444,7 +452,7 @@ sub print_help {
 	print "   -burasage       make the width of kutoh-ten zero for burasage\n";
 	print "   -jp04           make a font mapped JIS X 0213:2004 glyphs\n";
 	print "   -ucs            make ucs mapped vf (umkjvf extention)\n";
-	print "   -sip            include supplemental ideographic plane (umkjvf extention)\n";
+	print "   -sp <0--2>      include supplemental plane (umkjvf extention)\n";
 	print "   -SJIS           make shift jis mapped vf (experimental)\n";
 	print "   -scale <0--1>   make kokana vf\n";
 	print "   -ovp2ovf <command>  use ovp2ovf command\n";
@@ -1102,52 +1110,58 @@ sub is_ucs_hankana{
 }
 
 sub is_ucs_jpn_range{
-	return 1 if ($ucscode<=0x04FF);
+	return 1 if ($ucscode<=0x04FF); # Cyrillic
 
 	return 0 if ($ucscode< 0x1E00);
-	return 1 if ($ucscode<=0x243F);
+	return 1 if ($ucscode<=0x243F); # Control Pictures
 
 	return 0 if ($ucscode< 0x2460);
-	return 1 if ($ucscode<=0x27BF);
+	return 1 if ($ucscode<=0x27BF); # Dingbats
 
 	return 0 if ($ucscode< 0x2900);
-	return 1 if ($ucscode<=0x29FF);
+	return 1 if ($ucscode<=0x29FF); # Miscellaneous Mathematical Symbols-B
 
 	return 0 if ($ucscode< 0x2B00);
-	return 1 if ($ucscode<=0x2BFF);
+	return 1 if ($ucscode<=0x2BFF); # Miscellaneous Symbols and Arrows
 
 	return 0 if ($ucscode< 0x2E80);
-	return 1 if ($ucscode<=0x2FDF);
+	return 1 if ($ucscode<=0x2FDF); # Kangxi Radicals
 
 	return 0 if ($ucscode< 0x3000);
-	return 1 if ($ucscode<=0x30FF);
+	return 1 if ($ucscode<=0x30FF); # Katakana
 
 	return 0 if ($ucscode< 0x3190);
-	return 1 if ($ucscode<=0x319F);
+	return 1 if ($ucscode<=0x319F); # Kanbun
 
 	return 0 if ($ucscode< 0x31F0);
-	return 1 if ($ucscode<=0x4DBF);
+	return 1 if ($ucscode<=0x4DBF); # CJK Unified Ideographs Extension A
 
 	return 0 if ($ucscode< 0x4E00);
-	return 1 if ($ucscode<=0x9FFF);
+	return 1 if ($ucscode<=0x9FFF); # CJK Unified Ideographs
 
 	return 0 if ($ucscode< 0xE000);
-	return 1 if ($ucscode<=0xFB4F);
+	return 1 if ($ucscode<=0xFB4F); # Alphabetic Presentation Forms
 
 	return 0 if ($ucscode< 0xFE10);
-	return 1 if ($ucscode<=0xFE1F);
+	return 1 if ($ucscode<=0xFE1F); # Vertical Forms
 
 	return 0 if ($ucscode< 0xFE30);
-	return 1 if ($ucscode<=0xFE4F);
+	return 1 if ($ucscode<=0xFE4F); # CJK Compatibility Forms
 
 	return 0 if ($ucscode< 0xFF00);
-	return 1 if ($ucscode<=0xFFEF);
+	return 1 if ($ucscode<=0xFFEF); # Halfwidth and Fullwidth Forms
+
+	return 0 if ($ucscode< 0x1F100);
+	return 1 if ($ucscode<=0x1F1FF); # Enclosed Alphanumeric Supplement
+	return 1 if ($ucscode<=0x1F2FF); # Enclosed Ideographic Supplement
 
 	return 0 if ($ucscode< 0x20000);
-	return 1 if ($ucscode<=0x2A6DF);
+	return 1 if ($ucscode<=0x2A6DF); # CJK Unified Ideographs Extension B
+	return 1 if ($ucscode<=0x2B73F); # CJK Unified Ideographs Extension C
+	return 1 if ($ucscode<=0x2B81F); # CJK Unified Ideographs Extension D
 
 	return 0 if ($ucscode< 0x2F800);
-	return 1 if ($ucscode<=0x2FA1F);
+	return 1 if ($ucscode<=0x2FA1F); # CJK Compatibility Ideographs Supplement
 
 	return 0;
 }
