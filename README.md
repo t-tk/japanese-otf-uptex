@@ -2,7 +2,7 @@ japanese-otf-uptex
 ==================
 
 This package provides upLaTeX support of
-japanese-otf package "otfbeta (v1.7b7 2018/02/01)" by psitau-san
+japanese-otf package "otfbeta (v1.7b8 2019/04/01)" by psitau-san
 ( http://psitau.kitunebi.com/otf.html )
 
 
