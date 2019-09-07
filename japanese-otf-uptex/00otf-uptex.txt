@@ -384,5 +384,7 @@ https://github.com/t-tk/japanese-otf-uptex
     Update year.
 2019.09.07 Ver0.24
   ## Thank @aminophen san.
+  sty/otf.sty, sty/mlutf.sty ::
+    Increment version number.
   script/CheckDVICode.pm ::
     Make half width U+00B7 in VFs.
