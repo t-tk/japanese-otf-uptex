@@ -100,39 +100,39 @@ sub proc_arg {
 	if ($#ARGV == -1) {&print_help;}
 	GetOptions(\@ARGV, ['^-b', \$baseline_shift, 1], ['^-m', \$minute_option, 0], ['^-cm', \$cid_minute, 0], ['^-cq', \$cid_quote, 0], ['^-cp', \$comma_period, 0], ['^-chk', \$cid_hankana, 0], ['^-SJIS', \$sjis, 0], ['^-scale', \$scale, 1], ['^-notfm', \$without_tfm, 1], ['^-expert', \$expert, 0], ['^-ruby', \$ruby, 0], ['^-sage', \$burasage, 0], ['^-jp04', \$jis2004, 0], ['^-ucs', \$ucs, 0], ['^-sp', \$sp, 1], ['^-ovp2ovf', \$ovp2ovf_command, 1], ['^-h(e|el|elp)?', \$help, 0], ['^-dbg', \$debug_mode, 0], ['^-(.+)', \$unknown, 0]);
 	if ($unknown == 1){
-		print "mkjvf: Unknown options!\n";
+		print "umkjvf: Unknown options!\n";
 		&print_help;
 	}
 	if ($help == 1){&print_help;}
 	if (($expert == 0) && ($ruby == 0)){
 		if ($#ARGV <= 0) {
-			print "mkjvf: Need two to three file arguments.\n";
+			print "umkjvf: Need two to three file arguments.\n";
 			&print_help;
 		}
 	} elsif (($expert != 0) && ($ruby != 0)){
-			print "mkjvf: You can't use \"-ruby\" and \"-expert\" at same time.\n";
+			print "umkjvf: You can't use \"-ruby\" and \"-expert\" at same time.\n";
 			&print_help;
 	} elsif (($scale != 0) && ($ruby != 0)){
-			print "mkjvf: You can't use \"-ruby\" and \"-scale\" at same time.\n";
+			print "umkjvf: You can't use \"-ruby\" and \"-scale\" at same time.\n";
 			&print_help;
 	} elsif (($jis2004 != 0) && ($ruby != 0)){
-			print "mkjvf: You can't use \"-ruby\" and \"-jp04\" at same time.\n";
+			print "umkjvf: You can't use \"-ruby\" and \"-jp04\" at same time.\n";
 			&print_help;
 	} elsif (($jis2004 != 0) && ($sjis != 0)){
-			print "mkjvf: You can't use \"-sjis\" and \"-jp04\" at same time.\n";
+			print "umkjvf: You can't use \"-sjis\" and \"-jp04\" at same time.\n";
 			&print_help;
 	} elsif (($jis2004 != 0) && ($ucs != 0)){
-			print "mkjvf: You can't use \"-ucs\" and \"-jp04\" at same time.\n";
+			print "umkjvf: You can't use \"-ucs\" and \"-jp04\" at same time.\n";
 			&print_help;
 	} else {
 		if ($#ARGV <= 1) {
-			print "mkjvf: Need three file arguments for this option.\n";
+			print "umkjvf: Need three file arguments for this option.\n";
 			&print_help;
 		}
 		$alt_kana_true=1;
 	}
 	if ($scale < 0 || $scale >= 1){
-		print "mkjvf: Invalid Scale!!\n";
+		print "umkjvf: Invalid Scale!!\n";
 		&print_help;
 	}
 	if ($scale == 0){$scale = 1;}
