@@ -1,0 +1,61 @@
+#!/bin/sh
+
+#
+# This script is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
+#
+
+# setting for ovp2ovf & uppltotf
+. ./umakeotf_pre
+
+if test ! -d tfm; then
+mkdir tfm
+fi
+
+
+echo "making tfm ..."
+for lang in j
+do
+for face in mr gr mb gb mgr ml ge
+do
+$UPPLTOTF -kanji=uptex basepl/ubase-h.pl tfm/utf${lang}${face}--h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-v.pl tfm/utf${lang}${face}--v.tfm
+done
+done
+
+for lang in t c
+do
+for face in mr gr
+do
+$UPPLTOTF -kanji=uptex basepl/ubase-h.pl tfm/utf${lang}${face}--h.tfm
+$UPPLTOTF -kanji=uptex basepl/ubase-v.pl tfm/utf${lang}${face}--v.tfm
+done
+done
+
+
+echo "making vf (wait a while)..."
+for lang in j
+do
+for face in mr gr mb gb mgr ml ge
+do
+./umkjvf -ucs -omitfw -notfm h utf${lang}${face}--h otf-u${lang}${face}-h
+./umkjvf -ucs -omitfw -notfm v utf${lang}${face}--v otf-u${lang}${face}-h
+done
+done
+
+for lang in t c
+do
+for face in mr gr
+do
+./umkjvf -ucs -omitfw utf${lang}${face}--h otf-u${lang}${face}-h
+./umkjvf -ucs -omitfw utf${lang}${face}--v otf-u${lang}${face}-h
+done
+done
+
+
+echo "finishing ..."
+if test ! -d vf; then
+mkdir vf
+fi
+mv *.vf vf/
+mv *.tfm tfm/
+rm -rf ovp
