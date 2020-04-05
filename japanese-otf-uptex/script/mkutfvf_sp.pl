@@ -34,7 +34,7 @@ my %lang_id; foreach $_ (0..$#lang) { $lang_id{$lang[$_]}=$_; }
 my @dir = qw/h v/;
 my %font_id = qw/1b g      1d h 1e i 1f j
   20 k 21 l 22 m 23 n 24 o 25 p 26 q 27 r
-  28 s 29 t 2a u 2b v 2c w 2d x 2e y 2f z/;
+  28 s 29 t 2a u 2b v 2c w 2d x 2e y 2f z 0f f/;
 
 &MakeSPList::make_sp_char_list(@lang);
 
@@ -43,16 +43,17 @@ my %font_id = qw/1b g      1d h 1e i 1f j
 &makeunivf;
 
 sub makejvf {
-	foreach $lang ($lang[0]){ #language
+	foreach $lang ($lang[0]){ #language, japanase
 		foreach $face (@face){ #face
 			foreach $dir (@dir){ #direction
+				&make_ucs_vf_body($face, $dir, $lang);
 				&makevf_body($face, $dir, $lang);
 			}
 		}
 	}
 }
 sub makemlvf {
-	foreach $lang (@lang[1..$multi]){ #language
+	foreach $lang (@lang[1..$multi]){ #language, t c k
 		foreach $face (@face[0..1]){ #face
 			foreach $dir (@dir){ #direction
 				&makevf_body($face, $dir, $lang);
@@ -72,18 +73,19 @@ sub makevf_body {
     my ($face, $dir, $lang)=@_;
 
     my @exist_head=@{$MakeSPList::r_exist_head->{$lang}};
-    foreach $first_hex (0x1b, 0x1d .. 0x2f) { # U+1Cxxx : not defined yet
-	next if (!$exist_head[$first_hex]);
+    foreach $first_hex (0x0f, 0x1b, 0x1d .. 0x2f) { # U+1Cxxx : not defined yet
+	next if ($first_hex>0x0f && !$exist_head[$first_hex]);
+	next if ($first_hex==0x0f && $lang ne 'j');
 
-	$HEX = sprintf("%X", $first_hex);
-	$id = $font_id{sprintf("%x", $first_hex)};
+	$HEX = sprintf("%02X", $first_hex);
+	$id = $font_id{sprintf("%02x", $first_hex)};
 	warn "now processing (face:$face, dir:$dir, lang:$lang, first_hex:$HEX, ID:$id) ...\n";
 	$filename="utf$lang$face$id-$dir";
 	open(OUT, ">ovp/$filename.ovp")||die "$!";
 	&fonthead;
 	print OUT "(MAPFONT D 0\n   (FONTNAME otf-u$lang$face-$dir)\n";
 	&fontfoot;
-	&writechar($first_hex, $lang);
+	&writechar($first_hex, $dir, $lang);
 	close(OUT);
 	unless ($debug){
 		system("$ovp2ovf ovp/$filename.ovp vf/$filename.vf vf/$filename.ofm");
@@ -100,8 +102,8 @@ sub make_uni_vf_body {
     foreach $first_hex (0x1b, 0x1d .. 0x2f) { # U+1Cxxx : not defined yet
 	next if (!$exist_head[$first_hex]);
 
-	$HEX = sprintf("%X", $first_hex);
-	$id = $font_id{sprintf("%x", $first_hex)};
+	$HEX = sprintf("%02X", $first_hex);
+	$id = $font_id{sprintf("%02x", $first_hex)};
 	warn "now processing (face:$face, dir:$dir, lang:MULTI, first_hex:$HEX, ID:$id) ...\n";
 	$filename="utf$face$id-$dir";
 	open(OUT, ">ovp/$filename.ovp")||die "$!";
@@ -111,7 +113,27 @@ sub make_uni_vf_body {
 		print OUT "(MAPFONT D $l\n   (FONTNAME otf-u$lang[$l]$face-$dir)\n";
 		&fontfoot;
 	}
-	&writechar($first_hex, @ln);
+	&writechar($first_hex, $dir, @ln);
+	close(OUT);
+	unless ($debug){
+		system("$ovp2ovf ovp/$filename.ovp vf/$filename.vf vf/$filename.ofm");
+		unlink "vf/$filename.ofm";
+	}
+    }
+}
+
+sub make_ucs_vf_body {
+    my ($face, $dir, $lang)=@_;
+
+    {
+	$id = '-';
+	warn "now processing (face:$face, dir:$dir, lang:$lang, ucs vf, ID:$id) ...\n";
+	$filename="utf$lang$face$id-$dir";
+	open(OUT, ">ovp/$filename.ovp")||die "$!";
+	&fonthead;
+	print OUT "(MAPFONT D 0\n   (FONTNAME otf-u$lang$face-$dir)\n";
+	&fontfoot;
+	&writechar_ucs($dir);
 	close(OUT);
 	unless ($debug){
 		system("$ovp2ovf ovp/$filename.ovp vf/$filename.vf vf/$filename.ofm");
@@ -139,7 +161,7 @@ END_OF_DATA
 }
 
 sub writechar {
-	my ($hex, @ln) = @_;
+	my ($hex, $dir, @ln) = @_;
 	my $lang = join ',', @ln;
 	my %exist_char=%{$MakeSPList::r_exist_char->{$lang}};
 
@@ -148,7 +170,12 @@ sub writechar {
 			$jis=sprintf("%X", $ku*256 + $ten + 0x2020);
 			$uni=sprintf("%X", $hex*0x1000 + ($ku-16)*64 + ($ten-16));
 			my $echr=$exist_char{$uni};
-			if ($echr) {
+			if ($uni<0x10000) {
+				my $wd  = ($dir eq 'h' && $uni>=0xFF61 && $uni<=0xFF9F) ? 0.5 : 1.0;
+				print OUT "(CHARACTER H $jis (CHARWD R $wd) (MAP \n";
+				print OUT "      (SETCHAR H $uni)))\n";
+			}
+			elsif ($echr) {
 				#warn("lang: $lang, jis: $jis, uni: $uni\n");
 				print OUT "(CHARACTER H $jis (CHARWD R 1.0) (MAP \n";
 				if (@ln>1 && $echr !~ $ln[0]) {
@@ -162,5 +189,15 @@ sub writechar {
 				print OUT "      (SETCHAR H $uni)))\n";
 			}
 		}
+	}
+}
+
+sub writechar_ucs {
+	my ($dir) = @_;
+	my $wd = $dir eq 'h' ? 0.5 : 1.0;
+	foreach $uni (0xFF61 .. 0xFF9F){
+		my $uniX = sprintf("%X", $uni);
+		print OUT "(CHARACTER H $uniX (CHARWD R $wd) (MAP \n";
+		print OUT "      (SETCHAR H $uniX)))\n";
 	}
 }
