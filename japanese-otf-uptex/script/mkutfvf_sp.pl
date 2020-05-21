@@ -54,8 +54,9 @@ sub makejvf {
 }
 sub makemlvf {
 	foreach $lang (@lang[1..$multi]){ #language, t c k
-		foreach $face (@face[0..1]){ #face
+		foreach $face (@face){ #face
 			foreach $dir (@dir){ #direction
+				&make_ucs_vf_body($face, $dir, $lang);
 				&makevf_body($face, $dir, $lang);
 			}
 		}
@@ -132,7 +133,7 @@ sub make_ucs_vf_body {
 	&fonthead;
 	print OUT "(MAPFONT D 0\n   (FONTNAME otf-u$lang$face-$dir)\n";
 	&fontfoot;
-	&writechar_ucs($dir);
+	&writechar_ucs($dir) if ($lang eq 'j');
 	close(OUT);
 	unless ($debug){
 		system("$ovp2ovf ovp/$filename.ovp vf/$filename.vf vf/$filename.ofm");

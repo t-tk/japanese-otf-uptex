@@ -96,18 +96,22 @@ my %font_id = qw/1b g      1d h 1e i 1f j
 
 sub make_utf_tfm {
 	foreach $lang ($lang[0]){ #language, japanase
+		foreach $newjis ('', 'n') {
 		foreach $face (@face){ #face
+			$face0 = $face.$newjis;
 			foreach $dir (@dir){ #direction
-				&make_dvipstfm_body($face, $dir, $lang) if ($dir=='h');
-				&maketfm_body($face, $dir, $lang);
+				&make_dvipstfm_body($face0, $dir, $lang) if ($dir=='h');
+				&maketfm_body($face0, $dir, $lang);
 			}
+		}
 		}
 	}
 }
 sub make_multi_utf_tfm {
 	foreach $lang (@lang[1..$multi]){ #language, t c k
-		foreach $face (@face[0..1]){ #face
+		foreach $face (@face){ #face
 			foreach $dir (@dir){ #direction
+				&make_dvipstfm_body($face, $dir, $lang);
 				&maketfm_body($face, $dir, $lang);
 			}
 		}
@@ -153,13 +157,18 @@ sub maketfm_body {
 		close(TEXTFM);
 	}
 
-	if ($lang eq 'j') {
+	{
 		$id = '-';
 		$filename="utf$lang$face$id-$dir";
 		open(TEXTFM,">tfm/$filename.tfm") || die "Can't make \'tfm/$filename.tfm\'!\n";
 		binmode(TEXTFM);
 		if ($dir eq 'h') {
-			foreach $binary(@tex_tfm_ucs_h) {$_ = pack("C", $binary);print TEXTFM "$_";}
+			if ($lang eq 'j') {
+				@tex_tfm = @tex_tfm_ucs_h;
+			} else {
+				@tex_tfm = @tex_tfm_h;
+			}
+			foreach $binary(@tex_tfm  ) {$_ = pack("C", $binary);print TEXTFM "$_";}
 		}elsif ($dir eq 'v'){
 			foreach $binary(@tex_tfm_v) {$_ = pack("C", $binary);print TEXTFM "$_";}
 		}
@@ -184,7 +193,12 @@ sub make_dvipstfm_body {
 		open(DVIPSTFM,">tfm/$varfilename.tfm") || die "Can't make \'tfm/$varfilename.tfm\'!\n";
 		binmode(DVIPSTFM);
 		if ($dir eq 'h') {
-			foreach $binary(@dvips_tfm_ucs_h) {$_ = pack("C", $binary);print DVIPSTFM "$_";}
+			if ($lang eq 'j') {
+				@dvips_tfm = @dvips_tfm_ucs_h;
+			} else {
+				@dvips_tfm = @dvips_tfm_h;
+			}
+			foreach $binary(@dvips_tfm  ) {$_ = pack("C", $binary);print DVIPSTFM "$_";}
 		}elsif ($dir eq 'v'){
 			foreach $binary(@dvips_tfm_v) {$_ = pack("C", $binary);print DVIPSTFM "$_";}
 		}
