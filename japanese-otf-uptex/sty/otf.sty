@@ -265,7 +265,7 @@
 	\advance\@tempcnta by \@tempcntb
 	\if@otf@uplatex
 		\advance\@tempcnta by "113030
-		\char\@tempcnta%
+		\kchar\@tempcnta%
 	\else
 		\advance\@tempcnta by "3030
 		\char\jis\@tempcnta%
@@ -274,7 +274,7 @@
 \newcommand\set@character@{\afterassignment\put@character@\@tempcnta}
 \newcommand\put@character@{%
 	\kanjishape{-}\selectfont%
-	\char\@tempcnta%
+	\kchar\@tempcnta%
 }
 \catcode`\"=\count@
 %end of changing catcode of \"
