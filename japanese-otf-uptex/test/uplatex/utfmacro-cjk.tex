@@ -1,0 +1,353 @@
+% -*- coding: utf-8 -*-
+\newif\ifuptexmode\uptexmodefalse
+\ifnum\jis"2121="3000 \uptexmodetrue\fi
+
+\makeatletter
+
+\def\@opt@{multi}
+\def\@default{default}
+\def\@jarticle{jarticle}
+\def\@tarticle{tarticle}
+\def\@utarticle{utarticle}
+
+\ifx\option\@undefined
+ \def\option{multi}
+\fi
+\ifx\option\@default
+\else
+ \edef\@opt@{\option,\@opt@}
+\fi
+
+\ifx\class\@undefined
+ \ifuptexmode
+  \def\class{ujarticle}
+ \else
+  \def\class{jarticle}
+ \fi
+\fi
+
+\def\baseshift{-.12zh}
+\ifx\class\@tarticle\def\baseshift{-.5zh}\fi
+\ifx\class\@utarticle\def\baseshift{-.5zh}\fi
+
+\ifuptexmode
+ \edef\@opt@{uplatex,\@opt@}
+\fi
+\documentclass[a4paper,titlepage, draft]{\class}
+%\documentclass[a4paper,titlepage, draft,landscape]{\class}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[\@opt@]{otf}
+
+\makeatother
+
+\AtBeginDvi{\special{pdf:mapline uphminr-h UniJISup-UTF16-H HaranoAjiMincho-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline uphminb-h UniJISup-UTF16-H HaranoAjiMincho-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline uphminl-h UniJISup-UTF16-H HaranoAjiMincho-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline uphgothr-h UniJISup-UTF16-H HaranoAjiGothic-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline uphgothb-h UniJISup-UTF16-H HaranoAjiGothic-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline uphgotheb-h UniJISup-UTF16-H HaranoAjiGothic-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline uphmgothr-h UniJISup-UTF16-H HaranoAjiGothic-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ujmr-h unicode HaranoAjiMincho-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujmb-h unicode HaranoAjiMincho-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujml-h unicode HaranoAjiMincho-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujgr-h unicode HaranoAjiGothic-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujgb-h unicode HaranoAjiGothic-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujge-h unicode HaranoAjiGothic-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ujmgr-h unicode HaranoAjiGothic-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ucmr-h unicode HaranoAjiMinchoCN-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucmb-h unicode HaranoAjiMinchoCN-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucml-h unicode HaranoAjiMinchoCN-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucgr-h unicode HaranoAjiGothicCN-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucgb-h unicode HaranoAjiGothicCN-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucge-h unicode HaranoAjiGothicCN-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ucmgr-h unicode HaranoAjiGothicCN-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-utmr-h unicode HaranoAjiMinchoTW-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utmb-h unicode HaranoAjiMinchoTW-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utml-h unicode HaranoAjiMinchoTW-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utgr-h unicode HaranoAjiGothicTW-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utgb-h unicode HaranoAjiGothicTW-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utge-h unicode HaranoAjiGothicTW-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-utmgr-h unicode HaranoAjiGothicTW-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ukmr-h unicode HaranoAjiMinchoKR-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukmb-h unicode HaranoAjiMinchoKR-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukml-h unicode HaranoAjiMinchoKR-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukgr-h unicode HaranoAjiGothicKR-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukgb-h unicode HaranoAjiGothicKR-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukge-h unicode HaranoAjiGothicKR-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ukmgr-h unicode HaranoAjiGothicKR-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-cjmr-h Identity-H HaranoAjiMincho-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjmb-h Identity-H HaranoAjiMincho-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjml-h Identity-H HaranoAjiMincho-Light.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjgr-h Identity-H HaranoAjiGothic-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjgb-h Identity-H HaranoAjiGothic-Medium.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjge-h Identity-H HaranoAjiGothic-Bold.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-cjmgr-h Identity-H HaranoAjiGothic-Heavy.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ccmr-h Identity-H HaranoAjiMinchoCN-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ccgr-h Identity-H HaranoAjiGothicCN-Regular.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ctmr-h Identity-H HaranoAjiMinchoTW-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ctgr-h Identity-H HaranoAjiGothicTW-Regular.otf}}
+
+\AtBeginDvi{\special{pdf:mapline otf-ckmr-h Identity-H HaranoAjiMinchoKR-Regular.otf}}
+\AtBeginDvi{\special{pdf:mapline otf-ckgr-h Identity-H HaranoAjiGothicKR-Regular.otf}}
+
+
+\begin{document}
+\parindent0mm
+クラス：\texttt{\class}\\
+オプション：\texttt{\option}
+
+\section{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
+
+日本：\UTF{9aa8}　簡体字：\UTFC{9aa8}　繁體字：\UTFT{9aa8}　朝鮮：\UTFK{9aa8}\\
+日本：\UTF{6d77}　簡体字：\UTFC{6d77}　繁體字：\UTFT{6d77}　朝鮮：\UTFK{6d77}\\
+日本：\UTF{76f4}　簡体字：\UTFC{76f4}　繁體字：\UTFT{76f4}　朝鮮：\UTFK{76f4}
+
+\subsection{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
+
+\makeatletter\if@deluxe
+{\mcfamily\ltseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\fi\makeatother
+{\mcfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\mcfamily\bfseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\gtfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\gtfamily\bfseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\makeatletter\if@deluxe
+{\gtfamily\ebseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\mgfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\fi\makeatother
+
+\subsubsection{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
+
+{\footnotesize
+\makeatletter\if@deluxe
+{\mcfamily\ltseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\fi\makeatother
+{\mcfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\mcfamily\bfseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\gtfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\gtfamily\bfseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\makeatletter\if@deluxe
+{\gtfamily\ebseries
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+{\mgfamily
+\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
+こんにちは Einenschönen Tag\\
+}%
+\fi\makeatother
+}
+
+\clearpage
+[mc/m]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+
+{\bfseries%
+[mc/bx]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+
+
+\makeatletter\if@deluxe
+{\ltseries%
+[mc/l]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+\fi\makeatother
+
+{\gtfamily
+[gt/m]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+
+{\gtfamily\bfseries%
+[gt/bx]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+
+\makeatletter\if@deluxe
+{\gtfamily\ebseries%
+[gt/eb]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+
+{\mgfamily
+[mg/m]
+
+ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのは
+ばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんヽヾゝゞー
+\ifuptexmode
+ゔゕゖ
+\fi
+
+ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハ
+バパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ
+\ifuptexmode
+ヷヸヹヺㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ
+\fi
+
+“回”、‘回’。“回”，‘回’．
+
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+\UTFC{4F60}\UTFC{597D}~~%你好
+\UTFT{4F60}\UTFT{597D}~~%你好
+\UTFK{C548}\UTFK{B155}%안녕
+}
+\fi\makeatother
+
+
+\end{document}
+
