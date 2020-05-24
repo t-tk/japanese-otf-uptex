@@ -76,6 +76,7 @@
 		\ifx\k@family\reserved@a \kanjifamily{utfjg}\else\ifx\k@family\reserved@b
 			\kanjifamily{utfjmg}\else\kanjifamily{utfj}\fi\fi%
 		\uppercase{\set@character="#1}%
+%		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\CID}[1]{\begingroup%
@@ -95,7 +96,9 @@
 \else
 	\DeclareRobustCommand{\UTF}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utfj}\uppercase{\set@character="#1}%
+		\kanjifamily{utfj}%
+		\uppercase{\set@character="#1}%
+%		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\CID}[1]{\begingroup%
