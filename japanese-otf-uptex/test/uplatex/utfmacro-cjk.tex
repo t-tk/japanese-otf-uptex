@@ -9,9 +9,10 @@
 \def\@jarticle{jarticle}
 \def\@tarticle{tarticle}
 \def\@utarticle{utarticle}
+\def\@landscape@{}
 
 \ifx\option\@undefined
- \def\option{multi}
+ \def\option{default}
 \fi
 \ifx\option\@default
 \else
@@ -27,18 +28,22 @@
 \fi
 
 \def\baseshift{-.12zh}
-\ifx\class\@tarticle\def\baseshift{-.5zh}\fi
-\ifx\class\@utarticle\def\baseshift{-.5zh}\fi
+\ifx\class\@tarticle\def\baseshift{-.5zh}\def\@landscape@{,landscape}\fi
+\ifx\class\@utarticle\def\baseshift{-.5zh}\def\@landscape@{,landscape}\fi
 
 \ifuptexmode
  \edef\@opt@{uplatex,\@opt@}
 \fi
-\documentclass[a4paper,titlepage, draft]{\class}
-%\documentclass[a4paper,titlepage, draft,landscape]{\class}
+%\documentclass[a4paper,titlepage,draft]{\class}
+%\documentclass[a4paper,titlepage,draft,landscape]{\class}
+\documentclass[a4paper,titlepage,draft\@landscape@]{\class}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[\@opt@]{otf}
+
+\newif\ifdeluxemode\deluxemodefalse
+\if@deluxe\deluxemodetrue\fi
 
 \makeatother
 
@@ -52,16 +57,17 @@
 
 日本：\UTF{9aa8}　簡体字：\UTFC{9aa8}　繁體字：\UTFT{9aa8}　朝鮮：\UTFK{9aa8}\\
 日本：\UTF{6d77}　簡体字：\UTFC{6d77}　繁體字：\UTFT{6d77}　朝鮮：\UTFK{6d77}\\
-日本：\UTF{76f4}　簡体字：\UTFC{76f4}　繁體字：\UTFT{76f4}　朝鮮：\UTFK{76f4}
+日本：\UTF{76f4}　簡体字：\UTFC{76f4}　繁體字：\UTFT{76f4}　朝鮮：\UTFK{76f4}\\
+日本：\UTF{8ff0}　簡体字：\UTFC{8ff0}　繁體字：\UTFT{8ff0}　朝鮮：\UTFK{8ff0}
 
 \subsection{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
 
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\mcfamily\ltseries
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\fi\makeatother
+\fi% \ifdeluxemode
 {\mcfamily
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
@@ -78,7 +84,7 @@
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\gtfamily\ebseries
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
@@ -87,17 +93,17 @@
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\fi\makeatother
+\fi% \ifdeluxemode
 
 \subsubsection{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
 
 {\footnotesize
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\mcfamily\ltseries
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\fi\makeatother
+\fi% \ifdeluxemode
 {\mcfamily
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
@@ -114,7 +120,7 @@
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\gtfamily\ebseries
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
@@ -123,7 +129,7 @@
 \UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} %你好 您好 안녕
 こんにちは Einenschönen Tag\\
 }%
-\fi\makeatother
+\fi% \ifdeluxemode
 }
 
 \clearpage
@@ -143,7 +149,7 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
@@ -165,14 +171,14 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
 }
 
 
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\ltseries%
 [mc/l]
 
@@ -190,12 +196,12 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
 }
-\fi\makeatother
+\fi% \ifdeluxemode
 
 {\gtfamily
 [gt/m]
@@ -214,7 +220,7 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
@@ -237,13 +243,13 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
 }
 
-\makeatletter\if@deluxe
+\ifdeluxemode
 {\gtfamily\ebseries%
 [gt/eb]
 
@@ -261,7 +267,7 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
@@ -284,12 +290,12 @@
 
 “回”、‘回’。“回”，‘回’．
 
-日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\\
+日本：\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0}~~簡体字：\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0}~~繁體字：\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0}~~朝鮮：\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}\\
 \UTFC{4F60}\UTFC{597D}~~%你好
 \UTFT{4F60}\UTFT{597D}~~%你好
 \UTFK{C548}\UTFK{B155}%안녕
 }
-\fi\makeatother
+\fi% \ifdeluxemode
 
 
 \end{document}
