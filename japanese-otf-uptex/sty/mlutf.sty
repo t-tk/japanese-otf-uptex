@@ -3,58 +3,68 @@
 %force catcode of \" be 12
 \count@\catcode`\"
 \catcode`\"=12
+\if@otf@uplatex
 \if@deluxe
 	\DeclareRobustCommand{\UTFK}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\edef\reserved@b{\mgdefault}%
 		\ifx\k@family\reserved@a \kanjifamily{utfkg}\else\ifx\k@family\reserved@b
 			\kanjifamily{utfkmg}\else\kanjifamily{utfk}\fi\fi%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+		\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\UTFC}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\edef\reserved@b{\mgdefault}%
 		\ifx\k@family\reserved@a \kanjifamily{utfcg}\else\ifx\k@family\reserved@b
 			\kanjifamily{utfcmg}\else\kanjifamily{utfc}\fi\fi%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+		\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\UTFT}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\edef\reserved@b{\mgdefault}%
 		\ifx\k@family\reserved@a \kanjifamily{utftg}\else\ifx\k@family\reserved@b
 			\kanjifamily{utftmg}\else\kanjifamily{utft}\fi\fi%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
-		\endgroup%
-	}
-	\DeclareRobustCommand{\UTFM}[1]{\begingroup%
-		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utf}\uppercase{\set@character="#1}%
+		\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 \else
 	\DeclareRobustCommand{\UTFK}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utfk}%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+		\kanjifamily{utfk}\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\UTFC}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utfc}%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+		\kanjifamily{utfc}\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 	\DeclareRobustCommand{\UTFT}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utft}%
-		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
-		\endgroup%
-	}
-	\DeclareRobustCommand{\UTFM}[1]{\begingroup%
-		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utf}\uppercase{\set@character="#1}%
+		\kanjifamily{utft}\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 \fi
+\else% for pLaTeX
+	\DeclareRobustCommand{\UTFK}[1]{\begingroup%
+		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
+		\kanjifamily{utfk}\uppercase{\set@character="#1}%
+		\endgroup%
+	}
+	\DeclareRobustCommand{\UTFC}[1]{\begingroup%
+		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
+		\kanjifamily{utfc}\uppercase{\set@character="#1}%
+		\endgroup%
+	}
+	\DeclareRobustCommand{\UTFT}[1]{\begingroup%
+		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
+		\kanjifamily{utft}\uppercase{\set@character="#1}%
+		\endgroup%
+	}
+\fi
+\DeclareRobustCommand{\UTFM}[1]{\begingroup%
+	\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
+	\kanjifamily{utf}\uppercase{\set@character="#1}%
+	\endgroup%
+}
 \catcode`\"=\count@
 %end of changing catcode of \"
 \gdef\Redefine@MLUTF{%
