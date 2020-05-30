@@ -102,10 +102,10 @@ uplatex-jis04:
 	for jis in 00 04; do \
 		$(UPLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{ujarticle}\input" upjis2004.tex ; \
 		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-h-uplatex.dvi ; \
-		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-h-uplatex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map upjis2004-$$opt-$$brsg-$$jis-h-uplatex.dvi ; \
 		$(UPLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{utarticle}\input" upjis2004.tex ; \
 		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-v-uplatex.dvi ; \
-		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-v-uplatex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map upjis2004-$$opt-$$brsg-$$jis-v-uplatex.dvi ; \
 	done \
 	done \
 	done
@@ -116,10 +116,10 @@ platex-jis04:
 	for jis in 00 04; do \
 		$(PLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{jarticle}\input" upjis2004.tex ; \
 		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-h-platex.dvi ; \
-		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-h-platex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map upjis2004-$$opt-$$brsg-$$jis-h-platex.dvi ; \
 		$(PLATEX) "\def\option{$$opt}\def\burasage{$$brsg}\def\jisvar{$$jis}\def\class{tarticle}\input" upjis2004.tex ; \
 		mv upjis2004.dvi upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
-		$(DVIPDFMX) upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map upjis2004-$$opt-$$brsg-$$jis-v-platex.dvi ; \
 	done \
 	done \
 	done
