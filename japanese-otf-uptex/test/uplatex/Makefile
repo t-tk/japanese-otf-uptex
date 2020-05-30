@@ -3,7 +3,7 @@ PTEX = ptex
 UPLATEX = uplatex
 PLATEX = platex -kanji=utf8
 DVIPS = dvips
-DVIPDFMX = dvipdfmx
+DVIPDFMX = dvipdfmx -v
 PDVITYPE = pdvitype
 
 all: otf sp art bsrg jis04 scale prop punct exclam
@@ -16,6 +16,7 @@ jis04: uplatex-jis04 platex-jis04
 scale: uplatex-scale platex-scale
 prop: uplatex-prop platex-prop
 exclam: uplatex-exclam platex-exclam
+utfmacro: uplatex-utfmacro platex-utfmacro
 
 uplatex-otf:
 	for opt in default deluxe expert bold noreplace; do \
@@ -186,6 +187,26 @@ platex-exclam:
 		$(PLATEX) "\def\option{$$opt}\input" exclam.tex ; \
 		mv exclam.dvi exclam-$$opt-platex.dvi ; \
 		$(DVIPDFMX) exclam-$$opt-platex.dvi ; \
+	done
+
+uplatex-utfmacro:
+	for opt in default deluxe bold; do \
+		$(UPLATEX) "\def\option{$$opt}\def\class{ujarticle}\input" utfmacro-cjk.tex ; \
+		mv utfmacro-cjk.dvi utfmacro-cjk-$$opt-h-uplatex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map utfmacro-cjk-$$opt-h-uplatex.dvi ; \
+		$(UPLATEX) "\def\option{$$opt}\def\class{utarticle}\input" utfmacro-cjk.tex ; \
+		mv utfmacro-cjk.dvi utfmacro-cjk-$$opt-v-uplatex.dvi ; \
+		$(DVIPDFMX) -l -f utfmacro-haranoaji.map utfmacro-cjk-$$opt-v-uplatex.dvi ; \
+	done
+
+platex-utfmacro:
+	for opt in default deluxe bold; do \
+		$(PLATEX) "\def\option{$$opt}\def\class{jarticle}\input" utfmacro-cjk.tex ; \
+		mv utfmacro-cjk.dvi utfmacro-cjk-$$opt-h-platex.dvi ; \
+		$(DVIPDFMX) -f utfmacro-haranoaji.map utfmacro-cjk-$$opt-h-platex.dvi ; \
+		$(PLATEX) "\def\option{$$opt}\def\class{tarticle}\input" utfmacro-cjk.tex ; \
+		mv utfmacro-cjk.dvi utfmacro-cjk-$$opt-v-platex.dvi ; \
+		$(DVIPDFMX) -l -f utfmacro-haranoaji.map utfmacro-cjk-$$opt-v-platex.dvi ; \
 	done
 
 clean:
