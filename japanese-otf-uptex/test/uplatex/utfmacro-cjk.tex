@@ -48,6 +48,8 @@
 \makeatother
 
 
+\textheight250mm
+\topmargin-15mm
 \begin{document}
 \parindent0mm
 クラス：\texttt{\class}\\
@@ -55,10 +57,13 @@
 
 \section{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
 
-日本：\UTF{9aa8}　簡体字：\UTFC{9aa8}　繁體字：\UTFT{9aa8}　朝鮮：\UTFK{9aa8}\\
-日本：\UTF{6d77}　簡体字：\UTFC{6d77}　繁體字：\UTFT{6d77}　朝鮮：\UTFK{6d77}\\
-日本：\UTF{76f4}　簡体字：\UTFC{76f4}　繁體字：\UTFT{76f4}　朝鮮：\UTFK{76f4}\\
-日本：\UTF{8ff0}　簡体字：\UTFC{8ff0}　繁體字：\UTFT{8ff0}　朝鮮：\UTFK{8ff0}
+\begin{tabular}{cccc}
+日本 & 簡体字 & 繁體字 & 朝鮮\\\hline
+\UTF{9aa8}\UTF{6d77}\UTF{76f4}\UTF{8ff0} &
+\UTFC{9aa8}\UTFC{6d77}\UTFC{76f4}\UTFC{8ff0} &
+\UTFT{9aa8}\UTFT{6d77}\UTFT{76f4}\UTFT{8ff0} &
+\UTFK{9aa8}\UTFK{6d77}\UTFK{76f4}\UTFK{8ff0}
+\end{tabular}
 
 \subsection{\UTFC{4F60}\UTFC{597D} \UTFT{60A8}\UTFT{597D} \UTFK{C548}\UTFK{B155} こんにちは Einenschönen Tag}
 
@@ -131,6 +136,35 @@
 }%
 \fi% \ifdeluxemode
 }
+
+\section{penalty}
+\edef\bs{$\backslash$\kern0em}
+
+\fbox{\parbox{4.7zw}{君の名は。}}~UTF8
+
+\fbox{\parbox{4.7zw}{君の名は\char\kuten"0103}}~\bs char\bs kuten
+
+\fbox{\parbox{4.7zw}{君の名は\UTF{3002}}}~\bs UTF\{\}
+
+\ifuptexmode
+\fbox{\parbox{4.7zw}{君の名は\kchar"3002}}~\bs kchar
+
+\fbox{\parbox{4.7zw}{君の名は\UTFj{3002}}}~\bs UTFj\{\}
+\fi
+
+
+\fbox{\parbox{4.7zw}{君の名は．}}~UTF8
+
+\fbox{\parbox{4.7zw}{君の名は\char\kuten"0105}}~\bs char\bs kuten
+
+\fbox{\parbox{4.7zw}{君の名は\UTF{FF0E}}}~\bs UTF\{\}
+
+\ifuptexmode
+\fbox{\parbox{4.7zw}{君の名は\kchar"FF0E}}~\bs kchar
+
+\fbox{\parbox{4.7zw}{君の名は\UTFj{FF0E}}}~\bs UTFj\{\}
+\fi
+
 
 \clearpage
 [mc/m]
