@@ -6,7 +6,7 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx -v
 PDVITYPE = pdvitype
 
-all: otf sp art bsrg jis04 scale prop punct exclam
+all: otf sp art brsg jis04 scale prop punct exclam
 
 otf: uplatex-otf platex-otf
 sp: uplatex-sp platex-sp
