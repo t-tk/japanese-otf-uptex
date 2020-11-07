@@ -75,8 +75,8 @@
 		\edef\reserved@a{\gtdefault}\edef\reserved@b{\mgdefault}%
 		\ifx\k@family\reserved@a \kanjifamily{utfjg}\else\ifx\k@family\reserved@b
 			\kanjifamily{utfjmg}\else\kanjifamily{utfj}\fi\fi%
-		\uppercase{\set@character="#1}%
-%		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+%		\uppercase{\set@character="#1}% (1) pLaTeX, upLaTeXともに\UTF{}に従来のsubfontを使う
+		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}% (2) upLaTeXでは\UTF{}に新vfを使う
 		\endgroup%
 	}
 	\DeclareRobustCommand{\CID}[1]{\begingroup%
@@ -86,29 +86,17 @@
 		\set@character=#1%
 		\endgroup%
 	}
-	\DeclareRobustCommand{\UTFj}[1]{\begingroup%
-		\edef\reserved@a{\gtdefault}\edef\reserved@b{\mgdefault}%
-		\ifx\k@family\reserved@a \kanjifamily{utfjg}\else\ifx\k@family\reserved@b
-			\kanjifamily{utfjmg}\else\kanjifamily{utfj}\fi\fi%
-		\uppercase{\set@character@="#1}%
-		\endgroup%
-	}
 \else
 	\DeclareRobustCommand{\UTF}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
 		\kanjifamily{utfj}%
-		\uppercase{\set@character="#1}%
-%		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}%
+%		\uppercase{\set@character="#1}% (1) pLaTeX, upLaTeXともに\UTF{}に従来のsubfontを使う
+		\uppercase{\if@otf@uplatex\set@character@\else\set@character\fi="#1}% (2) upLaTeXでは\UTF{}に新vfを使う
 		\endgroup%
 	}
 	\DeclareRobustCommand{\CID}[1]{\begingroup%
 		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
 		\kanjifamily{cidj}\set@character=#1%
-		\endgroup%
-	}
-	\DeclareRobustCommand{\UTFj}[1]{\begingroup%
-		\edef\reserved@a{\gtdefault}\ifx\k@family\reserved@a \kanjiseries{bx}\fi%
-		\kanjifamily{utfj}\uppercase{\set@character@="#1}%
 		\endgroup%
 	}
 \fi
