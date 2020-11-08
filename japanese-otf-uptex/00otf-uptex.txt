@@ -84,8 +84,8 @@ proportional kana at deluxe option and \propshape.
 To build tfm files, uppltotf in TeX Live r43143 or TeX Live 2017 or later is required.
 
 
-[ About shrinked file size of virtual fonts ]
-japanese-otf-uptex Ver.0.26 has shrinked file size of some virtual fonts for main text.
+[ About shrunk file size of virtual fonts ]
+japanese-otf-uptex Ver.0.26 has shrunk file size of some virtual fonts for main text.
 The virtual fonts listed below are smaller in file size than conventional ones.
   upexp*.vf
   upbrsg*.vf
@@ -107,10 +107,10 @@ in the font generation scripts umakeotf{,_brsg,_jis04,_prop}.
 Ref. https://github.com/t-tk/japanese-otf-uptex/issues/3
 
 
-[ About Unicode base multiweight fonts in \UTF{}, \UTFC{}, \UTFT{}, \UTFK{} ]
+[ About Unicode base multi-weight fonts in \UTF{}, \UTFC{}, \UTFT{}, \UTFK{} ]
 japanese-otf-uptex Ver.0.26 has introduced new virtual fonts for
 \UTF{}, \UTFC{}, \UTFT{}, \UTFK{} macros. They are Unicode base
-(conventionally subfont scheme) and support multiweight fonts
+(conventionally subfont scheme) and support multi-weight fonts
 (seven sets of family/series for all languages,
 conventionally two sets of family/series for Chinese and Korean).
 The feature also requires new dviware which support fall back of CJK virtual fonts.
@@ -446,9 +446,9 @@ https://github.com/t-tk/japanese-otf-uptex
     New option "-omitfw" for umkjvf.
   sty/otf.sty, sty/mlutf.sty,
   script/{mktfm_sp.pl,mkutfvf_sp.pl} ::
-    Introduce Unicode base multiweight virtual fonts
+    Introduce Unicode base multi-weight virtual fonts
     for \UTF{}, \UTFC{}, \UTFT{}, \UTFK{}.
   test/uplatex/{uotftest-utf8.tex,utfmacro-cjk.tex}, test/uplatex/Makefile,
   test/uplatex/utfmacro-haranoaji.map ::
-    Add a new test for multiweight \UTF{}, \UTFC{}, \UTFT{}, \UTFK{}.
+    Add a new test for multi-weight \UTF{}, \UTFC{}, \UTFT{}, \UTFK{}.
 
