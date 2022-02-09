@@ -75,13 +75,12 @@
    U00B7 
    )
 (CHARSINTYPE O 4
-   。 ． 
+   。 ． ？ ！ 
    )
 (CHARSINTYPE O 5
    — ― … ‥
    )
 (CHARSINTYPE O 6
-   ？ ！ 
    U203C U2047 U2048 U2049
    )
 (TYPE O 0
