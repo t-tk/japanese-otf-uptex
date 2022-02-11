@@ -31,7 +31,6 @@
    (GLUE O 1 R 0.5 R 0.0 R 0.5)
    (GLUE O 3 R 0.25 R 0.0 R 0.25)
    (GLUE O 4 R 0.5 R 0.0 R 0.5)
-   (GLUE O 5 R 0.5 R 0.0 R 0.5)
    (STOP)
    (LABEL O 3)
    (GLUE O 0 R 0.25 R 0.0 R 0.25)
@@ -39,17 +38,11 @@
    (GLUE O 2 R 0.25 R 0.0 R 0.25)
    (GLUE O 3 R 0.5 R 0.0 R 0.25)
    (GLUE O 4 R 0.25 R 0.0 R 0.25)
-   (GLUE O 5 R 0.25 R 0.0 R 0.25)
    (STOP)
    (LABEL O 4)
    (GLUE O 1 R 0.5 R 0.0 R 0.5)
    (GLUE O 3 R 0.25 R 0.0 R 0.25)
    (KRN O 4 R 0.0)
-   (STOP)
-   (LABEL O 5)
-   (GLUE O 0 R 0.5 R 0.0 R 0.5)
-   (GLUE O 1 R 0.5 R 0.0 R 0.5)
-   (GLUE O 3 R 0.25 R 0.0 R 0.25)
    (STOP)
    )
 (CHARSINTYPE O 1
@@ -70,10 +63,6 @@
    )
 (CHARSINTYPE O 4
    — ― … ‥
-   )
-(CHARSINTYPE O 5
-   ？ ！ 
-   U203C U2047 U2048 U2049
    )
 (TYPE O 0
    (CHARWD R 1.0)
@@ -101,7 +90,6 @@
       (GLUE O 1 R 0.5 R 0.0 R 0.5)
       (GLUE O 3 R 0.25 R 0.0 R 0.25)
       (GLUE O 4 R 0.5 R 0.0 R 0.5)
-      (GLUE O 5 R 0.5 R 0.0 R 0.5)
       )
    )
 (TYPE O 3
@@ -114,7 +102,6 @@
       (GLUE O 2 R 0.25 R 0.0 R 0.25)
       (GLUE O 3 R 0.5 R 0.0 R 0.25)
       (GLUE O 4 R 0.25 R 0.0 R 0.25)
-      (GLUE O 5 R 0.25 R 0.0 R 0.25)
       )
    )
 (TYPE O 4
@@ -125,15 +112,5 @@
       (GLUE O 1 R 0.5 R 0.0 R 0.5)
       (GLUE O 3 R 0.25 R 0.0 R 0.25)
       (KRN O 4 R 0.0)
-      )
-   )
-(TYPE O 5
-   (CHARWD R 1.0)
-   (CHARHT R 0.88)
-   (CHARDP R 0.12)
-   (COMMENT
-      (GLUE O 0 R 0.5 R 0.0 R 0.5)
-      (GLUE O 1 R 0.5 R 0.0 R 0.5)
-      (GLUE O 3 R 0.25 R 0.0 R 0.25)
       )
    )
