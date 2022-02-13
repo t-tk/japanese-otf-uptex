@@ -67,8 +67,10 @@ for lang in sch tch kor
 do
 for face in minr gothr minb gothb mgothr gotheb minl
 do
-makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}.cnf up${series}${lang}${face}-h upa${lang}${face}-h
-makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}.cnf up${series}${lang}${face}-v upa${lang}${face}-v
+#makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}.cnf up${series}${lang}${face}-h upa${lang}${face}-h
+#makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}.cnf up${series}${lang}${face}-v upa${lang}${face}-v
+makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}-slim.cnf up${series}${lang}${face}-h upa${lang}${face}-h
+makejvf -i -u custom -e -t basepl/mjvf-up${series}${lang}-slim.cnf up${series}${lang}${face}-v upa${lang}${face}-v
 done
 done
 done
