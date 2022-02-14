@@ -45,11 +45,6 @@
    (GLUE O 3 R 0.25 R 0.0 R 0.25)
    (KRN O 4 R 0.0)
    (STOP)
-   (LABEL O 5)
-   (GLUE O 0 R 1.0 R 0.0 R 0.5)
-   (GLUE O 1 R 0.5 R 0.0 R 0.5)
-   (GLUE O 3 R 0.25 R 0.0 R 0.25)
-   (STOP)
    )
 (CHARSINTYPE O 1
    ‘ “ （ 〔 ［ ｛ 〈 《 「 『 【 
