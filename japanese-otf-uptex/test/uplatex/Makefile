@@ -6,7 +6,7 @@ DVIPS = dvips
 DVIPDFMX = dvipdfmx -v
 PDVITYPE = pdvitype
 
-all: otf sp art brsg jis04 scale prop punct exclam
+all: otf sp art brsg jis04 scale prop punct exclam mltwght
 
 otf: uplatex-otf platex-otf
 sp: uplatex-sp platex-sp
@@ -208,6 +208,12 @@ platex-utfmacro:
 		mv utfmacro-cjk.dvi utfmacro-cjk-$$opt-v-platex.dvi ; \
 		$(DVIPDFMX) -l -f utfmacro-haranoaji.map utfmacro-cjk-$$opt-v-platex.dvi ; \
 	done
+
+mltwght:
+	$(UPLATEX) cjk-mltwght-h.tex ; \
+	$(DVIPDFMX) cjk-mltwght-h.dvi ; \
+	$(UPLATEX) cjk-mltwght-v.tex ; \
+	$(DVIPDFMX) -l cjk-mltwght-v.dvi
 
 clean:
 	rm -f *.aux *.log *.dvi *.pdf
