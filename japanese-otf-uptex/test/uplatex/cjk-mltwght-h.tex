@@ -1,6 +1,15 @@
+% -*- coding: utf-8 -*-
+
 \documentclass{ujarticle}
 
 %\usepackage[uplatex]{otf}
+
+\makeatletter
+\ifx\map\@undefined
+ \def\map{default}
+\fi
+\def\@mapline@{mapline}
+\ifx\map\@mapline@
 \AtBeginDvi{\special{pdf:mapline uphminl-h unicode HaranoAjiMincho-Light.otf}}
 \AtBeginDvi{\special{pdf:mapline uphminr-h unicode HaranoAjiMincho-Medium.otf}}
 \AtBeginDvi{\special{pdf:mapline uphminb-h unicode HaranoAjiMincho-Bold.otf}}
@@ -32,6 +41,9 @@
 \AtBeginDvi{\special{pdf:mapline upakorgothb-h unicode HaranoAjiGothicK1-Normal.otf}}
 \AtBeginDvi{\special{pdf:mapline upakorgotheb-h unicode HaranoAjiGothicK1-Medium.otf}}
 \AtBeginDvi{\special{pdf:mapline upakormgothr-h unicode HaranoAjiGothicK1-Heavy.otf}}
+\fi
+
+\makeatother
 
 \font\upjpnrml = upnmlminl-h at 10.0pt
 \font\upjpnrmm = upnmlminr-h at 10.0pt
@@ -67,6 +79,7 @@
 
 \begin{document}
 \parindent0mm
+map: \texttt{\map}
 
 \section{日本語}
 \upjpngtb 日本語

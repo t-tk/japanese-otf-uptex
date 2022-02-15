@@ -210,10 +210,18 @@ platex-utfmacro:
 	done
 
 mltwght:
+	$(UPLATEX) "\def\map{mapline}\input" cjk-mltwght-h.tex ; \
+	mv cjk-mltwght-h.dvi cjk-mltwght-h-line.dvi ; \
+	$(DVIPDFMX)    cjk-mltwght-h-line.dvi ; \
+	$(UPLATEX) "\def\map{mapline}\input" cjk-mltwght-v.tex ; \
+	mv cjk-mltwght-v.dvi cjk-mltwght-v-line.dvi ; \
+	$(DVIPDFMX) -l cjk-mltwght-v-line.dvi ; \
 	$(UPLATEX) cjk-mltwght-h.tex ; \
-	$(DVIPDFMX) cjk-mltwght-h.dvi ; \
+	mv cjk-mltwght-h.dvi cjk-mltwght-h-cmap.dvi ; \
+	$(DVIPDFMX)    -f utfmacro-haranoaji.map cjk-mltwght-h-cmap.dvi ; \
 	$(UPLATEX) cjk-mltwght-v.tex ; \
-	$(DVIPDFMX) -l cjk-mltwght-v.dvi
+	mv cjk-mltwght-v.dvi cjk-mltwght-v-cmap.dvi ; \
+	$(DVIPDFMX) -l -f utfmacro-haranoaji.map cjk-mltwght-v-cmap.dvi
 
 clean:
 	rm -f *.aux *.log *.dvi *.pdf
