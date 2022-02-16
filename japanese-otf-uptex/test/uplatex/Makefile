@@ -221,7 +221,11 @@ mltwght:
 	$(DVIPDFMX)    -f utfmacro-haranoaji.map cjk-mltwght-h-cmap.dvi ; \
 	$(UPLATEX) cjk-mltwght-v.tex ; \
 	mv cjk-mltwght-v.dvi cjk-mltwght-v-cmap.dvi ; \
-	$(DVIPDFMX) -l -f utfmacro-haranoaji.map cjk-mltwght-v-cmap.dvi
+	$(DVIPDFMX) -l -f utfmacro-haranoaji.map cjk-mltwght-v-cmap.dvi ; \
+	$(UPLATEX) cjk-pxbabel-h.tex ; \
+	$(DVIPDFMX)    -f utfmacro-haranoaji.map cjk-pxbabel-h.dvi ; \
+	$(UPLATEX) cjk-pxbabel-v.tex ; \
+	$(DVIPDFMX) -l -f utfmacro-haranoaji.map cjk-pxbabel-v.dvi
 
 clean:
 	rm -f *.aux *.log *.dvi *.pdf
