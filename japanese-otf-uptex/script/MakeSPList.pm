@@ -12,7 +12,7 @@ MakeSPList.pm
 
 =head1 NOTE
 
-This software is a part of otfbeta-uptex (a.k.a. japanese-otf-uptex).
+This software is a part of japanese-otf-uptex.
 
 =cut
 
