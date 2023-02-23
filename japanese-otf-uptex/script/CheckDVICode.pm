@@ -94,6 +94,7 @@ sub is_dvicode($){
 	if ($key eq 'hira-Vu')  { return ($code == 0x3094);} # large  JIS X 0213
 	if ($key eq 'hira-ka')  { return ($code == 0x3095);} # small  JIS X 0213
 	if ($key eq 'hira-ke')  { return ($code == 0x3096);} # small  JIS X 0213
+	if ($key eq 'hira-ko')  { return ($code == 0x1B132);}# small  Unicode 15.0
 	if ($key eq 'kata-a')   { return ($code == 0x30A1);} # small
 	if ($key eq 'kata-i')   { return ($code == 0x30A3);} # :
 	if ($key eq 'kata-u')   { return ($code == 0x30A5);} # :
@@ -106,6 +107,7 @@ sub is_dvicode($){
 	if ($key eq 'kata-wa')  { return ($code == 0x30EE);} # :
 	if ($key eq 'kata-ka')  { return ($code == 0x30F5);} # :
 	if ($key eq 'kata-ke')  { return ($code == 0x30F6);} # small
+	if ($key eq 'kata-ko')  { return ($code == 0x1B155);}# small  Unicode 15.0
 	if ($key eq 'kata-Va')  { return ($code == 0x30F7);} # large  JIS X 0213
 	if ($key eq 'kata-Vi')  { return ($code == 0x30F8);} # :      JIS X 0213
 	if ($key eq 'kata-Ve')  { return ($code == 0x30F9);} # :      JIS X 0213
@@ -197,6 +199,7 @@ sub is_ucs_hira{
 	return 1 if ($dvicode>=0x3041 && $dvicode<=0x3093);
 	return 1 if ($dvicode>=0x3094 && $dvicode<=0x3096); # Vu, small Ka, small Ke
 #	return 1 if ($dvicode==0x309F); # Yori :: It is omitted because it is not included in "Tuned" in AJ1-6
+	return 1 if ($dvicode==0x1B132);                    # small Ko  Unicode 15.0
 	return 0;
 }
 
@@ -205,6 +208,7 @@ sub is_ucs_kata{
 	return 1 if ($dvicode>=0x30F7 && $dvicode<=0x30FA); # Va, Vi, Ve, Vo
 	return 1 if ($dvicode>=0x31F0 && $dvicode<=0x31FF); # small Ku, small Shi, ... , Small Re, Small Ro
 #	return 1 if ($dvicode==0x30FF); # Koto :: It is omitted because it is not included in "Tuned" in AJ1-6
+	return 1 if ($dvicode==0x1B155);                    # small Ko  Unicode 15.0
 	return 0;
 }
 

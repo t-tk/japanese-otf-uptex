@@ -18,7 +18,7 @@ This software is a part of japanese-otf-uptex.
 
 our ($r_exist_head, $r_exist_char);
 
-my $num = '[12][0-9A-F]{4}';
+my $num = '[123][0-9A-F]{4}';
 
 sub make_sp_char_list(@) {
     my (@lang)=@_;
