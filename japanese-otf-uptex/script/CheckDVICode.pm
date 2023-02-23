@@ -215,8 +215,8 @@ sub is_ucs_hankana{
 
 # Reference:
 #   http://www.unicode.org/Public/UNIDATA/Blocks.txt
-#     Blocks-12.0.0.txt
-#     Date: 2018-07-30, 19:40:00 GMT [KW]
+#     Blocks-15.0.0.txt
+#     Date: 2022-01-28, 20:58:00 GMT [KW]
 sub is_ucs_jpn_range{
 	return 1 if ($dvicode<=0x04FF); # Cyrillic
 
@@ -259,7 +259,8 @@ sub is_ucs_jpn_range{
 	return 0 if ($dvicode< 0xFF00);
 	return 1 if ($dvicode<=0xFFEF); # Halfwidth and Fullwidth Forms
 
-	return 0 if ($dvicode< 0x1B000);
+	return 0 if ($dvicode< 0x1AFF0);
+	return 1 if ($dvicode<=0x1AFFF); # Kana Extended-B
 	return 1 if ($dvicode<=0x1B0FF); # Kana Supplement
 	return 1 if ($dvicode<=0x1B12F); # Kana Extended-A
 	return 1 if ($dvicode<=0x1B16F); # Small Kana Extension
@@ -280,6 +281,10 @@ sub is_ucs_jpn_range{
 
 	return 0 if ($dvicode< 0x2F800);
 	return 1 if ($dvicode<=0x2FA1F); # CJK Compatibility Ideographs Supplement
+
+	return 0 if ($dvicode< 0x30000);
+	return 1 if ($dvicode<=0x3134F); # CJK Unified Ideographs Extension G
+	return 1 if ($dvicode<=0x323AF); # CJK Unified Ideographs Extension H
 
 	return 0;
 }
