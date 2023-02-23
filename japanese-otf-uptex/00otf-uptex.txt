@@ -485,7 +485,7 @@ https://github.com/t-tk/japanese-otf-uptex
     Bump version number.
     Set option autodetect-engine default.
     Add a new option platex to check if engine is platex.
-  umkjvf, umakeotf{,_brsg,_jis04,_prop},
+  umkjvf, umakeotf{,_brsg,_jis04,_pre,_prop},
   script/{CheckDVICode,MakeSPList}.pm,
   script/{mktfm_sp,mkutf32list,mkutfvf_sp,umk{,v}pkana}.pl ::
     Update header comments.
