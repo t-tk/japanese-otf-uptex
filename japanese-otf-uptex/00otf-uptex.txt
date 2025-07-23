@@ -601,9 +601,9 @@ https://github.com/t-tk/japanese-otf-uptex
     Support Unicode variation sequences (SVS)
     in Chinese/Korean plain text.
       Ref. https://github.com/texjporg/japanese-otf-mirror/issues/28
-  test/uplatex/Makefile, test/uplatex/uotf-vs-utf8.tex,
-  test/uplatex/uotf-cid-{h,v}.tex,
-  test/uplatex/svs_list_min_{sch,tch,kor}.tex ::
+  test/uplatex/Makefile, test/uplatex/uotf-cid-{h,v}.tex ::
     Add tests for 'subfont' option with pLaTeX engine.
+  test/uplatex/uotf-vs-utf8.tex,
+  test/uplatex/svs_list_min_{sch,tch,kor}.tex ::
     Add tests for SVS in Chinese/Korean plain text.
 
